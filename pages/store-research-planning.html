@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字化门店 · 门店调研及规划</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{font-family:"Noto Sans SC","Inter",-apple-system,BlinkMacSystemFont,sans-serif}
+body{background:#fff;color:#1a1a2e}
+.hero-title{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:-.02em;line-height:1.1}
+.phase-card{border-radius:16px;background:#fff;border:1px solid rgba(109,74,255,0.1);overflow:hidden;transition:transform .3s ease,box-shadow .3s ease}
+.phase-card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(109,74,255,0.12)}
+.phase-header{padding:1rem 1.25rem;font-weight:800;color:#fff;font-size:.95rem;display:flex;align-items:center;gap:.6rem}
+.phase-body{padding:1.25rem}
+.issue-item{display:flex;align-items:flex-start;gap:.65rem;padding:.7rem .85rem;border-radius:10px;background:rgba(109,74,255,0.03);margin-bottom:.5rem;border-left:3px solid var(--c)}
+.issue-label{font-size:.72rem;font-weight:800;color:var(--c);white-space:nowrap;min-width:80px;padding-top:1px}
+.issue-text{font-size:.8rem;color:#374151;line-height:1.55;font-weight:500}
+/* Table */
+.research-table{width:100%;border-collapse:separate;border-spacing:0;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb}
+.research-table th{background:linear-gradient(135deg,#6D4AFF,#8B6FFF);color:#fff;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.7rem .6rem;text-align:left}
+.research-table td{font-size:.75rem;padding:.65rem .6rem;border-bottom:1px solid #f3f4f6;color:#374151;line-height:1.5;vertical-align:top}
+.research-table tr:last-child td{border-bottom:none}
+.research-table tr:hover td{background:rgba(109,74,255,0.03)}
+.brand-tag{display:inline-block;padding:.15rem .45rem;border-radius:5px;font-size:.68rem;font-weight:700;color:#fff}
+.result-card{border-radius:14px;padding:1.25rem 1.5rem;border:2px dashed rgba(109,74,255,0.2);background:rgba(109,74,255,0.02)}
+.reveal{opacity:0;transform:translateY(24px);transition:all .6s cubic-bezier(.22,1,.36,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.timeline-arrow{color:#d1d5db;font-size:1.5rem}
+@media(max-width:1024px){.research-table{font-size:.7rem}.research-table th,.research-table td{padding:.5rem}}
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- Hero -->
+<section class="relative py-14 px-6 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-b from-purple-50/60 to-transparent pointer-events-none"></div>
+  <div class="relative z-10 max-w-6xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 border border-purple-100 mb-6">
+      <span class="w-2 h-2 rounded-full bg-[#6D4AFF]"></span>
+      <span class="text-xs font-semibold text-[#6D4AFF] tracking-wide">STORE RESEARCH & PLANNING</span>
+    </div>
+    <h1 class="hero-title text-[#1a1a2e] mb-4">数字化门店</h1>
+    <p class="text-lg text-gray-500 font-light max-w-2xl mx-auto">门店调研及规划 · 渠道数据贯通可行性方案</p>
+  </div>
+</section>
+
+<!-- Project Goal -->
+<section class="px-6 pb-8">
+  <div class="max-w-5xl mx-auto reveal">
+    <div class="bg-gradient-to-r from-[#6D4AFF] via-purple-500 to-[#6D4AFF] rounded-2xl p-7 md:p-9 text-white relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10" style="background-image:url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.4\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"></div>
+      <div class="relative z-10 flex items-start gap-3">
+        <span class="text-2xl">🎯</span>
+        <div>
+          <span class="inline-block px-3 py-1 rounded-full bg-white/15 text-xs font-bold tracking-wider mb-2">项目目标</span>
+          <p class="text-base md:text-lg font-medium leading-relaxed">
+            构建品牌 — 经销 — 门店 — 终端的渠道数据贯通可行性方案
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Three Phases -->
+<section class="px-6 pb-12">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase">
+        三阶段推进路线
+      </span>
+    </div>
+
+    <!-- Phase Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+
+      <!-- Phase 1 -->
+      <div class="phase-card reveal" style="--c:#6D4AFF;transition-delay:0.05s">
+        <div class="phase-header" style="background:linear-gradient(135deg,#6D4AFF,#8B6FFF)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          MBO 经验复盘
+          <span class="ml-auto text-xs opacity-80 font-normal">(7-8月)</span>
+        </div>
+        <div class="phase-body space-y-3">
+          <div class="issue-item" style="--c:#6D4AFF">
+            <span class="issue-label">产品能力</span>
+            <span class="issue-text">缺乏业财一体化能力，业务能力也较经销商主流 ERP 产品差距巨大</span>
+          </div>
+          <div class="issue-item" style="--c:#6D4AFF">
+            <span class="issue-label">业务推广</span>
+            <span class="issue-text">由原数字化运营中心主导，<strong>非营销事业部主导</strong></span>
+          </div>
+          <div class="issue-item" style="--c:#6D4AFF">
+            <span class="issue-label">经销商意愿</span>
+            <span class="issue-text">担心库存、利润、部分灰色行为暴露</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="hidden lg:flex items-center justify-center pt-16 timeline-arrow">→</div>
+
+      <!-- Phase 2 -->
+      <div class="phase-card reveal" style="--c:#2563eb;transition-delay:0.2s">
+        <div class="phase-header" style="background:linear-gradient(135deg,#2563eb,#3B82F6)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          市场走访 · 竞对调研
+          <span class="ml-auto text-xs opacity-80 font-normal">(8-9月)</span>
+        </div>
+        <div class="phase-body">
+          <p class="text-sm font-semibold text-gray-700 mb-3 pb-2 border-b border-gray-100">
+            走访 <strong class="text-[#2563eb]">12 家</strong> 经销商、分销商，输出调研分析报告
+          </p>
+          <div class="overflow-x-auto">
+            <table class="research-table">
+              <thead><tr><th>方式</th><th>品牌</th><th>详细做法</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td class="font-semibold whitespace-nowrap">库存上报</td>
+                  <td><span class="brand-tag" style="background:#64748b">TOTO</span></td>
+                  <td>无系统支持，线下上报</td>
+                </tr>
+                <tr>
+                  <td rowspan="3" class="font-semibold whitespace-nowrap align-top">录单激励</td>
+                  <td><span class="brand-tag" style="background:#0891b2">科勒</span></td>
+                  <td>使用品牌方小程序进行录单，费用返现给经销商，<br>真实使用量用<strong>抽查方式</strong>核对</td>
+                </tr>
+                <tr>
+                  <td><span class="brand-tag" style="background:#0891b2">东鹏瓷砖</span></td>
+                  <td>使用品牌方小程序进行录单，费用返现给购买，<br>真实性使用<strong>抽查方式</strong>核对</td>
+                </tr>
+                <tr>
+                  <td><span class="brand-tag" style="background:#059669">九牧小五金</span></td>
+                  <td>提供品牌方 WMS 系统，要求五金店在出入库<br>环节<strong>必须进行扫码</strong></td>
+                </tr>
+                <tr>
+                  <td class="font-semibold whitespace-nowrap">渠道出入库</td>
+                  <td><span class="brand-tag" style="background:#059669">九牧</span></td>
+                  <td>—</td>
+                </tr>
+                <tr>
+                  <td rowspan="2" class="font-semibold whitespace-nowrap align-top">软件厂商合作</td>
+                  <td><span class="brand-tag" style="background:#059669">九牧</span></td>
+                  <td>目前与金蝶 K3 合作，计划强制要求经销商<br>替换内部系统，目前正在试点中</td>
+                </tr>
+                <tr>
+                  <td><span class="brand-tag" style="background:#dc2626">恒洁</span></td>
+                  <td>与东软合作，17 年开始经销商系统替换工作，<br>目前经销商覆盖率 <strong>95%</strong>，门店覆盖率 <strong>80%+</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arrow -->
+      <div class="hidden lg:flex items-center justify-center pt-16 timeline-arrow">→</div>
+
+      <!-- Phase 3 -->
+      <div class="phase-card reveal" style="--c:#059669;transition-delay:0.35s">
+        <div class="phase-header" style="background:linear-gradient(135deg,#059669,#10B981)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          方案制定 · 预选型
+          <span class="ml-auto text-xs opacity-80 font-normal">(10-12月)</span>
+        </div>
+        <div class="phase-body space-y-3">
+          <div class="issue-item" style="--c:#059669">
+            <span class="issue-label">产品方向</span>
+            <span class="issue-text">选择具备<strong>多租户能力</strong>的卫浴行业主流 ERP，支持<strong>多层级财务独立核算</strong>；完成产品调研工作</span>
+          </div>
+          <div class="issue-item" style="--c:#059669">
+            <span class="issue-label">业务变革建议</span>
+            <span class="issue-text">
+              • 由营销事业部主导，IT 进行系统配套建设<br>
+              • 建议拟定数据协议，同经销商明确只获取销量、库存等信息<br>
+              • 不过度涉及敏感信息<br>
+              • 后返类营销政策更有利于降低系统推广阻力
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end phase grid -->
+  </div>
+</section>
+
+<!-- Project Outcomes -->
+<section class="px-6 pb-16 bg-gray-50/60">
+  <div class="max-w-5xl mx-auto py-12">
+    <div class="text-center mb-8 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-gray-200 text-xs font-bold tracking-widest text-gray-700 uppercase shadow-sm">
+        项目成果
+      </span>
+    </div>
+    <div class="result-card reveal">
+      <ul class="space-y-4">
+        <li class="flex items-start gap-3">
+          <span class="mt-1.5 w-6 h-6 rounded-full bg-[#6D4AFF] text-white flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+          <p class="text-sm leading-relaxed text-gray-700">
+            从内部经验总结，到外部行业调研，确认了数字化门店建设的<strong>可行性技术方案</strong>。并提出部分业务建议。
+          </p>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="mt-1.5 w-6 h-6 rounded-full bg-[#6D4AFF] text-white flex items-center justify-center text-xs font-bold shrink-0">✓</span>
+          <p class="text-sm leading-relaxed text-gray-700">
+            联合部分高意向经销商，对卫浴行业 ERP 产品进行了深入调研，确认需求匹配程度，确保备选产品具备<strong>快速落地能力</strong>。
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="border-t border-purple-100 py-8 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+    <p class="text-xs text-gray-400">数字化门店 · 门店调研及规划 · 2026</p>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
