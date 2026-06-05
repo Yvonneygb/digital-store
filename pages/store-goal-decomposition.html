@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字化门店 · 目标拆解</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{font-family:"Noto Sans SC","Inter",-apple-system,BlinkMacSystemFont,sans-serif}
+body{background:#fff;color:#1a1a2e}
+.purple-gradient{background:linear-gradient(135deg,#6D4AFF 0%,rgba(109,74,255,0.7) 100%)}
+.hero-title{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:-.02em;line-height:1.1}
+.section-title{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;letter-spacing:-.02em}
+.card-shadow{box-shadow:0 4px 24px rgba(109,74,255,0.08),0 1px 3px rgba(0,0,0,0.04)}
+.connect-line{position:relative}
+.connect-line::after{content:"";position:absolute;top:100%;left:50%;width:2px;height:24px;background:linear-gradient(to bottom,#6D4AFF,rgba(109,74,255,0.3));transform:translateX(-50%)}
+.connect-line-last::after{display:none}
+.tree-connector{position:relative}
+.tree-connector::before{content:"";position:absolute;top:-24px;left:0;right:0;height:24px;border-top:2px dashed rgba(109,74,255,0.25);border-left:2px dashed rgba(109,74,255,0.25);border-right:2px dashed rgba(109,74,255,0.25);border-radius:12px 12px 0 0}
+.level-badge{display:inline-flex;padding:.25rem .75rem;border-radius:9999px;font-size:.65rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.data-tag{display:inline-flex;padding:.35rem .6rem;border-radius:6px;font-size:.7rem;font-weight:500;background:rgba(109,74,255,0.06);color:#6D4AFF;border:1px solid rgba(109,74,255,0.12)}
+.reveal{opacity:0;transform:translateY(20px);transition:all .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- Hero -->
+<section class="relative py-16 px-6 overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-b from-purple-50/50 to-transparent pointer-events-none"></div>
+  <div class="relative z-10 max-w-6xl mx-auto text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-50 border border-purple-100 mb-6">
+      <span class="w-2 h-2 rounded-full bg-[#6D4AFF]"></span>
+      <span class="text-xs font-semibold text-[#6D4AFF] tracking-wide">GOAL DECOMPOSITION</span>
+    </div>
+    <h1 class="hero-title text-[#1a1a2e] mb-4">数字化门店</h1>
+    <p class="text-lg text-gray-500 font-light max-w-2xl mx-auto">目标拆解体系 · 从战略到执行的完整链路</p>
+  </div>
+</section>
+
+<!-- Ultimate Goal -->
+<section class="px-6 pb-8">
+  <div class="max-w-4xl mx-auto">
+    <div class="relative">
+      <div class="purple-gradient rounded-2xl p-8 text-white text-center card-shadow reveal">
+        <div class="level-badge bg-white/20 text-white mb-4">终极目标</div>
+        <p class="text-lg md:text-xl font-medium leading-relaxed">
+          实时掌握每层（一级经销至终端）销售网络的动态销售数据，<br class="hidden md:block">
+          以反哺集团产研、营销等多方面策略
+        </p>
+      </div>
+      <!-- Down arrow -->
+      <div class="flex justify-center py-4">
+        <svg class="w-6 h-6 text-[#6D4AFF] animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Level 2: 5 Pillars -->
+<section class="px-6 pb-12">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-8">
+      <span class="level-badge bg-purple-100 text-[#6D4AFF]">目标拆解 · 五大维度</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+      <!-- Pillar 1 -->
+      <div class="bg-white rounded-xl p-5 border border-purple-100 card-shadow reveal" style="transition-delay:0.1s">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-500 to-purple-600 text-white flex items-center justify-center font-bold text-lg mb-3">1</div>
+        <h3 class="font-bold text-[#1a1a2e] text-sm leading-snug mb-2">掌握产品实际的市场能力</h3>
+        <div class="h-1 w-12 bg-[#6D4AFF] rounded-full"></div>
+      </div>
+      <!-- Pillar 2 -->
+      <div class="bg-white rounded-xl p-5 border border-purple-100 card-shadow reveal" style="transition-delay:0.2s">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white flex items-center justify-center font-bold text-lg mb-3">2</div>
+        <h3 class="font-bold text-[#1a1a2e] text-sm leading-snug mb-2">掌握经/分销商库存周转情况</h3>
+        <div class="h-1 w-12 bg-blue-500 rounded-full"></div>
+      </div>
+      <!-- Pillar 3 -->
+      <div class="bg-white rounded-xl p-5 border border-purple-100 card-shadow reveal" style="transition-delay:0.3s">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-emerald-600 text-white flex items-center justify-center font-bold text-lg mb-3">3</div>
+        <h3 class="font-bold text-[#1a1a2e] text-sm leading-snug mb-2">掌握产品实际售后情况</h3>
+        <div class="h-1 w-12 bg-emerald-500 rounded-full"></div>
+      </div>
+      <!-- Pillar 4 -->
+      <div class="bg-white rounded-xl p-5 border border-purple-100 card-shadow reveal" style="transition-delay:0.4s">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500 to-amber-600 text-white flex items-center justify-center font-bold text-lg mb-3">4</div>
+        <h3 class="font-bold text-[#1a1a2e] text-sm leading-snug mb-2">渗透集团优质营销线索/策略</h3>
+        <div class="h-1 w-12 bg-amber-500 rounded-full"></div>
+      </div>
+      <!-- Pillar 5 -->
+      <div class="bg-white rounded-xl p-5 border border-purple-100 card-shadow reveal" style="transition-delay:0.5s">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-rose-500 to-rose-600 text-white flex items-center justify-center font-bold text-lg mb-3">5</div>
+        <h3 class="font-bold text-[#1a1a2e] text-sm leading-snug mb-2">终端触达能录建设</h3>
+        <div class="h-1 w-12 bg-rose-500 rounded-full"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Level 3: Application Directions -->
+<section class="px-6 pb-12 bg-gray-50/50">
+  <div class="max-w-6xl mx-auto py-12">
+    <div class="text-center mb-10">
+      <span class="level-badge bg-gray-200 text-gray-700">应用方向</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+      <!-- App 1 -->
+      <div class="space-y-3 reveal" style="transition-delay:0.1s">
+        <div class="bg-white rounded-lg p-4 border-l-4 border-[#6D4AFF] card-shadow">
+          <p class="text-sm font-semibold text-[#1a1a2e]">分析画像</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 border-l-4 border-[#6D4AFF] card-shadow">
+          <p class="text-sm font-semibold text-[#1a1a2e]">反哺产研/营销</p>
+        </div>
+      </div>
+      <!-- App 2 -->
+      <div class="space-y-3 reveal" style="transition-delay:0.2s">
+        <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500 card-shadow">
+          <p class="text-sm font-semibold text-[#1a1a2e]">需求预测</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500 card-shadow">
+          <p class="text-sm font-semibold text-[#1a1a2e]">备货协同</p>
+        </div>
+      </div>
+      <!-- App 3 -->
+      <div class="space-y-3 reveal" style="transition-delay:0.3s">
+        <div class="bg-white rounded-lg p-4 border-l-4 border-emerald-500 card-shadow">
+          <p class="text-sm font-semibold text-[#1a1a2e]">反哺产研</p>
+        </div>
+        <div class="bg-white rounded-lg p-4 border-l-4 border-emerald-500 card-shadow">
+          <p class="text-sm font-semibold text-[#1a1a2e]">服务升级</p>
+        </div>
+      </div>
+      <!-- App 4 -->
+      <div class="space-y-3 reveal" style="transition-delay:0.4s">
+        <div class="bg-white rounded-lg p-4 border-l-4 border-amber-500 card-shadow">
+          <p class="text-sm font-semibold text-[#1a1a2e]">拉升业绩</p>
+        </div>
+      </div>
+      <!-- App 5 -->
+      <div class="space-y-3 reveal" style="transition-delay:0.5s">
+        <div class="bg-white rounded-lg p-4 border-l-4 border-rose-500 card-shadow">
+          <p class="text-sm font-semibold text-[#1a1a2e]">拉升引流</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Level 4: Data Sources -->
+<section class="px-6 pb-16">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-10">
+      <span class="level-badge bg-purple-100 text-[#6D4AFF]">数据源支撑</span>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <!-- Data 1 -->
+      <div class="space-y-2 reveal" style="transition-delay:0.1s">
+        <div class="data-tag">意向管理</div>
+        <div class="data-tag">销售订单</div>
+        <div class="data-tag">订单评价</div>
+      </div>
+      <!-- Data 2 -->
+      <div class="space-y-2 reveal" style="transition-delay:0.2s">
+        <div class="data-tag">库存数据</div>
+        <div class="data-tag">库存流水</div>
+      </div>
+      <!-- Data 3 -->
+      <div class="space-y-2 reveal" style="transition-delay:0.3s">
+        <div class="data-tag">退货订单</div>
+      </div>
+      <!-- Data 4 -->
+      <div class="space-y-2 reveal" style="transition-delay:0.4s">
+        <div class="data-tag">导购档案</div>
+      </div>
+      <!-- Data 5 -->
+      <div class="space-y-2 reveal" style="transition-delay:0.5s">
+        <div class="data-tag">客户档案</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="border-t border-purple-100 py-8 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+    <p class="text-xs text-gray-400">数字化门店 · 目标拆解体系 · 2026</p>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal animation
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

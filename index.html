@@ -8,7 +8,6 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--accent:#6D4AFF;--accent-light:rgba(109,74,255,0.08);--sidebar-w:240px;--sidebar-collapsed:56px;--bg:#F8F7FC}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;display:flex;height:100vh;overflow:hidden;background:var(--bg)}
-/* Sidebar */
 .sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);background:#fff;border-right:1px solid rgba(0,0,0,0.06);display:flex;flex-direction:column;transition:width .3s ease,min-width .3s ease;z-index:100;position:relative;overflow:hidden}
 .sidebar.collapsed{width:var(--sidebar-collapsed);min-width:var(--sidebar-collapsed)}
 .sidebar-header{display:flex;align-items:center;gap:.75rem;padding:1.25rem 1rem;border-bottom:1px solid rgba(0,0,0,0.04);min-height:64px}
@@ -31,10 +30,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .sidebar.collapsed .nav-item-text{opacity:0;width:0}
 .sidebar-footer{padding:.75rem;border-top:1px solid rgba(0,0,0,0.04);font-size:.65rem;color:#d1d5db;text-align:center;white-space:nowrap;overflow:hidden}
 .sidebar.collapsed .sidebar-footer{opacity:0}
-/* Main content */
 .main{flex:1;display:flex;flex-direction:column;min-width:0}
 .content-frame{flex:1;width:100%;border:none;background:#fff}
-/* Mobile overlay */
 .mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:99}
 @media(max-width:768px){
   .sidebar{position:fixed;left:0;top:0;bottom:0;transform:translateX(-100%);width:var(--sidebar-w)!important;min-width:var(--sidebar-w)!important;transition:transform .3s ease}
@@ -47,12 +44,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 </style>
 </head>
 <body>
-
-<!-- Mobile hamburger -->
 <button class="hamburger" onclick="toggleMobileSidebar()">☰</button>
 <div class="mobile-overlay" onclick="closeMobileSidebar()"></div>
-
-<!-- Sidebar -->
 <aside class="sidebar" id="sidebar">
   <button class="sidebar-toggle" onclick="toggleSidebar()" title="折叠/展开菜单">◀</button>
   <div class="sidebar-header">
@@ -70,16 +63,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
         <span class="nav-item-icon">🧬</span>
         <span class="nav-item-text">数据资产落地模型</span>
       </a>
+      <a class="nav-item" data-page="store-goal-decomposition.html" onclick="switchPage(this,'store-goal-decomposition.html')">
+        <span class="nav-item-icon">🎯</span>
+        <span class="nav-item-text">目标拆解</span>
+      </a>
     </div>
   </nav>
   <div class="sidebar-footer">数字化门店 · 2026</div>
 </aside>
-
-<!-- Main content -->
 <main class="main">
   <iframe class="content-frame" id="contentFrame" src="pages/store-promotion.html" title="内容区"></iframe>
 </main>
-
 <script>
 let sidebarCollapsed = false;
 function toggleSidebar() {
@@ -89,24 +83,18 @@ function toggleSidebar() {
   const toggleBtn = sidebar.querySelector('.sidebar-toggle');
   toggleBtn.textContent = sidebarCollapsed ? '▶' : '◀';
 }
-
 function switchPage(el, page) {
-  // Update active state
   document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
   el.classList.add('active');
-  // Load page
   document.getElementById('contentFrame').src = 'pages/' + page;
-  // Close mobile sidebar
   closeMobileSidebar();
 }
-
 function toggleMobileSidebar() {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.querySelector('.mobile-overlay');
   sidebar.classList.toggle('open');
   overlay.classList.toggle('show');
 }
-
 function closeMobileSidebar() {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.querySelector('.mobile-overlay');
