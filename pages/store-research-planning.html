@@ -23,7 +23,7 @@ body{background:#fff;color:#1a1a2e}
 .research-table td{font-size:.75rem;padding:.65rem .6rem;border-bottom:1px solid #f3f4f6;color:#374151;line-height:1.5;vertical-align:top}
 .research-table tr:last-child td{border-bottom:none}
 .research-table tr:hover td{background:rgba(109,74,255,0.03)}
-.brand-tag{display:inline-block;padding:.15rem .45rem;border-radius:5px;font-size:.68rem;font-weight:700;color:#fff}
+.brand-logo{display:inline-flex;align-items:center;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.08)}.brand-logo svg{display:block;width:100%;height:auto}
 .result-card{border-radius:14px;padding:1.25rem 1.5rem;border:2px dashed rgba(109,74,255,0.2);background:rgba(109,74,255,0.02)}
 .reveal{opacity:0;transform:translateY(24px);transition:all .6s cubic-bezier(.22,1,.36,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
@@ -73,11 +73,11 @@ body{background:#fff;color:#1a1a2e}
       </span>
     </div>
 
-    <!-- Phase Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+    <!-- Phase Row -->
+    <div class="flex flex-col lg:flex-row items-stretch gap-3 lg:gap-0">
 
       <!-- Phase 1 -->
-      <div class="phase-card reveal" style="--c:#6D4AFF;transition-delay:0.05s">
+      <div class="flex-1 phase-card reveal mx-0 lg:mx-1" style="--c:#6D4AFF;transition-delay:0.05s">
         <div class="phase-header" style="background:linear-gradient(135deg,#6D4AFF,#8B6FFF)">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           MBO 经验复盘
@@ -100,10 +100,12 @@ body{background:#fff;color:#1a1a2e}
       </div>
 
       <!-- Arrow -->
-      <div class="hidden lg:flex items-center justify-center pt-16 timeline-arrow">→</div>
+      <div class="hidden lg:flex items-center justify-center shrink-0 w-12">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14h16M18 8l6 6-6 6" stroke="#6D4AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
 
       <!-- Phase 2 -->
-      <div class="phase-card reveal" style="--c:#2563eb;transition-delay:0.2s">
+      <div class="flex-1 phase-card reveal mx-0 lg:mx-1" style="--c:#2563eb;transition-delay:0.15s">
         <div class="phase-header" style="background:linear-gradient(135deg,#2563eb,#3B82F6)">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           市场走访 · 竞对调研
@@ -119,34 +121,34 @@ body{background:#fff;color:#1a1a2e}
               <tbody>
                 <tr>
                   <td class="font-semibold whitespace-nowrap">库存上报</td>
-                  <td><span class="brand-tag" style="background:#64748b">TOTO</span></td>
+                  <td><div class="brand-logo" style="--brand-color:#00529B;width:64px"><svg viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg"><rect rx="8" width="200" height="60" fill="#00529B"/><text x="100" y="42" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="900" font-size="30" letter-spacing="8">TOTO</text></svg></div></td>
                   <td>无系统支持，线下上报</td>
                 </tr>
                 <tr>
                   <td rowspan="3" class="font-semibold whitespace-nowrap align-top">录单激励</td>
-                  <td><span class="brand-tag" style="background:#0891b2">科勒</span></td>
+                  <td><div class="brand-logo" style="--brand-color:#1A1A1A;width:72px"><svg viewBox="0 0 240 56" xmlns="http://www.w3.org/2000/svg"><rect rx="8" width="240" height="56" fill="#1A1A1A"/><text x="120" y="40" text-anchor="middle" fill="#fff" font-family="Georgia,serif" font-weight="900" font-size="28" letter-spacing="6">KOHLER</text></svg></div></td>
                   <td>使用品牌方小程序进行录单，费用返现给经销商，<br>真实使用量用<strong>抽查方式</strong>核对</td>
                 </tr>
                 <tr>
-                  <td><span class="brand-tag" style="background:#0891b2">东鹏瓷砖</span></td>
+                  <td><div class="brand-logo" style="--brand-color:#C41230;width:72px"><svg viewBox="0 0 200 56" xmlns="http://www.w3.org/2000/svg"><rect rx="8" width="200" height="56" fill="#C41230"/><text x="100" y="39" text-anchor="middle" fill="#fff" font-family="'Noto Sans SC',sans-serif" font-weight="900" font-size="26">东鹏瓷砖</text></svg></div></td>
                   <td>使用品牌方小程序进行录单，费用返现给购买，<br>真实性使用<strong>抽查方式</strong>核对</td>
                 </tr>
                 <tr>
-                  <td><span class="brand-tag" style="background:#059669">九牧小五金</span></td>
+                  <td><div class="brand-logo" style="--brand-color:#007041;width:72px"><svg viewBox="0 0 200 56" xmlns="http://www.w3.org/2000/svg"><rect rx="8" width="200" height="56" fill="#007041"/><text x="100" y="39" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="900" font-size="22" letter-spacing="2">JOMOO 九牧</text></svg></div></td>
                   <td>提供品牌方 WMS 系统，要求五金店在出入库<br>环节<strong>必须进行扫码</strong></td>
                 </tr>
                 <tr>
                   <td class="font-semibold whitespace-nowrap">渠道出入库</td>
-                  <td><span class="brand-tag" style="background:#059669">九牧</span></td>
+                  <td><div class="brand-logo" style="--brand-color:#007041;width:64px"><svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg"><rect rx="8" width="160" height="56" fill="#007041"/><text x="80" y="39" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="900" font-size="22" letter-spacing="2">JOMOO</text></svg></div></td>
                   <td>—</td>
                 </tr>
                 <tr>
                   <td rowspan="2" class="font-semibold whitespace-nowrap align-top">软件厂商合作</td>
-                  <td><span class="brand-tag" style="background:#059669">九牧</span></td>
+                  <td><div class="brand-logo" style="--brand-color:#007041;width:64px"><svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg"><rect rx="8" width="160" height="56" fill="#007041"/><text x="80" y="39" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="900" font-size="22" letter-spacing="2">JOMOO</text></svg></div></td>
                   <td>目前与金蝶 K3 合作，计划强制要求经销商<br>替换内部系统，目前正在试点中</td>
                 </tr>
                 <tr>
-                  <td><span class="brand-tag" style="background:#dc2626">恒洁</span></td>
+                  <td><div class="brand-logo" style="--brand-color:#E60012;width:64px"><svg viewBox="0 0 160 56" xmlns="http://www.w3.org/2000/svg"><rect rx="8" width="160" height="56" fill="#E60012"/><text x="80" y="39" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-weight="900" font-size="22" letter-spacing="3">HEGII</text></svg></div></td>
                   <td>与东软合作，17 年开始经销商系统替换工作，<br>目前经销商覆盖率 <strong>95%</strong>，门店覆盖率 <strong>80%+</strong></td>
                 </tr>
               </tbody>
@@ -156,10 +158,12 @@ body{background:#fff;color:#1a1a2e}
       </div>
 
       <!-- Arrow -->
-      <div class="hidden lg:flex items-center justify-center pt-16 timeline-arrow">→</div>
+      <div class="hidden lg:flex items-center justify-center shrink-0 w-12">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M6 14h16M18 8l6 6-6 6" stroke="#6D4AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
 
       <!-- Phase 3 -->
-      <div class="phase-card reveal" style="--c:#059669;transition-delay:0.35s">
+      <div class="flex-1 phase-card reveal mx-0 lg:mx-1" style="--c:#059669;transition-delay:0.25s">
         <div class="phase-header" style="background:linear-gradient(135deg,#059669,#10B981)">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
           方案制定 · 预选型
@@ -182,7 +186,7 @@ body{background:#fff;color:#1a1a2e}
         </div>
       </div>
 
-    </div><!-- end phase grid -->
+    </div><!-- end phase row -->
   </div>
 </section>
 
