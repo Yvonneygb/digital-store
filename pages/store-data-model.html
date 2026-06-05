@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字化门店数据资产 · 落地应用模型</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: { brand: { DEFAULT: '#6D4AFF', 50: 'rgba(109,74,255,0.05)', 100: 'rgba(109,74,255,0.1)', 200: 'rgba(109,74,255,0.2)', 300: 'rgba(109,74,255,0.3)', 400: 'rgba(109,74,255,0.4)', 500: 'rgba(109,74,255,0.5)', 600: 'rgba(109,74,255,0.6)', 700: 'rgba(109,74,255,0.7)', 800: 'rgba(109,74,255,0.85)', 900: 'rgba(109,74,255,0.95)' } },
+      fontFamily: { sans: ['"Noto Sans SC"','Inter','sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-scale{opacity:0;transform:scale(0.92);transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1),transform 0.9s cubic-bezier(0.16,1,0.3,1)}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+.reveal-left{opacity:0;transform:translateX(-30px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-right{opacity:0;transform:translateX(30px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1)}
+.reveal-right.visible{opacity:1;transform:translateX(0)}
+.d1{transition-delay:0.05s}.d2{transition-delay:0.1s}.d3{transition-delay:0.15s}.d4{transition-delay:0.2s}.d5{transition-delay:0.25s}.d6{transition-delay:0.3s}.d7{transition-delay:0.35s}.d8{transition-delay:0.4s}
+.glass-card{background:#fff;border-radius:1.25rem;border:1px solid rgba(109,74,255,0.08);transition:all 0.45s cubic-bezier(0.16,1,0.3,1)}
+.glass-card:hover{transform:translateY(-4px);box-shadow:0 24px 80px rgba(109,74,255,0.08)}
+.accent-glow{position:relative;overflow:hidden}
+.accent-glow::before{content:'';position:absolute;top:-30%;right:-30%;width:60%;height:60%;background:radial-gradient(circle,rgba(109,74,255,0.06),transparent 70%);border-radius:50%;pointer-events:none}
+.line-divider{display:flex;align-items:center;gap:1rem}
+.line-divider::before,.line-divider::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(109,74,255,0.2),transparent)}
+.counter-num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.bento-grid{display:grid;grid-template-columns:1fr;gap:1.25rem}
+.hero-text{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:-0.03em;line-height:1.05}
+.tag-pill{display:inline-flex;align-items:center;gap:0.5rem;padding:0.375rem 1rem;border-radius:9999px;font-size:0.75rem;font-weight:500;background:rgba(109,74,255,0.08);color:#6D4AFF;border:1px solid rgba(109,74,255,0.15)}
+.section-title-lg{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:900;letter-spacing:-0.02em}
+.section-sub{font-size:0.75rem;color:#9ca3af;letter-spacing:0.08em;text-transform:uppercase}
+.connector{display:flex;align-items:center;justify-content:center}
+.connector svg{width:100%;max-width:200px;height:60px}
+.connector-line{fill:none;stroke:#6D4AFF;stroke-width:2;stroke-dasharray:6 3;opacity:0.3}
+.formula-box{background:#fff;border:2px solid rgba(109,74,255,0.12);border-radius:1.5rem;padding:1.5rem 2rem;position:relative}
+.formula-box::after{content:'';position:absolute;inset:-2px;border-radius:1.5rem;padding:2px;background:linear-gradient(135deg,rgba(109,74,255,0.3),transparent 50%,rgba(109,74,255,0.1));mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;-webkit-mask-composite:xor;pointer-events:none}
+.formula-plus{font-size:1.5rem;font-weight:300;color:#6D4AFF;opacity:0.5}
+.formula-equals{font-size:1.75rem;font-weight:900;color:#6D4AFF}
+.metric-bar{height:0.5rem;border-radius:9999px;background:rgba(109,74,255,0.08);overflow:hidden;position:relative}
+.metric-fill{height:100%;width:0;border-radius:9999px;background:linear-gradient(90deg,rgba(109,74,255,0.5),#6D4AFF);transition:width 1.2s cubic-bezier(0.16,1,0.3,1)}
+.metric-fill.animate{width:var(--w)}
+.data-table{width:100%;border-collapse:separate;border-spacing:0}
+.data-table th{text-align:left;padding:0.875rem 1rem;font-size:0.6875rem;font-weight:600;color:#9ca3af;letter-spacing:0.06em;border-bottom:1px solid rgba(109,74,255,0.08)}
+.data-table td{padding:1rem;font-size:0.875rem;color:#1a1a2e;border-bottom:1px solid rgba(109,74,255,0.04)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table tbody tr{transition:background 0.2s}
+.data-table tbody tr:hover{background:rgba(109,74,255,0.02)}
+.data-table .dt-icon{width:2rem;height:2rem;border-radius:0.5rem;display:inline-flex;align-items:center;justify-content:center;margin-right:0.75rem;flex-shrink:0}
+.data-table .dt-tag{display:inline-flex;padding:0.25rem 0.625rem;border-radius:9999px;font-size:0.625rem;font-weight:600;letter-spacing:0.04em}
+.flow-graph{display:flex;flex-direction:column;align-items:center;gap:0;position:relative}
+.flow-node{background:#fff;border:1px solid rgba(109,74,255,0.12);border-radius:1rem;padding:1.25rem 1.5rem;text-align:center;position:relative;z-index:2;transition:all 0.35s ease}
+.flow-node:hover{transform:scale(1.03);box-shadow:0 12px 40px rgba(109,74,255,0.08)}
+.flow-arrow{height:40px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.flow-arrow svg{width:2px;height:100%}
+.flow-arrow line{stroke:#6D4AFF;stroke-width:2;stroke-dasharray:4 3;opacity:0.3}
+.scroll-hint{display:flex;flex-direction:column;align-items:center;gap:0.5rem;opacity:0.5}
+.scroll-box{width:1.5rem;height:2.5rem;border-radius:9999px;border:2px solid #d1d5db;display:flex;align-items:flex-start;justify-content:center;padding:0.375rem}
+.scroll-dot{width:0.375rem;height:0.375rem;border-radius:50%;background:#6D4AFF;animation:bounce 2s ease infinite}
+@keyframes bounce{0%,100%{transform:translateY(0);opacity:0.4}50%{transform:translateY(0.625rem);opacity:1}}
+.site-footer{border-top:1px solid rgba(109,74,255,0.06);padding:2rem 0;text-align:center;font-size:0.6875rem;color:#9ca3af}
+
+/* ===== Baidu Index Style Demand Graph ===== */
+.demand-graph{position:relative;width:100%;max-width:900px;margin:0 auto;background:linear-gradient(180deg,#F5F3FF 0%,#FAFAFC 40%,#F5F3FF 100%);border-radius:1.5rem;border:1px solid rgba(109,74,255,0.07);min-height:540px}
+.dg-center-zone{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:22%;height:28%;background:radial-gradient(ellipse at center,rgba(109,74,255,0.12) 0%,rgba(109,74,255,0.07) 40%,rgba(109,74,255,0.02) 70%,transparent 100%);border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:1}
+/* Single-layer concentric fill — no edges */
+.dg-rings-bg{position:absolute;inset:0;background:radial-gradient(ellipse 46% 42% at 50% 50%,rgba(109,74,255,0.12) 0%,rgba(109,74,255,0.12) 30%,rgba(109,74,255,0.07) 30%,rgba(109,74,255,0.07) 53%,rgba(109,74,255,0.04) 53%,rgba(109,74,255,0.04) 76%,rgba(109,74,255,0.02) 76%,rgba(109,74,255,0.02) 100%,transparent 100%);pointer-events:none;z-index:0;border-radius:1.5rem}
+/* Horizontal axis */
+.dg-axis-line{position:absolute;left:6%;right:6%;top:50%;height:0;border-top:1.5px dashed rgba(109,74,255,0.16);z-index:2}
+.dg-axis-label{position:absolute;top:8%;font-size:0.7rem;color:#6D4AFF;letter-spacing:0.08em;font-weight:700;z-index:2;white-space:nowrap}
+.dg-axis-label.left{left:6%}
+.dg-axis-label.right{right:6%}
+.dg-axis-label.center{left:50%;transform:translateX(-50%);color:#9B8AD8;font-weight:500}
+.dg-center-keyword{font-size:clamp(0.85rem,1.8vw,1.2rem);font-weight:800;color:#6D4AFF;text-align:center;line-height:1.3;padding:0 0.5rem;text-shadow:0 1px 4px rgba(109,74,255,0.08)}
+
+.dg-factor{position:absolute;display:flex;flex-direction:column;align-items:center;gap:2px;z-index:5;cursor:pointer;transition:all 0.35s ease;transform:translate(-50%,-50%)}
+.dg-factor:hover{z-index:30}
+.dg-dot{border-radius:50%;transition:all 0.35s ease}
+.dg-dot.core{width:7px;height:7px;background:#6D4AFF;box-shadow:0 0 8px rgba(109,74,255,0.4)}
+.dg-dot.hot{width:7px;height:7px;background:#FF6B35;box-shadow:0 0 8px rgba(255,107,53,0.4)}
+.dg-dot.normal{width:6px;height:6px;background:#9B8AD8}
+.dg-dot.light{width:5px;height:5px;background:#C4B5F7}
+.dg-connector{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1}
+.dg-connector line{stroke:rgba(109,74,255,0.12);stroke-width:1}
+.dg-label{font-size:10px;color:#4a4a6a;text-align:center;white-space:nowrap;font-weight:500;line-height:1.2;transition:color 0.3s ease}
+.dg-factor:hover .dg-label{color:#6D4AFF;font-weight:700}
+.dg-factor:hover .dg-dot{transform:scale(1.5)}
+
+@media(min-width:768px){
+  .bento-grid{grid-template-columns:repeat(3,1fr)}
+  .bento-grid.bento-2{grid-template-columns:repeat(2,1fr)}
+  .bento-grid .span-2{grid-column:span 2}
+  .bento-grid .span-3{grid-column:span 3}
+  .flow-graph{flex-direction:row}
+  .flow-arrow{width:50px;height:auto}
+  .flow-arrow svg{width:100%;height:2px}
+  .formula-row{flex-direction:row!important}
+  .demand-graph{min-height:620px}
+}
+</style>
+</head>
+<body>
+
+<header class="min-h-screen flex flex-col items-center justify-center px-6 py-20 relative overflow-hidden">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-50 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/3 right-1/4 w-80 h-80 bg-brand-50 rounded-full blur-3xl"></div>
+  </div>
+  <div class="relative z-10 text-center max-w-5xl mx-auto reveal">
+    <div class="tag-pill mb-6"><i class="fa-solid fa-database text-xs"></i> Data Asset · Application Model</div>
+    <h1 class="hero-text mb-4">
+      <span class="block">数字化门店</span>
+      <span class="block" style="background:linear-gradient(135deg,#6D4AFF,rgba(109,74,255,0.6));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent">数据资产</span>
+    </h1>
+    <p class="text-lg text-gray-400 font-light mb-3">落地应用模型</p>
+    <p class="text-sm text-gray-300 font-light max-w-md mx-auto">LANDING APPLICATION MODEL</p>
+    <div class="line-divider max-w-xs mx-auto mt-10 mb-10"></div>
+    <div class="formula-box max-w-2xl mx-auto reveal d3">
+      <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-2">CORE EQUATION</p>
+      <div class="flex formula-row items-center justify-center gap-2 md:gap-4 whitespace-nowrap">
+        <div class="text-center">
+          <div class="text-base md:text-lg font-black" style="color:#6D4AFF">产研提升</div>
+          <div class="text-[10px] text-gray-400 mt-0.5">R&D UPGRADE</div>
+        </div>
+        <div class="formula-plus">+</div>
+        <div class="text-center">
+          <div class="text-base md:text-lg font-black" style="color:#6D4AFF">营销提升</div>
+          <div class="text-[10px] text-gray-400 mt-0.5">MKT UPGRADE</div>
+        </div>
+        <div class="formula-equals">=</div>
+        <div class="text-center">
+          <div class="text-base md:text-lg font-black" style="background:linear-gradient(135deg,#6D4AFF,rgba(109,74,255,0.7));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent">业绩提升</div>
+          <div class="text-[10px] text-gray-400 mt-0.5">PERFORMANCE</div>
+        </div>
+      </div>
+      <div class="flex items-center justify-center gap-4 mt-4 pt-4 border-t border-brand-100">
+        <div class="text-center">
+          <div class="counter-num text-sm md:text-base font-bold" style="color:#6D4AFF">客单价</div>
+          <div class="text-[10px] text-gray-400 mt-0.5">ATV</div>
+        </div>
+        <div class="formula-plus text-base">+</div>
+        <div class="text-center">
+          <div class="counter-num text-sm md:text-base font-bold" style="color:#6D4AFF">客流量</div>
+          <div class="text-[10px] text-gray-400 mt-0.5">TRAFFIC</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint mt-16 reveal d6"><div class="scroll-box"><div class="scroll-dot"></div></div><p class="text-xs text-gray-400">SCROLL</p></div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 pb-20">
+
+  <!-- PART ONE: Baidu Index Style Demand Graph -->
+  <section class="mb-24 reveal">
+    <div class="line-divider mb-8"><span class="tag-pill"><i class="fa-solid fa-01 text-xs"></i> PART ONE</span></div>
+    <div class="mb-3">
+      <h2 class="section-title-lg">一款产品为何卖得好？</h2>
+      <p class="section-sub mt-1">WHY DOES A PRODUCT SELL WELL?</p>
+    </div>
+    <p class="text-lg font-bold mb-1" style="color:#6D4AFF">人与产品的契合度</p>
+    <p class="text-xs text-gray-400 uppercase tracking-widest mb-8">HUMAN · PRODUCT FIT — DEMAND GRAPH</p>
+
+    <div class="demand-graph reveal-scale d2" id="demandGraph">
+      <!-- Concentric fill — single gradient, no edges -->
+      <div class="dg-rings-bg"></div>
+      <!-- Center zone with keyword -->
+      <div class="dg-center-zone">
+        <div class="dg-center-keyword">一款产品<br>为何卖得好</div>
+      </div>
+      <!-- Horizontal axis -->
+      <div class="dg-axis-line"></div>
+      <div class="dg-axis-label left">弱</div>
+      <div class="dg-axis-label center">— 相关性 —</div>
+      <div class="dg-axis-label right">强</div>
+      <!-- Dots injected by JS -->
+    </div>
+
+
+  </section>
+
+  <div class="connector mb-24 reveal">
+    <svg viewBox="0 0 200 60"><path class="connector-line" d="M10,30 Q100,5 190,30"/><polygon points="182,24 190,30 182,36" fill="#6D4AFF" opacity="0.3"/></svg>
+    <span class="text-xs text-gray-400 mx-3">分析</span>
+    <svg viewBox="0 0 200 60"><path class="connector-line" d="M10,30 Q100,55 190,30"/></svg>
+  </div>
+
+  <section class="mb-24 reveal">
+    <div class="line-divider mb-8"><span class="tag-pill"><i class="fa-solid fa-02 text-xs"></i> PART TWO</span></div>
+    <div class="mb-8">
+      <h2 class="section-title-lg">多维分析结论包</h2>
+      <p class="section-sub mt-1">DIMENSIONAL CONCLUSION PACKAGES</p>
+      <p class="text-sm text-gray-500 mt-3 max-w-2xl">基于第一部分「人与产品契合度」分析，产出各维度的量化结论，精准指导产品与营销决策</p>
+    </div>
+
+    <div class="bento-grid bento-2">
+      <div class="glass-card p-8 reveal-left d1">
+        <div class="tag-pill mb-4"><i class="fa-solid fa-cube"></i> 产品维度</div>
+        <h3 class="text-2xl font-black mb-6">PRODUCT DIMENSION</h3>
+        <div class="space-y-5">
+          <div class="flex items-start gap-4 p-4 rounded-xl" style="background:rgba(109,74,255,0.02)">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1)"><i class="fa-solid fa-people-group text-sm" style="color:#6D4AFF"></i></div>
+            <div><p class="font-semibold text-sm">什么地区的人，更看重什么产品特性</p><p class="text-xs text-gray-400 mt-1">REGIONAL PREFERENCE MAPPING</p></div>
+          </div>
+          <div class="flex items-start gap-4 p-4 rounded-xl" style="background:rgba(109,74,255,0.02)">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1)"><i class="fa-solid fa-wallet text-sm" style="color:#6D4AFF"></i></div>
+            <div><p class="font-semibold text-sm">什么收入水平的人，愿花多少钱在不同产品上</p><p class="text-xs text-gray-400 mt-1">INCOME-TO-SPEND CORRELATION</p></div>
+          </div>
+          <div class="flex items-start gap-4 p-4 rounded-xl" style="background:rgba(109,74,255,0.02)">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1)"><i class="fa-solid fa-bullhorn text-sm" style="color:#6D4AFF"></i></div>
+            <div><p class="font-semibold text-sm">什么类型人群，决策关键影响点是什么 → 宣传手段</p><p class="text-xs text-gray-400 mt-1">DECISION INFLUENCER → CHANNEL STRATEGY</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card p-8 reveal-right d2 accent-glow">
+        <div class="tag-pill mb-4"><i class="fa-solid fa-globe-asia"></i> 地区维度</div>
+        <h3 class="text-2xl font-black mb-6">REGIONAL DIMENSION</h3>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between p-3 rounded-lg" style="background:rgba(109,74,255,0.03)">
+            <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full" style="background:#6D4AFF;opacity:0.9"></div><span class="text-sm font-medium">一线城市</span></div>
+            <div class="flex items-center gap-2"><div class="metric-bar" style="width:100px"><div class="metric-fill" style="--w:90%"></div></div><span class="text-xs font-bold" style="color:#6D4AFF">90%</span></div>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-lg" style="background:rgba(109,74,255,0.03)">
+            <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full" style="background:#6D4AFF;opacity:0.7"></div><span class="text-sm font-medium">新一线</span></div>
+            <div class="flex items-center gap-2"><div class="metric-bar" style="width:100px"><div class="metric-fill" style="--w:82%"></div></div><span class="text-xs font-bold" style="color:#6D4AFF">82%</span></div>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-lg" style="background:rgba(109,74,255,0.03)">
+            <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full" style="background:#6D4AFF;opacity:0.5"></div><span class="text-sm font-medium">二线城市</span></div>
+            <div class="flex items-center gap-2"><div class="metric-bar" style="width:100px"><div class="metric-fill" style="--w:72%"></div></div><span class="text-xs font-bold" style="color:#6D4AFF">72%</span></div>
+          </div>
+          <div class="flex items-center justify-between p-3 rounded-lg" style="background:rgba(109,74,255,0.03)">
+            <div class="flex items-center gap-3"><div class="w-3 h-3 rounded-full" style="background:#6D4AFF;opacity:0.35"></div><span class="text-sm font-medium">三四线城市</span></div>
+            <div class="flex items-center gap-2"><div class="metric-bar" style="width:100px"><div class="metric-fill" style="--w:58%"></div></div><span class="text-xs font-bold" style="color:#6D4AFF">58%</span></div>
+          </div>
+        </div>
+        <div class="mt-6 p-4 rounded-xl" style="background:linear-gradient(135deg,rgba(109,74,255,0.05),transparent);border:1px solid rgba(109,74,255,0.08)">
+          <p class="text-xs text-gray-500"><span style="color:#6D4AFF;font-weight:600">→ </span>地区差异分析为产品区域化策略提供数据支撑</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="glass-card p-6 mt-6 reveal d3">
+      <p class="text-xs text-gray-400 uppercase tracking-wider mb-4 text-center">ANALYSIS PIPELINE</p>
+      <div class="flow-graph">
+        <div class="flow-node"><div class="font-bold text-sm">数据采集</div><div class="text-xs text-gray-400">Data Collect</div></div>
+        <div class="flow-arrow"><svg viewBox="0 0 50 2"><line x1="0" y1="1" x2="50" y2="1"/><polygon points="42,0 50,1 42,2" fill="#6D4AFF" opacity="0.3"/></svg></div>
+        <div class="flow-node"><div class="font-bold text-sm">维度归类</div><div class="text-xs text-gray-400">Dimension</div></div>
+        <div class="flow-arrow"><svg viewBox="0 0 50 2"><line x1="0" y1="1" x2="50" y2="1"/><polygon points="42,0 50,1 42,2" fill="#6D4AFF" opacity="0.3"/></svg></div>
+        <div class="flow-node"><div class="font-bold text-sm">交叉分析</div><div class="text-xs text-gray-400">Cross Analysis</div></div>
+        <div class="flow-arrow"><svg viewBox="0 0 50 2"><line x1="0" y1="1" x2="50" y2="1"/><polygon points="42,0 50,1 42,2" fill="#6D4AFF" opacity="0.3"/></svg></div>
+        <div class="flow-node" style="border-color:rgba(109,74,255,0.3);background:rgba(109,74,255,0.02)"><div class="font-bold text-sm">结论包</div><div class="text-xs" style="color:#6D4AFF">Conclusions</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="connector mb-24 reveal">
+    <svg viewBox="0 0 200 60"><path class="connector-line" d="M10,30 Q100,5 190,30"/><polygon points="182,24 190,30 182,36" fill="#6D4AFF" opacity="0.3"/></svg>
+    <span class="text-xs text-gray-400 mx-3">执行</span>
+    <svg viewBox="0 0 200 60"><path class="connector-line" d="M10,30 Q100,55 190,30"/></svg>
+  </div>
+
+  <section class="mb-24 reveal-scale">
+    <div class="line-divider mb-8"><span class="tag-pill"><i class="fa-solid fa-03 text-xs"></i> PART THREE</span></div>
+    <div class="mb-8">
+      <h2 class="section-title-lg">可落地的执行包</h2>
+      <p class="section-sub mt-1">ACTIONABLE EXECUTION PACKAGES</p>
+      <p class="text-sm text-gray-500 mt-3 max-w-2xl">基于结论包，拆解为产研与营销两大板块的具体执行方案，确保可量化、可追踪、可迭代</p>
+    </div>
+
+    <div class="bento-grid bento-2">
+      <div class="glass-card p-8 reveal-left d2">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(109,74,255,0.1)">
+            <i class="fa-solid fa-flask text-xl" style="color:#6D4AFF"></i>
+          </div>
+          <div><h3 class="text-xl font-black">产研执行包</h3><p class="text-xs text-gray-400 uppercase tracking-wider">R&D EXECUTION PACKAGE</p></div>
+        </div>
+        <table class="data-table w-full">
+          <thead><tr><th>执行项</th><th>英文</th><th>优先级</th></tr></thead>
+          <tbody>
+            <tr><td><div class="flex items-center"><span class="dt-icon" style="background:rgba(109,74,255,0.08)"><i class="fa-solid fa-dollar-sign" style="color:#6D4AFF;font-size:0.75rem"></i></span>定价策略</div></td><td class="text-xs text-gray-400">Pricing</td><td><span class="dt-tag text-white bg-brand">P0</span></td></tr>
+            <tr><td><div class="flex items-center"><span class="dt-icon" style="background:rgba(109,74,255,0.08)"><i class="fa-solid fa-boxes-stacked" style="color:#6D4AFF;font-size:0.75rem"></i></span>套餐设置</div></td><td class="text-xs text-gray-400">Bundling</td><td><span class="dt-tag text-white bg-brand">P0</span></td></tr>
+            <tr><td><div class="flex items-center"><span class="dt-icon" style="background:rgba(109,74,255,0.08)"><i class="fa-solid fa-paint-roller" style="color:#6D4AFF;font-size:0.75rem"></i></span>门店装修要点</div></td><td class="text-xs text-gray-400">Store Design</td><td><span class="dt-tag text-brand bg-brand-100">P1</span></td></tr>
+            <tr><td><div class="flex items-center"><span class="dt-icon" style="background:rgba(109,74,255,0.08)"><i class="fa-solid fa-list-check" style="color:#6D4AFF;font-size:0.75rem"></i></span>产品功能特性</div></td><td class="text-xs text-gray-400">Features</td><td><span class="dt-tag text-white bg-brand">P0</span></td></tr>
+            <tr><td><div class="flex items-center"><span class="dt-icon" style="background:rgba(109,74,255,0.08)"><i class="fa-solid fa-star" style="color:#6D4AFF;font-size:0.75rem"></i></span>产品定位亮点</div></td><td class="text-xs text-gray-400">Positioning</td><td><span class="dt-tag text-brand bg-brand-100">P1</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="glass-card p-8 reveal-right d3 accent-glow">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-xl flex items-center justify-center" style="background:rgba(109,74,255,0.1)">
+            <i class="fa-solid fa-bullseye text-xl" style="color:#6D4AFF"></i>
+          </div>
+          <div><h3 class="text-xl font-black">营销执行包</h3><p class="text-xs text-gray-400 uppercase tracking-wider">MARKETING EXECUTION PACKAGE</p></div>
+        </div>
+        <div class="space-y-4">
+          <div class="flex items-start gap-4 p-4 rounded-xl" style="background:rgba(109,74,255,0.02);border:1px solid rgba(109,74,255,0.06)">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1)"><i class="fa-solid fa-filter" style="color:#6D4AFF"></i></div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between"><h4 class="font-bold text-sm">营销渠道选择</h4><span class="dt-tag text-white bg-brand">P0</span></div>
+              <p class="text-xs text-gray-500 mt-1">CHANNEL SELECTION</p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="text-xs px-2 py-1 rounded-md" style="background:rgba(109,74,255,0.06);color:#6D4AFF">小红书</span>
+                <span class="text-xs px-2 py-1 rounded-md" style="background:rgba(109,74,255,0.06);color:#6D4AFF">视频号</span>
+                <span class="text-xs px-2 py-1 rounded-md" style="background:rgba(109,74,255,0.06);color:#6D4AFF">抖音</span>
+                <span class="text-xs px-2 py-1 rounded-md" style="background:rgba(109,74,255,0.06);color:#6D4AFF">线下 POS</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 rounded-xl" style="background:rgba(109,74,255,0.02);border:1px solid rgba(109,74,255,0.06)">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1)"><i class="fa-solid fa-palette" style="color:#6D4AFF"></i></div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between"><h4 class="font-bold text-sm">营销物料风格决议</h4><span class="dt-tag text-brand bg-brand-100">P1</span></div>
+              <p class="text-xs text-gray-500 mt-1">CREATIVE ASSET GUIDELINES</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4 p-4 rounded-xl" style="background:rgba(109,74,255,0.02);border:1px solid rgba(109,74,255,0.06)">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1)"><i class="fa-solid fa-arrow-up-right-dots" style="color:#6D4AFF"></i></div>
+            <div class="flex-1">
+              <div class="flex items-center justify-between"><h4 class="font-bold text-sm">终端营销能力提升模型</h4><span class="dt-tag text-white bg-brand">P0</span></div>
+              <p class="text-xs text-gray-500 mt-1">TERMINAL CAPABILITY UPGRADE MODEL</p>
+              <div class="metric-bar mt-2" style="max-width:160px"><div class="metric-fill" style="--w:94%"></div></div>
+              <div class="flex justify-between text-xs mt-1"><span class="text-gray-400">当前</span><span class="font-bold" style="color:#6D4AFF">94%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mb-24 reveal">
+    <div class="glass-card p-8 md:p-12 text-center" style="border:2px solid rgba(109,74,255,0.1)">
+      <div class="tag-pill mb-6"><i class="fa-solid fa-diagram-project"></i> 全链路落地模型</div>
+      <h2 class="section-title-lg mb-2">数据资产 → 执行闭环</h2>
+      <p class="section-sub mb-10">DATA ASSET → EXECUTION LOOPS</p>
+
+      <div class="flow-graph mb-8">
+        <div class="flow-node"><div class="text-3xl font-black" style="color:#6D4AFF">PART 1</div><div class="text-xs font-semibold mt-1">人与产品契合度</div><div class="text-xs text-gray-400">Human·Product Fit</div></div>
+        <div class="flow-arrow"><svg viewBox="0 0 50 2"><line x1="0" y1="1" x2="50" y2="1"/><polygon points="42,0 50,1 42,2" fill="#6D4AFF" opacity="0.5"/></svg></div>
+        <div class="flow-node"><div class="text-3xl font-black" style="color:#6D4AFF">PART 2</div><div class="text-xs font-semibold mt-1">多维结论包</div><div class="text-xs text-gray-400">Conclusions</div></div>
+        <div class="flow-arrow"><svg viewBox="0 0 50 2"><line x1="0" y1="1" x2="50" y2="1"/><polygon points="42,0 50,1 42,2" fill="#6D4AFF" opacity="0.5"/></svg></div>
+        <div class="flow-node" style="border-color:#6D4AFF;border-width:2px;background:rgba(109,74,255,0.03)"><div class="text-3xl font-black" style="color:#6D4AFF">PART 3</div><div class="text-xs font-semibold mt-1">可落地执行包</div><div class="text-xs text-gray-400">Execution</div></div>
+      </div>
+
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+        <div class="flex items-center gap-3 px-6 py-3 rounded-2xl" style="background:rgba(109,74,255,0.04);border:1px solid rgba(109,74,255,0.1)">
+          <i class="fa-solid fa-gear text-lg" style="color:#6D4AFF"></i>
+          <div class="text-left"><div class="font-bold text-sm">产研提升</div><div class="text-xs text-gray-400">R&D UPGRADE</div></div>
+        </div>
+        <div class="formula-plus text-2xl">+</div>
+        <div class="flex items-center gap-3 px-6 py-3 rounded-2xl" style="background:rgba(109,74,255,0.04);border:1px solid rgba(109,74,255,0.1)">
+          <i class="fa-solid fa-chart-line text-lg" style="color:#6D4AFF"></i>
+          <div class="text-left"><div class="font-bold text-sm">营销提升</div><div class="text-xs text-gray-400">MKT UPGRADE</div></div>
+        </div>
+        <div class="formula-equals text-2xl">=</div>
+        <div class="flex items-center gap-3 px-6 py-3 rounded-2xl" style="background:linear-gradient(135deg,rgba(109,74,255,0.1),rgba(109,74,255,0.03));border:2px solid rgba(109,74,255,0.2)">
+          <i class="fa-solid fa-trophy text-lg" style="color:#6D4AFF"></i>
+          <div class="text-left"><div class="font-bold text-sm" style="color:#6D4AFF">业绩提升</div><div class="text-xs text-gray-400">PERFORMANCE</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer reveal">
+  <div class="max-w-6xl mx-auto px-6">
+    <span class="font-bold" style="color:#6D4AFF">数字化门店数据资产</span> · 落地应用模型
+    <span class="mx-2" style="color:#e5e7eb">|</span>
+    <span>2026</span>
+    <span class="mx-2" style="color:#e5e7eb">|</span>
+    <span style="color:#6D4AFF">#6D4AFF</span>
+  </div>
+</footer>
+
+<script>
+const observerOptions = { threshold: 0.15, rootMargin: '0px 0px -50px 0px' };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      entry.target.querySelectorAll('.metric-fill').forEach(bar => bar.classList.add('animate'));
+    }
+  });
+}, observerOptions);
+document.querySelectorAll('.reveal,.reveal-scale,.reveal-left,.reveal-right').forEach(el => observer.observe(el));
+setTimeout(() => { document.querySelectorAll('.metric-fill').forEach(bar => bar.classList.add('animate')); }, 300);
+
+// ===== Baidu Index Style Demand Graph =====
+(function(){
+  const factors = [
+    {name:'产品特性',en:'Features',weight:95,type:'core'},
+    {name:'价格策略',en:'Pricing',weight:93,type:'core'},
+    {name:'品牌认知',en:'Brand',weight:90,type:'core'},
+    {name:'用户口碑',en:'WOM',weight:88,type:'hot'},
+    {name:'竞品差异',en:'Competitive',weight:87,type:'core'},
+    {name:'渠道覆盖',en:'Channels',weight:84,type:'hot'},
+    {name:'促销力度',en:'Promotion',weight:82,type:'hot'},
+    {name:'地区偏好',en:'Regional',weight:80,type:'core'},
+    {name:'收入水平',en:'Income',weight:78,type:'normal'},
+    {name:'消费场景',en:'Scenario',weight:76,type:'normal'},
+    {name:'决策周期',en:'Cycle',weight:74,type:'normal'},
+    {name:'复购意愿',en:'Repurchase',weight:72,type:'normal'},
+    {name:'门店体验',en:'Experience',weight:70,type:'normal'},
+    {name:'导购能力',en:'Sales Skills',weight:68,type:'normal'},
+    {name:'装修风格',en:'Design',weight:66,type:'light'},
+    {name:'选址人流',en:'Location',weight:64,type:'light'},
+    {name:'季节因素',en:'Seasonal',weight:62,type:'light'},
+    {name:'社交传播',en:'Social',weight:60,type:'hot'},
+    {name:'KOL影响',en:'Influencer',weight:58,type:'hot'},
+    {name:'会员体系',en:'Membership',weight:56,type:'light'},
+    {name:'售后服务',en:'Service',weight:54,type:'light'},
+    {name:'物流配送',en:'Logistics',weight:52,type:'light'},
+    {name:'支付便利',en:'Payment',weight:50,type:'light'},
+    {name:'包装设计',en:'Packaging',weight:48,type:'light'},
+    {name:'新品频率',en:'New Products',weight:46,type:'light'},
+    {name:'库存深度',en:'Inventory',weight:44,type:'light'},
+    {name:'数据驱动',en:'Data Driven',weight:42,type:'hot'},
+    {name:'定价弹性',en:'Elasticity',weight:40,type:'light'},
+    {name:'差异化卖点',en:'USP',weight:38,type:'light'},
+    {name:'客户生命周期',en:'CLV',weight:36,type:'light'}
+  ];
+
+  const container = document.getElementById('demandGraph');
+  if (!container) return;
+
+  const W = container.offsetWidth || 900;
+  const H = container.offsetHeight || 550;
+  const cx = W * 0.5;
+  const cy = H * 0.50;
+
+  // Sort by weight descending, interleave left/right for balanced sides
+  const sorted = [...factors].sort((a, b) => b.weight - a.weight);
+  const leftFactors = [], rightFactors = [];
+  sorted.forEach((f, i) => { i % 2 === 0 ? leftFactors.push(f) : rightFactors.push(f); });
+
+  // 3 concentric rings: closer = higher weight
+  const rings = [
+    { r: 110, leftAngles: [155,205], rightAngles: [-25,25] },
+    { r: 210, leftAngles: [145,215], rightAngles: [-35,35] },
+    { r: 300, leftAngles: [135,225], rightAngles: [-45,45] }
+  ];
+
+  const perRing = 5;
+
+  function place(sideFactors, side, rings) {
+    let fi = 0;
+    rings.forEach((ring) => {
+      const [aStart, aEnd] = side === 'left' ? ring.leftAngles : ring.rightAngles;
+      const span = aEnd - aStart;
+      for (let j = 0; j < perRing && fi < sideFactors.length; j++, fi++) {
+        const f = sideFactors[fi];
+        const deg = aStart + (j / (perRing - 1)) * span;
+        const rad = deg * Math.PI / 180;
+        const x = cx + Math.cos(rad) * ring.r;
+        const y = cy + Math.sin(rad) * ring.r;
+
+        // Factor dot + label
+        const el = document.createElement('div');
+        el.className = 'dg-factor';
+        el.style.cssText = `left:${x}px;top:${y}px;`;
+        el.innerHTML = `<div class="dg-dot ${f.type}"></div><span class="dg-label">${f.name}</span>`;
+        el.title = `${f.name} (${f.en}) · 权重: ${f.weight}`;
+        container.appendChild(el);
+      }
+    });
+  }
+
+  place(leftFactors, 'left', rings);
+  place(rightFactors, 'right', rings);
+})();
+</script>
+</body>
+</html>

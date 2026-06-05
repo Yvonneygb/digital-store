@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字化门店 — 阻碍剖析 &amp; 机会转化矩阵 &amp; 推广地图</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-serif;-webkit-font-smoothing:antialiased;line-height:1.6}
+
+/* ===== AUTH GATE ===== */
+.auth-gate{position:fixed;inset:0;background:#fff;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:2rem;transition:opacity .4s ease,visibility .4s ease}
+.auth-gate.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.auth-logo{font-size:2rem;font-weight:900;background:linear-gradient(135deg,#6D4AFF,rgba(109,74,255,0.7));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.auth-card{background:#fff;border-radius:1rem;box-shadow:0 20px 60px rgba(109,74,255,.1);padding:2.5rem;text-align:center;max-width:400px;width:90%}
+.auth-title{font-size:1.25rem;font-weight:700;color:#1a1a2e;margin-bottom:.5rem}
+.auth-sub{font-size:.8125rem;color:#9ca3af;margin-bottom:1.5rem}
+.auth-input{width:100%;padding:.75rem 1rem;border:2px solid #e5e7eb;border-radius:.75rem;font-size:1rem;text-align:center;outline:none;transition:border-color .2s;letter-spacing:.15em}
+.auth-input:focus{border-color:#6D4AFF}
+.auth-btn{width:100%;padding:.75rem;background:#6D4AFF;color:#fff;border:none;border-radius:.75rem;font-size:1rem;font-weight:600;cursor:pointer;transition:background .2s;margin-top:1rem}
+.auth-btn:hover{background:#5a3dd9}
+.auth-error{font-size:.75rem;color:#ef4444;margin-top:.5rem;min-height:1rem}
+.auth-hint{font-size:.75rem;color:#d1d5db;margin-top:1rem}
+.auth-hint span{color:#6D4AFF;font-weight:500;cursor:pointer}
+
+.tg{color:#6D4AFF}
+.tg-bg{background:rgba(109,74,255,0.08)}
+.glass{background:rgba(255,255,255,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(109,74,255,0.08);border-radius:1rem}
+.card{transition:transform .4s cubic-bezier(.16,1,.3,1),box-shadow .4s ease}
+.card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(109,74,255,.12)}
+.container{max-width:90rem;margin:0 auto;padding:0 1.5rem}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1.5rem;position:relative;overflow:hidden}
+.hero-content{position:relative;z-index:10;text-align:center;max-width:56rem}
+.badge{display:inline-flex;align-items:center;gap:.5rem;padding:.375rem 1rem;border-radius:9999px;font-size:.75rem;font-weight:500;background:rgba(109,74,255,0.08);color:#6D4AFF;border:1px solid rgba(109,74,255,0.15)}
+.hero-title{font-size:clamp(2.5rem,6vw,5rem);font-weight:900;letter-spacing:-.02em;line-height:1.1}
+.tg-gradient{background:linear-gradient(135deg,#6D4AFF,rgba(109,74,255,0.7));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:clamp(.875rem,1.25vw,1.25rem);color:#6b7280;font-weight:300}
+.section-title{font-size:1.5rem;font-weight:900}
+.label{font-size:.625rem;color:#9ca3af;letter-spacing:.05em}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:36rem;margin:0 auto}
+.stat-num{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;color:#6D4AFF;font-variant-numeric:tabular-nums}
+.stat-label{font-size:.875rem;color:#6b7280;font-weight:500}
+.divider{display:flex;align-items:center;gap:1rem}
+.divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(109,74,255,0.2),transparent)}
+.divider-text{font-size:.625rem;font-weight:500;letter-spacing:.05em;color:#6D4AFF}
+.two-col{display:grid;grid-template-columns:1fr;gap:2rem;position:relative}
+.col-header{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem}
+.icon-box{width:2.5rem;height:2.5rem;border-radius:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.curved-arrow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:20;pointer-events:none;display:none}
+.curved-arrow svg{width:120px;height:80px}
+.arrow-path{fill:none;stroke:url(#arrowGrad);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:8 4;animation:dashFlow 2s linear infinite}
+.arrow-head{fill:#6D4AFF}
+@keyframes dashFlow{to{stroke-dashoffset:-24}}
+.card-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+footer article{padding:1.25rem}
+.card-grid article{padding:1.5rem!important}
+.article-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.75rem}
+.article-icon{width:2.5rem;height:2.5rem;border-radius:.75rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tag{font-size:.625rem;font-family:monospace;color:#d1d5db;letter-spacing:.1em}
+.article-title{font-weight:700;font-size:1rem;color:#1a1a2e;margin-bottom:.25rem;line-height:1.35}
+.article-subtitle{font-size:.625rem;color:#9ca3af;letter-spacing:.05em;margin-bottom:.75rem}
+.bullet-list{display:flex;flex-direction:column;gap:.375rem;font-size:.75rem;color:#6b7280}
+.bullet-item{display:flex;align-items:flex-start;gap:.5rem}
+.bullet-dot{width:.25rem;height:.25rem;border-radius:50%;margin-top:.375rem;flex-shrink:0;background:#6D4AFF;opacity:0.4}
+.check-icon{font-size:8px;margin-top:.25rem;flex-shrink:0;color:#6D4AFF}
+.progress-bar{margin-top:1rem;padding-top:.75rem;border-top:1px solid #f3f4f6;display:flex;align-items:center;gap:.5rem;font-size:.625rem;color:#9ca3af}
+.progress-track{flex:1;height:.25rem;border-radius:9999px;background:#f3f4f6;overflow:hidden}
+.progress-fill{height:100%;border-radius:9999px}
+.progress-val{font-family:monospace;font-weight:500;color:#6D4AFF}
+.chart-grid{display:grid;grid-template-columns:1fr;gap:1.5rem}
+.chart-card{padding:1.5rem}
+.chart-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}
+.chart-title{font-size:1.125rem;font-weight:700;color:#1a1a2e;margin-bottom:.25rem}
+.chart-wrap{position:relative;width:100%;height:280px}
+.chart-labels{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem;padding-top:1rem;border-top:1px solid rgba(109,74,255,0.1)}
+.chart-label-item{display:flex;align-items:center;gap:.375rem;padding:.25rem .5rem;background:rgba(109,74,255,0.04);border-radius:.375rem;border:1px solid rgba(109,74,255,0.08)}
+.chart-label-text{font-size:.75rem;color:#1a1a2e;font-weight:500}
+.chart-label-value{width:2.5rem;padding:.125rem .25rem;border:1px solid rgba(109,74,255,0.2);border-radius:.25rem;font-family:monospace;font-size:.75rem;color:#6D4AFF;text-align:center;background:#fff}
+.chart-label-value:focus{outline:none;border-color:#6D4AFF}
+.stat-ring{width:120px;height:120px;border-radius:50%;background:conic-gradient(#6D4AFF var(--pct),rgba(109,74,255,.1) 0);display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
+.stat-ring::after{content:'';position:absolute;width:90px;height:90px;border-radius:50%;background:#fff}
+.stat-ring span{position:relative;z-index:1}
+.insight-box{padding:2rem 2.5rem;position:relative;overflow:hidden}
+.insight-box::before{content:'';position:absolute;right:-5rem;top:-5rem;width:16rem;height:16rem;border-radius:50%;background:radial-gradient(circle,#6D4AFF,transparent 70%);opacity:0.06}
+.insight-inner{position:relative;z-index:10}
+.insight-row{display:flex;flex-direction:column;gap:1.5rem}
+.insight-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.25rem .75rem;border-radius:9999px;margin-bottom:1rem;font-size:.625rem;font-weight:500;color:#6D4AFF;background:rgba(109,74,255,0.08);border:1px solid rgba(109,74,255,0.15)}
+.insight-title{font-size:clamp(1.25rem,2vw,1.875rem);font-weight:900;color:#1a1a2e;line-height:1.3}
+.insight-tags{margin-top:2rem;padding-top:1.5rem;border-top:1px solid #f3f4f6;display:flex;flex-wrap:wrap;gap:1rem;font-size:.625rem;color:#9ca3af}
+.tag-item{display:flex;align-items:center;gap:.5rem}
+.map-section{padding:4rem 0;background:linear-gradient(180deg,#FAFAFC 0%,rgba(109,74,255,0.03) 100%)}
+.map-container{position:relative;width:100%;height:650px;background:#fff;border-radius:1rem;overflow:hidden;box-shadow:0 4px 20px rgba(109,74,255,0.08)}
+.map-layout{display:flex;gap:1.5rem;align-items:stretch}
+.map-left{flex:0 0 65%;min-width:0}
+.map-right{flex:1;display:flex;flex-direction:column;min-width:0}
+.rank-card{background:#fff;border-radius:1rem;padding:1.25rem 1.25rem 3rem 1.25rem;box-shadow:0 2px 12px rgba(109,74,255,0.06);flex:1;max-height:650px;overflow-y:auto}
+.rank-card::-webkit-scrollbar{width:4px}
+.rank-card::-webkit-scrollbar-track{background:transparent}
+.rank-card::-webkit-scrollbar-thumb{background:rgba(109,74,255,0.15);border-radius:2px}
+.rank-title{font-size:.75rem;font-weight:700;color:#6D4AFF;letter-spacing:.05em;margin-bottom:1rem}
+.rank-item{display:flex;align-items:center;gap:.5rem;padding:.5rem .25rem;border-radius:.5rem;transition:background .2s;cursor:pointer}
+.rank-item:hover{background:rgba(109,74,255,0.04)}
+.rank-medal{font-size:.75rem;flex-shrink:0;width:1.5rem;text-align:center}
+.rank-num{width:1.25rem;height:1.25rem;border-radius:.25rem;display:flex;align-items:center;justify-content:center;font-size:.625rem;font-weight:700;color:#9ca3af;background:rgba(109,74,255,0.06);flex-shrink:0}
+.rank-name{font-size:.75rem;font-weight:600;color:#1a1a2e;min-width:2.5rem;flex-shrink:0}
+.rank-bar{flex:1;height:.35rem;border-radius:9999px;background:#f3f4f6;overflow:hidden;position:relative}
+.rank-fill{height:100%;border-radius:9999px;background:linear-gradient(90deg,#6D4AFF,rgba(109,74,255,0.4));will-change:width}
+.rank-val{font-size:.6875rem;font-family:monospace;color:#6D4AFF;font-weight:600;min-width:2.25rem;text-align:right;flex-shrink:0}
+.map-svg{position:absolute;inset:0;width:100%;height:100%}
+.map-center{fill:#6D4AFF}
+.china-outline{fill:rgba(109,74,255,0.025);stroke:#D1D5DB;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
+.province-border{fill:none;stroke:rgba(109,74,255,0.29);stroke-width:1.2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:3 4}
+.map-city{fill:#fff;stroke:#6D4AFF;stroke-width:2;cursor:pointer;transition:fill .3s ease}
+.map-city:hover{fill:#6D4AFF}
+.map-line-anim{fill:none;stroke:#6D4AFF;stroke-width:2;stroke-linecap:round;opacity:0.6}
+.map-tooltip{position:absolute;padding:1rem;background:#fff;border-radius:.75rem;box-shadow:0 10px 40px rgba(0,0,0,0.15);opacity:0;transition:opacity .3s;z-index:100;min-width:200px;pointer-events:auto}
+.map-tooltip.visible{opacity:1}
+.tooltip-city{font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:.5rem}
+.tooltip-info{font-size:.75rem;color:#6b7280;margin-bottom:.25rem}
+.tooltip-btn{display:inline-block;margin-top:.75rem;padding:.5rem 1rem;background:#6D4AFF;color:#fff;font-size:.75rem;font-weight:500;border-radius:.5rem;cursor:pointer;transition:background .2s}
+.tooltip-btn:hover{background:#5a3dd9}
+.map-legend{position:absolute;bottom:1rem;right:1rem;display:flex;gap:1rem;font-size:.625rem;color:#9ca3af;background:rgba(255,255,255,0.9);padding:.5rem .75rem;border-radius:.5rem}
+.legend-dot{display:flex;align-items:center;gap:.25rem}
+.legend-center{width:.5rem;height:.5rem;border-radius:50%;background:#6D4AFF}
+.carousel-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:1000;display:none;align-items:center;justify-content:center;perspective:1200px}
+.carousel-overlay.active{display:flex}
+.carousel-3d{position:relative;width:80vw;max-width:900px;height:500px;transform-style:preserve-3d}
+.carousel-item{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .7s ease;backface-visibility:hidden;transform-origin:center center}
+.carousel-item img{max-width:100%;max-height:100%;object-fit:contain;border-radius:.75rem;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.carousel-item.active{z-index:10;transform:translateZ(0) scale(1);opacity:1}
+.carousel-item.prev{z-index:5;transform:translateX(-120%) rotateY(30deg) scale(.7);opacity:.3}
+.carousel-item.next{z-index:5;transform:translateX(120%) rotateY(-30deg) scale(.7);opacity:.3}
+.carousel-item.far-prev{z-index:1;transform:translateX(-200%) rotateY(45deg) scale(.4);opacity:0}
+.carousel-item.far-next{z-index:1;transform:translateX(200%) rotateY(-45deg) scale(.4);opacity:0}
+.carousel-ctrl{position:absolute;top:50%;transform:translateY(-50%);width:3rem;height:3rem;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.25rem;cursor:pointer;transition:background .2s;z-index:20}
+.carousel-ctrl:hover{background:rgba(255,255,255,0.2)}
+.carousel-prev{left:1rem}
+.carousel-next{right:1rem}
+.carousel-close{position:absolute;top:1.5rem;right:1.5rem;width:2.5rem;height:2.5rem;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;transition:background .2s;z-index:20}
+.carousel-close:hover{background:rgba(255,255,255,0.2)}
+.carousel-dots{position:absolute;bottom:-2.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem}
+.carousel-dot{width:.5rem;height:.5rem;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer;transition:background .2s}
+.carousel-dot.active{background:#6D4AFF}
+.carousel-counter{position:absolute;top:-2rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:.75rem;font-family:monospace}
+.site-footer{border-top:1px solid #f3f4f6;padding:2rem 1.5rem;text-align:center;font-size:.625rem;color:#9ca3af}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.float-anim{animation:floatY 6s ease-in-out infinite}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 20px rgba(109,74,255,.3)}50%{box-shadow:0 0 40px rgba(109,74,255,.6)}}
+.pulse-anim{animation:pulseGlow 3s ease-in-out infinite}
+.scroll-hint{margin-top:4rem}
+.scroll-box{width:1.5rem;height:2.5rem;border-radius:9999px;border:2px solid #d1d5db;margin:0 auto;display:flex;align-items:flex-start;justify-content:center;padding:.375rem}
+.scroll-dot{width:.375rem;height:.75rem;border-radius:9999px;background:#6D4AFF}
+.scroll-label{font-size:.625rem;color:#9ca3af;margin-top:.75rem}
+@media(min-width:640px){.card-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:768px){.insight-row{flex-direction:row;align-items:center}.arrow-down{display:none!important}.arrow-right{display:block!important}}
+@media(min-width:1024px){.two-col{grid-template-columns:1fr 1fr;gap:5rem}.chart-grid{grid-template-columns:1fr 1fr 1fr}.curved-arrow{display:block}}
+@media(max-width:768px){.carousel-ctrl{width:2rem;height:2rem;font-size:.875rem}.carousel-prev{left:.5rem}.carousel-next{right:.5rem}.carousel-item.prev{transform:translateX(-60%) rotateY(20deg) scale(.6)}.carousel-item.next{transform:translateX(60%) rotateY(-20deg) scale(.6)}.map-layout{flex-direction:column}.map-left{flex:none;width:100%}.map-right{width:100%}.rank-card{max-height:300px}}
+</style>
+</head>
+<body>
+
+<!-- ===== AUTH GATE ===== -->
+<div class="auth-gate" id="authGate">
+  <div class="auth-logo">数字化门店</div>
+  <div class="auth-card">
+    <div class="auth-title"><i class="fa-solid fa-lock tg" style="margin-right:.5rem"></i>访问验证</div>
+    <div class="auth-sub">请输入访问密码以查看完整内容<br>密码请通过授权渠道获取</div>
+    <input type="text" class="auth-input" id="authInput" placeholder="输入密码" maxlength="20" autocomplete="off">
+    <button class="auth-btn" id="authBtn"><i class="fa-solid fa-arrow-right-to-bracket" style="margin-right:.375rem"></i>验证进入</button>
+    <div class="auth-error" id="authError"></div>
+    <div class="auth-hint">密码由管理员分发 · <span id="forgotLink">忘记密码？联系管理员</span></div>
+  </div>
+</div>
+
+<script>
+// ===== AUTH GATE LOGIC =====
+(function(){
+  // Set your password here — change before deploying
+  var ACCESS_PASSWORD = 'digital2026';
+  
+  var gate = document.getElementById('authGate');
+  var input = document.getElementById('authInput');
+  var btn = document.getElementById('authBtn');
+  var error = document.getElementById('authError');
+  
+  try {
+    var stored = sessionStorage.getItem('_dauth');
+    if (stored === btoa(ACCESS_PASSWORD + ':verified')) {
+      gate.classList.add('hidden');
+      return;
+    }
+  } catch(e) {}
+  
+  function verify(){
+    var pw = input.value.trim();
+    if (!pw) { error.textContent = '请输入密码'; return; }
+    if (pw !== ACCESS_PASSWORD) {
+      error.textContent = '密码错误，请重试';
+      input.value = '';
+      input.focus();
+      return;
+    }
+    error.textContent = '';
+    sessionStorage.setItem('_dauth', btoa(ACCESS_PASSWORD + ':verified'));
+    gate.classList.add('hidden');
+  }
+  
+  btn.addEventListener('click', verify);
+  input.addEventListener('keydown', function(e){ if(e.key==='Enter') verify(); });
+  document.getElementById('forgotLink').addEventListener('click', function(){
+    error.textContent = '请联系页面管理员获取访问密码';
+  });
+})();
+</script>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <div class="hero-content reveal">
+    <div class="badge"><i class="fa-solid fa-shop" style="font-size:10px"></i> 数字化转型分析</div>
+    <h1 class="hero-title"><span style="display:block">数字化门店</span><span class="tg-gradient" style="display:block;margin-top:.25rem">阻碍剖析</span></h1>
+    <p class="hero-sub" style="max-width:32rem;margin:.75rem auto 0">阻碍剖析 <span class="tg" style="font-weight:500">&amp;</span> 机会转化矩阵</p>
+    <div style="height:2px;width:8rem;margin:2.5rem auto;background:linear-gradient(90deg,transparent,rgba(109,74,255,0.3),transparent)"></div>
+    <div class="stats">
+      <div class="text-center"><div class="stat-num">12</div><div class="label" style="margin-top:.375rem">核心顾虑</div><div class="stat-label" style="margin-top:.25rem">经销商顾虑条目</div></div>
+      <div class="text-center"><div class="stat-num">4</div><div class="label" style="margin-top:.375rem">阻碍类别</div><div class="stat-label" style="margin-top:.25rem">分类归纳</div></div>
+      <div class="text-center"><div class="stat-num">20+</div><div class="label" style="margin-top:.375rem">价值主张</div><div class="stat-label" style="margin-top:.25rem">机会匹配</div></div>
+      <div class="text-center"><div class="stat-num">20</div><div class="label" style="margin-top:.375rem">覆盖城市</div><div class="stat-label" style="margin-top:.25rem">全国推广</div></div>
+    </div>
+    <div class="scroll-hint float-anim"><div class="scroll-box"><div class="scroll-dot pulse-anim"></div></div><p class="scroll-label">滚动探索</p></div>
+  </div>
+</header>
+
+<main class="container" style="padding-bottom:4rem">
+
+  <div class="divider reveal" style="margin-bottom:4rem">
+    <div class="divider-line"></div>
+    <div class="divider-text"><i class="fa-solid fa-circle" style="font-size:6px;vertical-align:middle;margin-right:.5rem"></i>阻碍 → 机会转化</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="two-col reveal" style="margin-bottom:6rem">
+    <div class="curved-arrow">
+      <svg viewBox="0 0 120 80">
+        <defs><linearGradient id="arrowGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#6D4AFF;stop-opacity:0.3"/><stop offset="50%" style="stop-color:#6D4AFF;stop-opacity:1"/><stop offset="100%" style="stop-color:#6D4AFF;stop-opacity:0.3"/></linearGradient></defs>
+        <path class="arrow-path" d="M5,40 Q60,10 115,40"/>
+        <polygon class="arrow-head" points="105,35 115,40 105,45"/>
+      </svg>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;font-size:.625rem;color:#6D4AFF;font-weight:500;background:rgba(255,255,255,0.9);padding:.25rem .5rem;border-radius:.25rem;border:1px solid rgba(109,74,255,0.2)">转化</div>
+    </div>
+
+    <section>
+      <div class="col-header"><div class="icon-box tg-bg"><i class="fa-solid fa-lock tg"></i></div><div><h2 class="section-title">阻碍分析</h2><p class="label" style="margin-top:.125rem">经销商采纳阻力点</p></div></div>
+      <div class="card-grid">
+        <article class="glass card reveal reveal-delay-1">
+          <div class="article-header"><div class="article-icon tg-bg"><i class="fa-solid fa-magnifying-glass-chart tg" style="font-size:.875rem"></i></div><span class="tag">B1</span></div>
+          <h3 class="article-title">价值感知断层</h3><p class="article-subtitle">VALUE PERCEPTION GAP</p>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot"></div><span>旧系统数据完整，换系统理由不充分</span></div>
+            <div class="bullet-item"><div class="bullet-dot"></div><span>换系统能带来什么可量化好处？</span></div>
+            <div class="bullet-item"><div class="bullet-dot"></div><span>旧系统稳定可靠，新系统风险未知</span></div>
+            <div class="bullet-item"><div class="bullet-dot"></div><span>看不清ROI，决策缺乏动力</span></div>
+          </div>
+          <div class="progress-bar"><span>影响度</span><div class="progress-track"><div class="progress-fill" style="width:85%;background:#6D4AFF;opacity:.7"></div></div><span class="progress-val">85%</span></div>
+        </article>
+        <article class="glass card reveal reveal-delay-2">
+          <div class="article-header"><div class="article-icon tg-bg"><i class="fa-solid fa-arrows-rotate tg" style="font-size:.875rem"></i></div><span class="tag">B2</span></div>
+          <h3 class="article-title">切换风险与成本</h3><p class="article-subtitle">MIGRATION RISK & COST</p>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot"></div><span>学习成本高，培训能否跟上？</span></div>
+            <div class="bullet-item"><div class="bullet-dot"></div><span>切换周期长，期间业务会中断吗？</span></div>
+            <div class="bullet-item"><div class="bullet-dot"></div><span>切换 SOP 是否成熟可落地？</span></div>
+            <div class="bullet-item"><div class="bullet-dot"></div><span>赋能支持是否到位？会不会不了了之？</span></div>
+          </div>
+          <div class="progress-bar"><span>影响度</span><div class="progress-track"><div class="progress-fill" style="width:90%;background:#6D4AFF;opacity:.7"></div></div><span class="progress-val">90%</span></div>
+        </article>
+        <article class="glass card reveal reveal-delay-3">
+          <div class="article-header"><div class="article-icon tg-bg"><i class="fa-solid fa-shield-halved tg" style="font-size:.875rem"></i></div><span class="tag">B3</span></div>
+          <h3 class="article-title">安全与自主权顾虑</h3><p class="article-subtitle">SECURITY & AUTONOMY</p>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot"></div><span>私域客户资产会否被泄露/分流？</span></div>
+            <div class="bullet-item"><div class="bullet-dot"></div><span>下级分销商会被总部直接抢占吗？</span></div>
+            <div class="bullet-item"><div class="bullet-dot"></div><span>经营自主权会否被削弱（强管控）？</span></div>
+            <div class="bullet-item"><div class="bullet-dot"></div><span>多品牌统一管理，现有模式被打乱</span></div>
+          </div>
+          <div class="progress-bar"><span>影响度</span><div class="progress-track"><div class="progress-fill" style="width:80%;background:#6D4AFF;opacity:.7"></div></div><span class="progress-val">80%</span></div>
+        </article>
+        <article class="glass card reveal reveal-delay-4">
+          <div class="article-header"><div class="article-icon tg-bg"><i class="fa-solid fa-people-arrows tg" style="font-size:.875rem"></i></div><span class="tag">B4</span></div>
+          <h3 class="article-title">竞争焦虑与恐惧心理</h3><p class="article-subtitle">COMPETITIVE ANXIETY</p>
+          <div class="bullet-list">
+            <div class="bullet-item"><div class="bullet-dot"></div><span>同行用新系统会带来什么威胁？</span></div>
+            <div class="bullet-item"><div class="bullet-dot"></div><span>同行能否更早下订单、优先提货？</span></div>
+            <div class="bullet-item"><div class="bullet-dot"></div><span>同行获更好营销资料，拉大业绩差距</span></div>
+            <div class="bullet-item"><div class="bullet-dot"></div><span>不进则退的焦虑，但又怕换错</span></div>
+          </div>
+          <div class="progress-bar"><span>影响度</span><div class="progress-track"><div class="progress-fill" style="width:75%;background:#6D4AFF;opacity:.7"></div></div><span class="progress-val">75%</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="col-header"><div class="icon-box" style="background:rgba(109,74,255,0.12)"><i class="fa-solid fa-rocket tg"></i></div><div><h2 class="section-title">机会转化</h2><p class="label" style="margin-top:.125rem">战略价值主张</p></div></div>
+      <div class="card-grid">
+        <article class="glass card reveal reveal-delay-1" style="border-left:3px solid rgba(109,74,255,0.3)">
+          <div class="article-header"><div class="article-icon" style="background:rgba(109,74,255,0.12)"><i class="fa-solid fa-coins tg" style="font-size:.875rem"></i></div><span class="tag">O1</span></div>
+          <h3 class="article-title">降本增效</h3><p class="article-subtitle">COST REDUCTION & EFFICIENCY</p>
+          <div class="bullet-list">
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>系统合并，减少多平台 IT 支出</span></div>
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>自动化工具大幅减轻日常工作量</span></div>
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>统一管理多品牌，告别多头操作</span></div>
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>一套系统解决门店全链路管理</span></div>
+          </div>
+          <div class="progress-bar"><span>价值度</span><div class="progress-track"><div class="progress-fill" style="width:88%;background:linear-gradient(90deg,#6D4AFF,rgba(109,74,255,0.4))"></div></div><span class="progress-val">88%</span></div>
+        </article>
+        <article class="glass card reveal reveal-delay-2" style="border-left:3px solid rgba(109,74,255,0.3)">
+          <div class="article-header"><div class="article-icon" style="background:rgba(109,74,255,0.12)"><i class="fa-solid fa-chart-line tg" style="font-size:.875rem"></i></div><span class="tag">O2</span></div>
+          <h3 class="article-title">业绩增长引擎</h3><p class="article-subtitle">GROWTH ENGINE</p>
+          <div class="bullet-list">
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>数据驱动决策，精准提升门店业绩</span></div>
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>更早获取计划与货源，提货优先</span></div>
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>客户线索精准分配，提升转化率</span></div>
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>实时经营数据可视化，智能预警</span></div>
+          </div>
+          <div class="progress-bar"><span>价值度</span><div class="progress-track"><div class="progress-fill" style="width:95%;background:linear-gradient(90deg,#6D4AFF,rgba(109,74,255,0.4))"></div></div><span class="progress-val">95%</span></div>
+        </article>
+        <article class="glass card reveal reveal-delay-3" style="border-left:3px solid rgba(109,74,255,0.3)">
+          <div class="article-header"><div class="article-icon" style="background:rgba(109,74,255,0.12)"><i class="fa-solid fa-share-nodes tg" style="font-size:.875rem"></i></div><span class="tag">O3</span></div>
+          <h3 class="article-title">营销生态赋能</h3><p class="article-subtitle">MARKETING ECOSYSTEM</p>
+          <div class="bullet-list">
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>自动分发小红书、视频号等营销内容</span></div>
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>获取总部级营销素材与视频资源</span></div>
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>AI 智能生成个性化营销方案</span></div>
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>行业标杆案例共享，快速复制成功</span></div>
+          </div>
+          <div class="progress-bar"><span>价值度</span><div class="progress-track"><div class="progress-fill" style="width:82%;background:linear-gradient(90deg,#6D4AFF,rgba(109,74,255,0.4))"></div></div><span class="progress-val">82%</span></div>
+        </article>
+        <article class="glass card reveal reveal-delay-4" style="border-left:3px solid rgba(109,74,255,0.3)">
+          <div class="article-header"><div class="article-icon" style="background:rgba(109,74,255,0.12)"><i class="fa-solid fa-life-ring tg" style="font-size:.875rem"></i></div><span class="tag">O4</span></div>
+          <h3 class="article-title">服务保障体系</h3><p class="article-subtitle">SERVICE ASSURANCE</p>
+          <div class="bullet-list">
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>成熟 SOP，清晰时间节点与里程碑</span></div>
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>历史数据无缝迁移，零丢失保障</span></div>
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>分阶段切换，业务平滑过渡</span></div>
+            <div class="bullet-item"><i class="fa-solid fa-check check-icon"></i><span>持续迭代升级，越用越好的系统</span></div>
+          </div>
+          <div class="progress-bar"><span>价值度</span><div class="progress-track"><div class="progress-fill" style="width:86%;background:linear-gradient(90deg,#6D4AFF,rgba(109,74,255,0.4))"></div></div><span class="progress-val">86%</span></div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <div class="reveal" style="margin-bottom:6rem">
+    <div class="divider" style="margin-bottom:3rem"><div class="divider-line"></div><div class="divider-text"><i class="fa-solid fa-chart-pie" style="font-size:10px;margin-right:.5rem"></i>数据可视化</div><div class="divider-line"></div></div>
+    <div class="chart-grid">
+      <div class="glass chart-card">
+        <div class="chart-header"><i class="fa-solid fa-chart-radar tg" style="font-size:.625rem"></i><span style="font-size:.625rem;font-weight:500;color:#6b7280">阻碍影响指数</span></div>
+        <h3 class="chart-title">阻碍影响指数</h3><p class="label" style="margin-bottom:1rem">按类别影响指数</p>
+        <div class="chart-wrap"><canvas id="radarChart"></canvas></div>
+      </div>
+      <div class="glass chart-card">
+        <div class="chart-header"><i class="fa-solid fa-chart-bar tg" style="font-size:.625rem"></i><span style="font-size:.625rem;font-weight:500;color:#6b7280">机会价值评分</span></div>
+        <h3 class="chart-title">机会价值评分</h3><p class="label" style="margin-bottom:1rem">机会价值评估</p>
+        <div class="chart-wrap"><canvas id="barChart"></canvas></div>
+      </div>
+      <div class="glass chart-card" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center">
+        <div style="position:relative;margin-bottom:1rem"><div class="stat-ring" style="--pct:72%"><span style="font-size:2.25rem;font-weight:900;color:#6D4AFF">72<span style="font-size:1.125rem">%</span></span></div></div>
+        <h3 class="chart-title">破局转化率</h3><p class="label" style="margin-top:.25rem;margin-bottom:1rem">转化潜力</p>
+        <p style="font-size:.75rem;color:#6b7280;max-width:12.5rem;line-height:1.6">当价值感知与保障体系同时到位，<br><span class="tg" style="font-weight:600">72%</span> 的顾虑可被有效化解</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="glass insight-box reveal" style="margin-bottom:4rem">
+    <div class="insight-inner">
+      <div class="insight-row"><div style="flex:1"><div class="insight-badge"><i class="fa-solid fa-lightbulb" style="font-size:10px"></i> 核心洞察</div><h2 class="insight-title">阻碍根源 <span class="tg">=</span> 价值感知不清 <span class="tg">+</span> 切换成本恐惧 <span class="tg">+</span> 自主权焦虑</h2></div><i class="fa-solid fa-arrow-right tg arrow-right" style="font-size:1.875rem;opacity:.5;display:none"></i><i class="fa-solid fa-arrow-down tg arrow-down" style="font-size:1.5rem;opacity:.5"></i><div style="flex:1"><h2 class="insight-title">破局关键 <span class="tg">=</span> 可量化 ROI <span class="tg">+</span> 成熟 SOP 保障 <span class="tg">+</span> 标杆案例背书</h2></div></div>
+      <div class="insight-tags"><div class="tag-item"><i class="fa-solid fa-circle-check tg"></i> 可量化ROI</div><div class="tag-item"><i class="fa-solid fa-circle-check tg"></i> 成熟SOP</div><div class="tag-item"><i class="fa-solid fa-circle-check tg"></i> 标杆案例</div><div class="tag-item"><i class="fa-solid fa-circle-check tg"></i> 无缝迁移</div><div class="tag-item"><i class="fa-solid fa-circle-check tg"></i> 持续支持</div></div>
+    </div>
+  </div>
+
+  <div class="map-section reveal" id="mapSection">
+    <div class="container">
+      <div class="divider" style="margin-bottom:3rem"><div class="divider-line"></div><div class="divider-text"><i class="fa-solid fa-map-location-dot" style="font-size:10px;margin-right:.5rem"></i>全国推广地图</div><div class="divider-line"></div></div>
+      <h2 class="section-title text-center" style="margin-bottom:.5rem">数字化门店全国推广地图</h2>
+      <p class="label text-center" style="margin-bottom:2rem">覆盖全国 20 座核心城市</p>
+      <div class="map-layout">
+        <div class="map-left">
+        <div class="map-container" id="mapContainer">
+        <svg class="map-svg" id="mapSvg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#6D4AFF;stop-opacity:0.9"/><stop offset="100%" style="stop-color:#6D4AFF;stop-opacity:0.15"/></linearGradient>
+            <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          </defs>
+          <path class="china-outline" id="chinaOutline" d=""/>
+          <g class="province-borders">
+            <path class="province-border" d="M505,145 L505,170 L510,170 L505,145 Z"/><path class="province-border" d="M520,115 L530,125 L540,115 L530,100 Z"/><path class="province-border" d="M480,168 L490,190 L500,210 L510,225 L490,240 L470,250 L460,255 L450,265"/><path class="province-border" d="M480,155 L470,175 L480,190 L500,210 L510,225 L500,230 L480,235 L465,245 L450,260 L440,270"/><path class="province-border" d="M510,225 L505,180 L495,165 L480,168"/><path class="province-border" d="M440,270 L480,270 L510,280 L530,280 L510,305 L490,305 L480,295 L450,285"/><path class="province-border" d="M480,295 L500,285 L510,305 L520,310 L490,320 L470,315 L480,295"/><path class="province-border" d="M490,320 L520,310 L530,280 L510,305"/><path class="province-border" d="M490,320 L510,340 L520,355 L500,365 L490,365 L470,350"/><path class="province-border" d="M470,350 L490,365 L480,380 L470,390 L450,395 L440,380 L455,375 L470,350"/><path class="province-border" d="M450,395 L470,390 L490,380 L500,370 L510,360 L520,370 L510,380 L500,390 L490,415 L470,410 L450,395"/><path class="province-border" d="M440,380 L455,375 L440,370 L425,365 L415,370 L405,380 L385,405 L380,415 L440,380"/><path class="province-border" d="M385,405 L375,390 L355,380 L330,370 L310,390 L320,400 L350,410 L385,405"/><path class="province-border" d="M310,390 L330,360 L350,355 L355,340 L340,320 L320,310 L300,315 L280,330 L290,350 L310,380"/><path class="province-border" d="M340,320 L355,355 L350,370 L340,375 L320,360 L300,340 L280,330 L290,310 L310,300"/><path class="province-border" d="M340,320 L355,300 L370,280 L390,290 L400,300 L410,305 L430,310 L415,345"/><path class="province-border" d="M430,310 L440,270 L450,260 L460,250 L470,265 L490,275 L500,270 L480,250 L460,240 L440,250"/><path class="province-border" d="M430,310 L460,320 L470,330 L480,340 L475,350 L450,355 L415,345"/><path class="province-border" d="M475,350 L470,330 L480,340 L490,350 L500,365 L490,380 L480,375 L475,350"/><path class="province-border" d="M375,280 L370,260 L360,250 L350,260 L345,280 L355,300 L370,280"/><path class="province-border" d="M370,260 L380,240 L390,230 L400,220 L420,230 L430,240 L440,250 L450,260"/><path class="province-border" d="M380,240 L370,250 L350,240 L330,230 L310,220 L290,240 L280,260 L300,270"/><path class="province-border" d="M370,200 L380,220 L400,230 L420,220 L430,200 L420,180 L400,170 L380,165"/><path class="province-border" d="M350,200 L370,220 L380,240 L360,250 L330,240 L310,230 L290,240 L270,235 L250,240 L240,260 L250,270 L270,290"/><path class="province-border" d="M290,240 L270,200 L250,180 L230,170 L210,165 L190,175 L180,190 L190,210 L210,230 L230,250 L250,260"/><path class="province-border" d="M180,190 L160,210 L140,230 L130,260 L135,280 L150,290 L170,285 L190,270 L210,250 L230,230"/><path class="province-border" d="M150,290 L170,285 L190,320 L210,340 L230,350 L240,340 L250,320 L260,300 L270,290"/><path class="province-border" d="M210,230 L190,250 L180,230 L170,210 L150,190 L125,180 L110,175"/>
+          </g>
+          <g id="linesGroup"></g>
+          <g id="citiesGroup"></g>
+          <circle class="map-center" cx="455" cy="380" r="14" filter="url(#glow)">
+            <animate attributeName="r" values="14;18;14" dur="2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="455" cy="380" r="5" fill="#fff" style="pointer-events:none"/>
+          <text x="455" y="412" text-anchor="middle" fill="#6D4AFF" font-size="13" font-weight="700">佛山</text>
+        </svg>
+        <div class="map-tooltip" id="mapTooltip">
+          <div class="tooltip-city" id="tooltipCity"></div>
+          <div class="tooltip-info"><i class="fa-solid fa-store tg" style="margin-right:.25rem"></i>推广门店：<span id="tooltipStores"></span> 家</div>
+          <div class="tooltip-info"><i class="fa-solid fa-chart-area tg" style="margin-right:.25rem"></i>覆盖范围：<span id="tooltipRange"></span> km²</div>
+          <div class="tooltip-btn" id="tooltipBtn"><i class="fa-solid fa-images" style="margin-right:.25rem"></i>查看图册</div>
+        </div>
+        <div class="map-legend"><div class="legend-dot"><div class="legend-center"></div>推广中心</div><div style="display:flex;align-items:center;gap:.25rem"><i class="fa-solid fa-circle" style="font-size:.5rem;color:#6D4AFF"></i>推广城市</div></div>
+      </div>
+        </div>
+        <div class="map-right">
+          <div class="rank-card" id="rankCard">
+            <div class="rank-title"><i class="fa-solid fa-ranking-star" style="margin-right:.375rem"></i>城市排名</div>
+            <div id="rankingList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer reveal">
+  数字化门店转型 — 阻碍剖析 &amp; 机会转化矩阵 &amp; 全国推广地图 <span style="margin:0 .5rem;color:#e5e7eb">|</span> <span class="tg">#6D4AFF</span>
+</footer>
+
+<div class="carousel-overlay" id="carouselOverlay">
+  <div class="carousel-close" id="carouselClose"><i class="fa-solid fa-xmark"></i></div>
+  <div class="carousel-ctrl carousel-prev" id="carouselPrev"><i class="fa-solid fa-chevron-left"></i></div>
+  <div class="carousel-ctrl carousel-next" id="carouselNext"><i class="fa-solid fa-chevron-right"></i></div>
+  <div class="carousel-counter" id="carouselCounter">1 / 1</div>
+  <div class="carousel-3d" id="carousel3d"></div>
+  <div class="carousel-dots" id="carouselDots"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+// CHARTS
+var radarChart = new Chart(document.getElementById('radarChart'),{
+  type:'radar',
+  data:{labels:['价值感知','切换成本','安全顾虑','竞争焦虑'],datasets:[{data:[85,90,80,75],backgroundColor:'rgba(109,74,255,0.12)',borderColor:'#6D4AFF',borderWidth:2,pointBackgroundColor:'#6D4AFF',pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:5,pointHoverRadius:7}]},
+  options:{responsive:true,maintainAspectRatio:false,scales:{r:{beginAtZero:false,min:50,max:100,ticks:{stepSize:10,display:false,backdropColor:'transparent'},pointLabels:{font:{size:11,family:'"Noto Sans SC","Inter",sans-serif'},color:'#666'},grid:{color:'rgba(109,74,255,0.08)'},angleLines:{color:'rgba(109,74,255,0.08)'}}},plugins:{legend:{display:false}}}
+});
+var barChart = new Chart(document.getElementById('barChart'),{
+  type:'bar',
+  data:{labels:['降本增效','业绩增长','营销赋能','服务保障'],datasets:[{data:[88,95,82,86],backgroundColor:['rgba(109,74,255,0.85)','rgba(109,74,255,0.70)','rgba(109,74,255,0.55)','rgba(109,74,255,0.40)'],borderRadius:8,borderSkipped:false,barThickness:32}]},
+  options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',scales:{x:{min:60,max:100,ticks:{font:{size:10},color:'#999',stepSize:10},grid:{color:'rgba(109,74,255,0.05)',drawBorder:false}},y:{ticks:{font:{size:11,family:'"Noto Sans SC","Inter",sans-serif'},color:'#555',padding:8},grid:{display:false}}},plugins:{legend:{display:false}}}
+});
+
+// CHINA MAP OUTLINE
+function a(x,y){return (x*3.2+100)+','+(y*2.8+40)}
+var chinaPoints=[
+  [135,54],[136,54],[131,52],[128,51],[127,49],[125,49],[123,49],[122,48],[122,47],[121,46],[120,47],[120,46],[121,45],[120,44],[120,42],[118,42],[119,40],[120,40],[120,39],[118,38],[118,36],[121,36],[122,35],[122,33],[121,32],[120,31],[118,31],[118,30],[118,29],[120,28],[121,27],[122,28],[123,29],[125,30],[126,31],[126,32],[128,32],[128,33],[127,34],[126,34],[126,35],[125,36],[124,37],[125,38],[126,39],[126,40],[125,43],[124,44],[122,44],[121,45],[122,46],[123,47],[122,48],[123,49],[122,51],[123,52],[124,53],[124,54],[123,54],[121,55],[120,57],[121,59],[122,60],[124,60],[125,58],[127,57],[128,56],[129,56],[130,55],[130,54],[130,53],[131,54],[134,54],[135,54]
+];
+var chinaD='M'+a(chinaPoints[0][0],chinaPoints[0][1]);
+for(var i=1;i<chinaPoints.length;i++) chinaD+=' L'+a(chinaPoints[i][0],chinaPoints[i][1]);
+chinaD+=' Z';
+document.getElementById('chinaOutline').setAttribute('d',chinaD);
+
+// PROMOTION MAP
+var citiesData=[
+  {name:'北京',x:480,y:155,stores:210,range:16410,imgs:['https://picsum.photos/seed/bj1/800/600','https://picsum.photos/seed/bj2/800/600','https://picsum.photos/seed/bj3/800/600','https://picsum.photos/seed/bj4/800/600','https://picsum.photos/seed/bj5/800/600','https://picsum.photos/seed/bj6/800/600']},
+  {name:'上海',x:530,y:280,stores:245,range:6340,imgs:['https://picsum.photos/seed/sh1/800/600','https://picsum.photos/seed/sh2/800/600','https://picsum.photos/seed/sh3/800/600','https://picsum.photos/seed/sh4/800/600','https://picsum.photos/seed/sh5/800/600','https://picsum.photos/seed/sh6/800/600']},
+  {name:'广州',x:440,y:375,stores:187,range:7434,imgs:['https://picsum.photos/seed/gz1/800/600','https://picsum.photos/seed/gz2/800/600','https://picsum.photos/seed/gz3/800/600','https://picsum.photos/seed/gz4/800/600','https://picsum.photos/seed/gz5/800/600','https://picsum.photos/seed/gz6/800/600']},
+  {name:'深圳',x:455,y:390,stores:198,range:1997,imgs:['https://picsum.photos/seed/sz1/800/600','https://picsum.photos/seed/sz2/800/600','https://picsum.photos/seed/sz3/800/600','https://picsum.photos/seed/sz4/800/600','https://picsum.photos/seed/sz5/800/600','https://picsum.photos/seed/sz6/800/600']},
+  {name:'成都',x:340,y:340,stores:165,range:14335,imgs:['https://picsum.photos/seed/cd1/800/600','https://picsum.photos/seed/cd2/800/600','https://picsum.photos/seed/cd3/800/600','https://picsum.photos/seed/cd4/800/600','https://picsum.photos/seed/cd5/800/600','https://picsum.photos/seed/cd6/800/600']},
+  {name:'杭州',x:510,y:305,stores:152,range:16596,imgs:['https://picsum.photos/seed/hz1/800/600','https://picsum.photos/seed/hz2/800/600','https://picsum.photos/seed/hz3/800/600','https://picsum.photos/seed/hz4/800/600','https://picsum.photos/seed/hz5/800/600','https://picsum.photos/seed/hz6/800/600']},
+  {name:'武汉',x:430,y:310,stores:138,range:8494,imgs:['https://picsum.photos/seed/wh1/800/600','https://picsum.photos/seed/wh2/800/600','https://picsum.photos/seed/wh3/800/600','https://picsum.photos/seed/wh4/800/600','https://picsum.photos/seed/wh5/800/600','https://picsum.photos/seed/wh6/800/600']},
+  {name:'南京',x:495,y:285,stores:126,range:6587,imgs:['https://picsum.photos/seed/nj1/800/600','https://picsum.photos/seed/nj2/800/600','https://picsum.photos/seed/nj3/800/600','https://picsum.photos/seed/nj4/800/600','https://picsum.photos/seed/nj5/800/600','https://picsum.photos/seed/nj6/800/600']},
+  {name:'西安',x:375,y:280,stores:118,range:10097,imgs:['https://picsum.photos/seed/xa1/800/600','https://picsum.photos/seed/xa2/800/600','https://picsum.photos/seed/xa3/800/600','https://picsum.photos/seed/xa4/800/600','https://picsum.photos/seed/xa5/800/600','https://picsum.photos/seed/xa6/800/600']},
+  {name:'长沙',x:415,y:345,stores:105,range:11819,imgs:['https://picsum.photos/seed/cs1/800/600','https://picsum.photos/seed/cs2/800/600','https://picsum.photos/seed/cs3/800/600','https://picsum.photos/seed/cs4/800/600','https://picsum.photos/seed/cs5/800/600','https://picsum.photos/seed/cs6/800/600']},
+  {name:'重庆',x:355,y:355,stores:142,range:82400,imgs:['https://picsum.photos/seed/cq1/800/600','https://picsum.photos/seed/cq2/800/600','https://picsum.photos/seed/cq3/800/600','https://picsum.photos/seed/cq4/800/600','https://picsum.photos/seed/cq5/800/600','https://picsum.photos/seed/cq6/800/600']},
+  {name:'天津',x:480,y:168,stores:132,range:11966,imgs:['https://picsum.photos/seed/tj1/800/600','https://picsum.photos/seed/tj2/800/600','https://picsum.photos/seed/tj3/800/600','https://picsum.photos/seed/tj4/800/600','https://picsum.photos/seed/tj5/800/600','https://picsum.photos/seed/tj6/800/600']},
+  {name:'郑州',x:440,y:270,stores:108,range:7446,imgs:['https://picsum.photos/seed/zz1/800/600','https://picsum.photos/seed/zz2/800/600','https://picsum.photos/seed/zz3/800/600','https://picsum.photos/seed/zz4/800/600','https://picsum.photos/seed/zz5/800/600','https://picsum.photos/seed/zz6/800/600']},
+  {name:'青岛',x:505,y:225,stores:95,range:11282,imgs:['https://picsum.photos/seed/qd1/800/600','https://picsum.photos/seed/qd2/800/600','https://picsum.photos/seed/qd3/800/600','https://picsum.photos/seed/qd4/800/600','https://picsum.photos/seed/qd5/800/600','https://picsum.photos/seed/qd6/800/600']},
+  {name:'厦门',x:490,y:365,stores:88,range:1699,imgs:['https://picsum.photos/seed/xm1/800/600','https://picsum.photos/seed/xm2/800/600','https://picsum.photos/seed/xm3/800/600','https://picsum.photos/seed/xm4/800/600','https://picsum.photos/seed/xm5/800/600','https://picsum.photos/seed/xm6/800/600']},
+  {name:'昆明',x:310,y:390,stores:78,range:21473,imgs:['https://picsum.photos/seed/km1/800/600','https://picsum.photos/seed/km2/800/600','https://picsum.photos/seed/km3/800/600','https://picsum.photos/seed/km4/800/600','https://picsum.photos/seed/km5/800/600','https://picsum.photos/seed/km6/800/600']},
+  {name:'沈阳',x:505,y:145,stores:92,range:12948,imgs:['https://picsum.photos/seed/sy1/800/600','https://picsum.photos/seed/sy2/800/600','https://picsum.photos/seed/sy3/800/600','https://picsum.photos/seed/sy4/800/600','https://picsum.photos/seed/sy5/800/600','https://picsum.photos/seed/sy6/800/600']},
+  {name:'大连',x:510,y:170,stores:82,range:13237,imgs:['https://picsum.photos/seed/dl1/800/600','https://picsum.photos/seed/dl2/800/600','https://picsum.photos/seed/dl3/800/600','https://picsum.photos/seed/dl4/800/600','https://picsum.photos/seed/dl5/800/600','https://picsum.photos/seed/dl6/800/600']},
+  {name:'哈尔滨',x:520,y:115,stores:72,range:53186,imgs:['https://picsum.photos/seed/heb1/800/600','https://picsum.photos/seed/heb2/800/600','https://picsum.photos/seed/heb3/800/600','https://picsum.photos/seed/heb4/800/600','https://picsum.photos/seed/heb5/800/600','https://picsum.photos/seed/heb6/800/600']},
+  {name:'南宁',x:385,y:405,stores:68,range:22112,imgs:['https://picsum.photos/seed/nn1/800/600','https://picsum.photos/seed/nn2/800/600','https://picsum.photos/seed/nn3/800/600','https://picsum.photos/seed/nn4/800/600','https://picsum.photos/seed/nn5/800/600','https://picsum.photos/seed/nn6/800/600']}
+];
+
+var mapSvg=document.getElementById('mapSvg');
+var linesGroup=document.getElementById('linesGroup');
+var citiesGroup=document.getElementById('citiesGroup');
+var tooltip=document.getElementById('mapTooltip');
+var currentCityImages=[];
+var startX=455,startY=380;
+var tooltipTimeout=null;
+
+citiesData.forEach(function(city){
+  var radius=Math.max(4,Math.min(11,city.stores/16));
+  var path=document.createElementNS('http://www.w3.org/2000/svg','path');
+  var mx=startX,my=startY;
+  var cx=(mx+city.x)/2;
+  var cy=(my+city.y)/2-60;
+  var d='M'+mx+','+my+' Q'+cx+','+cy+' '+city.x+','+city.y;
+  var len=Math.sqrt((city.x-mx)*(city.x-mx)+(city.y-my)*(city.y-my))+40;
+  path.setAttribute('d',d);
+  path.setAttribute('fill','none');
+  path.setAttribute('stroke','#6D4AFF');
+  path.setAttribute('stroke-width','2');
+  path.setAttribute('opacity','0.5');
+  path.setAttribute('stroke-linecap','round');
+  path.setAttribute('stroke-dasharray',len);
+  path.setAttribute('stroke-dashoffset',len);
+  linesGroup.appendChild(path);
+  var circle=document.createElementNS('http://www.w3.org/2000/svg','circle');
+  circle.setAttribute('cx',city.x);
+  circle.setAttribute('cy',city.y);
+  circle.setAttribute('r',0);
+  circle.setAttribute('class','map-city');
+  circle.setAttribute('data-name',city.name);
+  circle.setAttribute('data-stores',city.stores);
+  circle.setAttribute('data-range',city.range);
+  circle.setAttribute('data-imgs',JSON.stringify(city.imgs));
+  citiesGroup.appendChild(circle);
+  var text=document.createElementNS('http://www.w3.org/2000/svg','text');
+  text.setAttribute('x',city.x);
+  text.setAttribute('y',city.y+radius+13);
+  text.setAttribute('text-anchor','middle');
+  text.setAttribute('fill','#6b7280');
+  text.setAttribute('font-size','9');
+  text.textContent=city.name;
+  citiesGroup.appendChild(text);
+});
+
+var mapAnimated=false;
+function animateMap(){
+  if(mapAnimated) return;
+  mapAnimated=true;
+  var lines=linesGroup.querySelectorAll('path');
+  var dots=citiesGroup.querySelectorAll('.map-city');
+  lines.forEach(function(line,i){setTimeout(function(){line.setAttribute('stroke-dashoffset','0');},i*90);});
+  dots.forEach(function(dot,i){
+    var r=Math.max(4,Math.min(11,citiesData[i].stores/16));
+    setTimeout(function(){dot.setAttribute('r',r);},i*90+450);
+  });
+}
+
+var mapObserver=new IntersectionObserver(function(entries){
+  if(entries[0].isIntersecting){animateMap();}
+},{threshold:0.2});
+mapObserver.observe(document.getElementById('mapSection'));
+
+var rankBarsAnimated=false;
+(function(){
+  var sorted=citiesData.slice().sort(function(a,b){return b.stores-a.stores;});
+  var maxStores=sorted[0].stores;
+  var listEl=document.getElementById('rankingList');
+  sorted.forEach(function(city,i){
+    var pct=Math.round((city.stores/maxStores)*100);
+    var medalHtml='';
+    if(i===0) medalHtml='<i class="fa-solid fa-medal rank-medal gold" style="font-size:1rem;color:#FFD700"></i>';
+    else if(i===1) medalHtml='<i class="fa-solid fa-medal rank-medal silver" style="font-size:1rem;color:#C0C0C0"></i>';
+    else if(i===2) medalHtml='<i class="fa-solid fa-medal rank-medal bronze" style="font-size:1rem;color:#CD7F32"></i>';
+    else medalHtml='<div class="rank-num">'+(i+1)+'</div>';
+    var item=document.createElement('div');
+    item.className='rank-item';
+    item.innerHTML=medalHtml+'<div class="rank-name">'+city.name+'</div><div class="rank-bar"><div class="rank-fill" style="width:0%" data-pct="'+pct+'%"></div></div><div class="rank-val">'+city.stores+'</div>';
+    item.addEventListener('click',function(){openCarousel(city.imgs);});
+    listEl.appendChild(item);
+  });
+  var rankObs=new IntersectionObserver(function(entries){
+    if(entries[0].isIntersecting && !rankBarsAnimated){
+      rankBarsAnimated=true;
+      var bars=listEl.querySelectorAll('.rank-fill');
+      bars.forEach(function(bar,i){
+        setTimeout(function(){bar.style.transition='width 0.8s cubic-bezier(0.16,1,0.3,1)';bar.style.width=bar.dataset.pct;},i*80);
+      });
+    }
+  },{threshold:0.1});
+  rankObs.observe(listEl);
+})();
+
+function showTooltip(city){
+  if(tooltipTimeout){clearTimeout(tooltipTimeout);tooltipTimeout=null;}
+  var rect=mapSvg.getBoundingClientRect();
+  var scaleX=rect.width/800;
+  var scaleY=rect.height/600;
+  var x=parseFloat(city.getAttribute('cx'))*scaleX;
+  var y=parseFloat(city.getAttribute('cy'))*scaleY;
+  document.getElementById('tooltipCity').textContent=city.getAttribute('data-name');
+  document.getElementById('tooltipStores').textContent=city.getAttribute('data-stores');
+  document.getElementById('tooltipRange').textContent=city.getAttribute('data-range');
+  currentCityImages=JSON.parse(city.getAttribute('data-imgs'));
+  tooltip.style.left=Math.min(x+20,rect.width-220)+'px';
+  tooltip.style.top=Math.max(y-30,10)+'px';
+  tooltip.classList.add('visible');
+}
+function hideTooltip(){tooltipTimeout=setTimeout(function(){tooltip.classList.remove('visible');},200);}
+citiesGroup.addEventListener('mouseover',function(e){var city=e.target.closest('.map-city');if(!city)return;showTooltip(city);});
+citiesGroup.addEventListener('mouseout',function(e){var city=e.target.closest('.map-city');if(!city)return;hideTooltip();});
+tooltip.addEventListener('mouseenter',function(){if(tooltipTimeout){clearTimeout(tooltipTimeout);tooltipTimeout=null;}});
+tooltip.addEventListener('mouseleave',function(){tooltip.classList.remove('visible');});
+document.getElementById('tooltipBtn').addEventListener('click',function(){openCarousel(currentCityImages);});
+
+// 3D CAROUSEL
+var carouselOverlay=document.getElementById('carouselOverlay');
+var carousel3d=document.getElementById('carousel3d');
+var carouselDots=document.getElementById('carouselDots');
+var carouselCounter=document.getElementById('carouselCounter');
+var carouselImages=[];
+var currentIdx=0;
+
+function openCarousel(images){
+  if(!images||images.length===0)return;
+  carouselImages=images;
+  currentIdx=0;
+  carouselOverlay.classList.add('active');
+  renderCarousel();
+}
+function closeCarousel(){carouselOverlay.classList.remove('active');}
+function renderCarousel(){
+  carousel3d.innerHTML='';
+  carouselDots.innerHTML='';
+  carouselImages.forEach(function(img,i){
+    var item=document.createElement('div');
+    item.className='carousel-item';
+    item.innerHTML='<img src="'+img+'" alt="">';
+    carousel3d.appendChild(item);
+    var dot=document.createElement('div');
+    dot.className='carousel-dot';
+    dot.addEventListener('click',function(){gotoSlide(i);});
+    carouselDots.appendChild(dot);
+  });
+  carouselCounter.textContent='1 / '+carouselImages.length;
+  updateCarouselPositions();
+}
+function updateCarouselPositions(){
+  var items=carousel3d.querySelectorAll('.carousel-item');
+  var dots=carouselDots.querySelectorAll('.carousel-dot');
+  var n=carouselImages.length;
+  items.forEach(function(item,i){item.className='carousel-item';});
+  dots.forEach(function(dot,i){dot.className='carousel-dot';});
+  if(n===1){items[0].classList.add('active');dots[0].classList.add('active');return;}
+  for(var i=0;i<n;i++){
+    var rel=i-currentIdx;
+    if(rel===0){items[i].classList.add('active');dots[i].classList.add('active');}
+    else if(rel===-1||rel===n-1){items[i].classList.add('prev');}
+    else if(rel===1||rel===-(n-1)){items[i].classList.add('next');}
+    else if(rel<-1){items[i].classList.add('far-prev');}
+    else{items[i].classList.add('far-next');}
+  }
+  carouselCounter.textContent=(currentIdx+1)+' / '+n;
+}
+function gotoSlide(idx){
+  if(idx<0)idx=carouselImages.length-1;
+  if(idx>=carouselImages.length)idx=0;
+  currentIdx=idx;
+  updateCarouselPositions();
+}
+document.getElementById('carouselPrev').addEventListener('click',function(){gotoSlide(currentIdx-1);});
+document.getElementById('carouselNext').addEventListener('click',function(){gotoSlide(currentIdx+1);});
+document.getElementById('carouselClose').addEventListener('click',closeCarousel);
+carouselOverlay.addEventListener('click',function(e){if(e.target===carouselOverlay)closeCarousel();});
+document.addEventListener('keydown',function(e){
+  if(!carouselOverlay.classList.contains('active'))return;
+  if(e.key==='Escape')closeCarousel();
+  if(e.key==='ArrowLeft')gotoSlide(currentIdx-1);
+  if(e.key==='ArrowRight')gotoSlide(currentIdx+1);
+});
+var touchStartX=0;
+carousel3d.addEventListener('touchstart',function(e){touchStartX=e.touches[0].clientX;});
+carousel3d.addEventListener('touchend',function(e){
+  var diff=e.changedTouches[0].clientX-touchStartX;
+  if(Math.abs(diff)>50){if(diff<0)gotoSlide(currentIdx+1);else gotoSlide(currentIdx-1);}
+});
+var wheelThrottle=false;
+carousel3d.addEventListener('wheel',function(e){
+  e.preventDefault();
+  if(wheelThrottle)return;
+  wheelThrottle=true;
+  setTimeout(function(){wheelThrottle=false;},400);
+  if(e.deltaY>0)gotoSlide(currentIdx+1);else gotoSlide(currentIdx-1);
+},{passive:false});
+
+// SCROLL REVEAL
+(function(){
+  var reveals=document.querySelectorAll('.reveal');
+  var revealObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.12,rootMargin:'0px 0px -30px 0px'});
+  reveals.forEach(function(el){revealObserver.observe(el);});
+})();
+</script>
+</body>
+</html>
