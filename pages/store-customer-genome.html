@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千店千面 · 客户基因图谱突围战法</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: { brand: { DEFAULT: '#6D4AFF', 50: 'rgba(109,74,255,0.05)', 100: 'rgba(109,74,255,0.1)', 200: 'rgba(109,74,255,0.2)', 300: 'rgba(109,74,255,0.3)', 500: 'rgba(109,74,255,0.5)' } },
+      fontFamily: { sans: ['"Noto Sans SC"','Inter','sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* Segment cards */
+.segment-grid{display:grid;grid-template-columns:1fr;gap:1.25rem}
+@media(min-width:768px){.segment-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1200px){.segment-grid{grid-template-columns:repeat(4,1fr)}}
+.segment-card{border-radius:1rem;background:#fff;border:1px solid rgba(0,0,0,0.06);overflow:hidden;transition:all .35s cubic-bezier(0.16,1,0.3,1);cursor:default;position:relative}
+.segment-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,0.1)}
+.segment-card-header{padding:1.5rem 1.5rem 1rem;display:flex;align-items:flex-start;gap:.75rem}
+.segment-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.segment-card-body{padding:0 1.5rem 1.5rem}
+.segment-tag{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .7rem;border-radius:999px;font-size:.65rem;font-weight:700;margin-bottom:.75rem}
+.segment-feature{font-size:.8rem;color:#6b7280;line-height:1.7;margin-bottom:.35rem;padding-left:1rem;position:relative}
+.segment-feature::before{content:'';position:absolute;left:0;top:.55em;width:5px;height:5px;border-radius:50%}
+
+/* Strategy cluster */
+.strategy-cluster{background:#fff;border-radius:1rem;border:1px solid rgba(0,0,0,0.06);padding:1.75rem;transition:all .3s}
+.strategy-cluster:hover{box-shadow:0 12px 32px rgba(0,0,0,0.06)}
+.strategy-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+.strategy-lever{display:flex;align-items:flex-start;gap:.5rem;padding:.65rem 1rem;border-radius:.75rem;margin-bottom:.5rem;font-size:.8rem;line-height:1.6}
+
+/* Dynamic system */
+.sys-card{border-radius:1rem;background:#fff;border:1px solid rgba(0,0,0,0.06);padding:1.75rem;text-align:center;transition:all .3s;position:relative;overflow:hidden}
+.sys-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.08)}
+.sys-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.sys-icon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin:0 auto 1rem}
+
+/* Radar chart */
+.radar-wrapper{width:100%;max-width:320px;margin:0 auto}
+.radar-svg{width:100%;height:auto}
+.radar-ring{fill:none;stroke:rgba(109,74,255,0.15);stroke-width:1}
+.radar-axis{stroke:rgba(109,74,255,0.12);stroke-width:1}
+.radar-polygon{fill:rgba(109,74,255,0.08);stroke:#6D4AFF;stroke-width:2;stroke-linejoin:round}
+.radar-label{font-size:8px;fill:#6b7280;text-anchor:middle;font-family:"Noto Sans SC","Inter",sans-serif}
+
+/* Matrix 2x2 */
+.matrix-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;max-width:600px;margin:0 auto}
+.matrix-cell{border-radius:.75rem;padding:1.25rem;text-align:center;transition:all .3s}
+.matrix-cell:hover{transform:scale(1.05)}
+
+/* Metric bar */
+.metric-row{display:flex;align-items:center;gap:1rem;padding:.75rem 0}
+.metric-label{width:140px;font-size:.8rem;font-weight:600;color:#374151;flex-shrink:0;text-align:right}
+.metric-track{flex:1;height:10px;border-radius:5px;background:#f3f4f6;overflow:hidden;position:relative}
+.metric-fill{height:100%;border-radius:5px;transition:width 1.5s cubic-bezier(0.16,1,0.3,1)}
+.metric-val{width:48px;font-size:.75rem;font-weight:700;font-family:monospace;text-align:left;flex-shrink:0}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="px-6 py-16 md:py-20">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-dna text-[#6D4AFF]"></i> 客户基因图谱
+      </span>
+      <h1 class="font-black tracking-tight leading-tight mb-4" style="font-size:clamp(2.5rem,6vw,5rem);color:#1a1a2e">
+        千店<span style="color:#6D4AFF">千面</span>
+      </h1>
+      <p class="text-gray-500 text-base md:text-xl font-light max-w-2xl mx-auto mb-8">
+        基于客户基因图谱的数字化突围战法 — 三维立体分群 × 靶向攻坚策略
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(109,74,255,0.08);color:#6D4AFF"><i class="fa-solid fa-crown"></i> 领航者</span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(37,99,235,0.08);color:#2563eb"><i class="fa-solid fa-rocket"></i> 觉醒者</span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(245,158,11,0.08);color:#d97706"><i class="fa-solid fa-eye"></i> 观望者</span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(239,68,68,0.08);color:#ef4444"><i class="fa-solid fa-triangle-exclamation"></i> 掉队者</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 1: 三维立体分群模型 -->
+<section class="px-6 py-16" style="background:#fff">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-cubes text-[#6D4AFF]"></i> 三维立体分群模型
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">客户基因图谱</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">体量规模 × 数字化程度 × 忠诚度潜力 — 三维交织下的四类典型客群</p>
+    </div>
+
+    <!-- Radar Chart -->
+    <div class="flex flex-col lg:flex-row items-center gap-8 mb-12 reveal">
+      <div class="radar-wrapper flex-shrink-0">
+        <svg class="radar-svg" viewBox="0 0 320 320">
+          <!-- Rings -->
+          <polygon class="radar-ring" points="160,40 268,100 268,220 160,280 52,220 52,100"/>
+          <polygon class="radar-ring" points="160,80 238,125 238,215 160,260 82,215 82,125"/>
+          <polygon class="radar-ring" points="160,120 208,148 208,210 160,240 112,210 112,148"/>
+          <!-- Axes -->
+          <line class="radar-axis" x1="160" y1="160" x2="160" y2="40"/>
+          <line class="radar-axis" x1="160" y1="160" x2="268" y2="100"/>
+          <line class="radar-axis" x1="160" y1="160" x2="268" y2="220"/>
+          <line class="radar-axis" x1="160" y1="160" x2="160" y2="280"/>
+          <line class="radar-axis" x1="160" y1="160" x2="52" y2="220"/>
+          <line class="radar-axis" x1="160" y1="160" x2="52" y2="100"/>
+          <!-- Data polygons -->
+          <polygon class="radar-polygon" points="160,40 268,100 268,220 160,280 52,220 52,100" style="fill:rgba(109,74,255,0.12);stroke:#6D4AFF;stroke-width:2.5"/>
+          <polygon class="radar-polygon" points="160,80 230,120 230,210 160,250 90,210 90,120" style="fill:rgba(37,99,235,0.1);stroke:#2563eb;stroke-width:2"/>
+          <polygon class="radar-polygon" points="160,120 190,140 200,195 160,220 120,195 130,140" style="fill:rgba(245,158,11,0.1);stroke:#d97706;stroke-width:1.5"/>
+          <!-- Labels -->
+          <text class="radar-label" x="160" y="32">体量规模</text>
+          <text class="radar-label" x="278" y="96">数字化程度</text>
+          <text class="radar-label" x="278" y="228">忠诚度潜力</text>
+          <text class="radar-label" x="160" y="295">增长空间</text>
+          <text class="radar-label" x="35" y="228">团队执行力</text>
+          <text class="radar-label" x="35" y="96">抗风险能力</text>
+          <!-- Center -->
+          <circle cx="160" cy="160" r="2" fill="#9ca3af"/>
+        </svg>
+      </div>
+      <div class="flex-1 space-y-3">
+        <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-sm" style="background:#6D4AFF"></div><span class="text-sm font-semibold text-gray-800">领航者</span><span class="text-xs text-gray-500">— 全维度高能，行业标杆</span></div>
+        <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-sm" style="background:#2563eb"></div><span class="text-sm font-semibold text-gray-800">觉醒者</span><span class="text-xs text-gray-500">— 中高维均衡，增长潜力巨大</span></div>
+        <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-sm" style="background:#d97706"></div><span class="text-sm font-semibold text-gray-800">观望者</span><span class="text-xs text-gray-500">— 低位徘徊，信任门槛高</span></div>
+        <div class="flex items-center gap-2"><div class="w-3 h-3 rounded-sm" style="background:#d1d5db"></div><span class="text-sm font-semibold text-gray-400">掉队者</span><span class="text-xs text-gray-400">— 全面衰退，濒临淘汰</span></div>
+      </div>
+    </div>
+
+    <!-- Customer Profile Matrix -->
+    <div class="text-center mb-6 reveal">
+      <h3 class="text-xl font-black text-gray-800 mb-2">典型客群画像矩阵</h3>
+      <p class="text-sm text-gray-500">四类客群的差异化特征与核心切入点</p>
+    </div>
+
+    <div class="segment-grid reveal">
+      <!-- 领航者 -->
+      <div class="segment-card" style="border-top:3px solid #6D4AFF">
+        <div class="segment-card-header">
+          <div class="segment-icon" style="background:rgba(109,74,255,0.08);color:#6D4AFF"><i class="fa-solid fa-crown"></i></div>
+          <div><h4 class="font-black text-lg text-gray-900">领航者</h4><p class="text-xs text-gray-400">高体量 + 高数字 + 高忠诚</p></div>
+        </div>
+        <div class="segment-card-body">
+          <span class="segment-tag" style="background:rgba(109,74,255,0.08);color:#6D4AFF"><i class="fa-solid fa-building-columns"></i> 区域龙头</span>
+          <p class="segment-feature" style="color:#4b5563">旗下多家直营店全量接入 SaaS 系统</p>
+          <p class="segment-feature" style="color:#4b5563">愿为增值功能付费，主动参与产品共创</p>
+          <p class="segment-feature" style="color:#4b5563">关注品牌联合与行业影响力提升</p>
+          <div class="mt-3 pt-3 border-t border-gray-100">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">代表案例</span>
+            <p class="text-sm text-gray-600 mt-1">华东区 XX 连锁 — 旗下 <strong style="color:#6D4AFF">20 家</strong> 直营店全量接入</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 觉醒者 -->
+      <div class="segment-card" style="border-top:3px solid #2563eb">
+        <div class="segment-card-header">
+          <div class="segment-icon" style="background:rgba(37,99,235,0.08);color:#2563eb"><i class="fa-solid fa-rocket"></i></div>
+          <div><h4 class="font-black text-lg text-gray-900">觉醒者</h4><p class="text-xs text-gray-400">中体量 + 中数字 + 高潜力</p></div>
+        </div>
+        <div class="segment-card-body">
+          <span class="segment-tag" style="background:rgba(37,99,235,0.08);color:#2563eb"><i class="fa-solid fa-user-graduate"></i> 二代接班人掌权</span>
+          <p class="segment-feature" style="color:#4b5563">关注 ROI 测算，渴望标杆案例背书</p>
+          <p class="segment-feature" style="color:#4b5563">团队执行力强但经验不足</p>
+          <p class="segment-feature" style="color:#4b5563">最大痛点：担心员工抵触新系统</p>
+          <div class="mt-3 pt-3 border-t border-gray-100">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">破局关键</span>
+            <p class="text-sm text-gray-600 mt-1">设计 <strong style="color:#2563eb">"老带新"</strong> 激励机制 + 对比榜单</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 观望者 -->
+      <div class="segment-card" style="border-top:3px solid #d97706">
+        <div class="segment-card-header">
+          <div class="segment-icon" style="background:rgba(245,158,11,0.08);color:#d97706"><i class="fa-solid fa-eye"></i></div>
+          <div><h4 class="font-black text-lg text-gray-900">观望者</h4><p class="text-xs text-gray-400">小体量 + 低数字 + 摇摆型</p></div>
+        </div>
+        <div class="segment-card-body">
+          <span class="segment-tag" style="background:rgba(245,158,11,0.08);color:#d97706"><i class="fa-solid fa-shop"></i> 夫妻老婆店为主</span>
+          <p class="segment-feature" style="color:#4b5563">依赖线下熟客，习惯传统经营方式</p>
+          <p class="segment-feature" style="color:#4b5563">抗拒前期投入，对新技术持怀疑态度</p>
+          <p class="segment-feature" style="color:#4b5563">需要看到身边人成功才会行动</p>
+          <div class="mt-3 pt-3 border-t border-gray-100">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">突破口</span>
+            <p class="text-sm text-gray-600 mt-1"><strong style="color:#d97706">零硬件</strong> 轻量化方案 + 政府补贴申报指导</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 掉队者 -->
+      <div class="segment-card" style="border-top:3px solid #ef4444">
+        <div class="segment-card-header">
+          <div class="segment-icon" style="background:rgba(239,68,68,0.08);color:#ef4444"><i class="fa-solid fa-triangle-exclamation"></i></div>
+          <div><h4 class="font-black text-lg text-gray-900">掉队者</h4><p class="text-xs text-gray-400">衰退期 + 僵化型</p></div>
+        </div>
+        <div class="segment-card-body">
+          <span class="segment-tag" style="background:rgba(239,68,68,0.08);color:#ef4444"><i class="fa-solid fa-arrow-trend-down"></i> 连续 6 个月业绩下滑</span>
+          <p class="segment-feature" style="color:#4b5563">固守传统记账方式，拒绝任何变革</p>
+          <p class="segment-feature" style="color:#4b5563">人员流失严重，士气低迷</p>
+          <p class="segment-feature" style="color:#4b5563">需快速判断是"救"还是"退"</p>
+          <div class="mt-3 pt-3 border-t border-gray-100">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">处置方案</span>
+            <p class="text-sm text-gray-600 mt-1">启动 <strong style="color:#ef4444">"救火队员"</strong> 专项小组 + 对赌协议</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: 靶向攻坚策略套装 -->
+<section class="px-6 py-16">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-bullseye text-[#6D4AFF]"></i> 靶向攻坚策略套装
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">四集群精准打法</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">一客一策，从利益杠杆到止损红线 — 每个集群都有定制武器库</p>
+    </div>
+
+    <!-- A: 领航者 -->
+    <div class="strategy-cluster reveal mb-6" style="border-left:4px solid #6D4AFF">
+      <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
+        <div class="strategy-icon" style="background:rgba(109,74,255,0.08);color:#6D4AFF"><i class="fa-solid fa-crown"></i></div>
+        <div>
+          <h3 class="text-xl font-black text-gray-900">A. 领航者集群 — 生态共建计划</h3>
+          <p class="text-sm text-gray-500">开放共赢 · 绑定共生 · 标杆放大</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="strategy-lever" style="background:rgba(109,74,255,0.04)">
+          <i class="fa-solid fa-link mt-0.5" style="color:#6D4AFF;font-size:.7rem"></i>
+          <div><strong class="text-gray-800 text-sm">利益杠杆</strong><p class="text-xs text-gray-500 mt-0.5">开放 API 接口权限 / 联合发布行业白皮书 / 授予"数字化转型示范基地"称号</p></div>
+        </div>
+        <div class="strategy-lever" style="background:rgba(109,74,255,0.04)">
+          <i class="fa-solid fa-shield-halved mt-0.5" style="color:#6D4AFF;font-size:.7rem"></i>
+          <div><strong class="text-gray-800 text-sm">顾虑消解</strong><p class="text-xs text-gray-500 mt-0.5">建立高管直通车机制 / 承诺优先适配定制化需求</p></div>
+        </div>
+        <div class="strategy-lever" style="background:rgba(109,74,255,0.04)">
+          <i class="fa-solid fa-gears mt-0.5" style="color:#6D4AFF;font-size:.7rem"></i>
+          <div><strong class="text-gray-800 text-sm">运维保障</strong><p class="text-xs text-gray-500 mt-0.5">配备专属架构师 / 季度经营分析报告 / 新品内测资格</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- B: 觉醒者 -->
+    <div class="strategy-cluster reveal mb-6" style="border-left:4px solid #2563eb">
+      <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
+        <div class="strategy-icon" style="background:rgba(37,99,235,0.08);color:#2563eb"><i class="fa-solid fa-lightbulb"></i></div>
+        <div>
+          <h3 class="text-xl font-black text-gray-900">B. 觉醒者集群 — 灯塔赋能工程</h3>
+          <p class="text-sm text-gray-500">场景教育 · 阶梯导入 · 防复发闭环</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="strategy-lever" style="background:rgba(37,99,235,0.04)">
+          <i class="fa-solid fa-chalkboard-user mt-0.5" style="color:#2563eb;font-size:.7rem"></i>
+          <div><strong class="text-gray-800 text-sm">场景化教育</strong><p class="text-xs text-gray-500 mt-0.5">开展"一日店长"体验活动 / 制作《降本增效计算器》H5 工具</p></div>
+        </div>
+        <div class="strategy-lever" style="background:rgba(37,99,235,0.04)">
+          <i class="fa-solid fa-stairs mt-0.5" style="color:#2563eb;font-size:.7rem"></i>
+          <div><strong class="text-gray-800 text-sm">实施路径</strong><p class="text-xs text-gray-500 mt-0.5">三个月阶梯式导入 → 首月基础模块 → 次月进阶功能 → 第三月数据驾驶舱</p></div>
+        </div>
+        <div class="strategy-lever" style="background:rgba(37,99,235,0.04)">
+          <i class="fa-solid fa-rotate-left mt-0.5" style="color:#2563eb;font-size:.7rem"></i>
+          <div><strong class="text-gray-800 text-sm">防复发机制</strong><p class="text-xs text-gray-500 mt-0.5">设置"数字化转型积分"，可兑换陈列架 / 培训名额等资源</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- C: 观望者 -->
+    <div class="strategy-cluster reveal mb-6" style="border-left:4px solid #d97706">
+      <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
+        <div class="strategy-icon" style="background:rgba(245,158,11,0.08);color:#d97706"><i class="fa-solid fa-seedling"></i></div>
+        <div>
+          <h3 class="text-xl font-black text-gray-900">C. 观望者集群 — 种子孵化行动</h3>
+          <p class="text-sm text-gray-500">信任破冰 · 极简方案 · 持续激活</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="strategy-lever" style="background:rgba(245,158,11,0.04)">
+          <i class="fa-solid fa-handshake mt-0.5" style="color:#d97706;font-size:.7rem"></i>
+          <div><strong class="text-gray-800 text-sm">信任构建</strong><p class="text-xs text-gray-500 mt-0.5">提供 7 天免费试用账号 / 拍摄隔壁店铺成功故事短视频</p></div>
+        </div>
+        <div class="strategy-lever" style="background:rgba(245,158,11,0.04)">
+          <i class="fa-solid fa-box-open mt-0.5" style="color:#d97706;font-size:.7rem"></i>
+          <div><strong class="text-gray-800 text-sm">轻量方案</strong><p class="text-xs text-gray-500 mt-0.5">推出"云货架 + 移动支付"极简套餐（月费低于人工成本 <strong style="color:#d97706">5%</strong>）</p></div>
+        </div>
+        <div class="strategy-lever" style="background:rgba(245,158,11,0.04)">
+          <i class="fa-solid fa-bolt mt-0.5" style="color:#d97706;font-size:.7rem"></i>
+          <div><strong class="text-gray-800 text-sm">持续激活</strong><p class="text-xs text-gray-500 mt-0.5">每周推送附近商圈客流热力图 / 节假日促销效果预测</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- D: 掉队者 -->
+    <div class="strategy-cluster reveal" style="border-left:4px solid #ef4444">
+      <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
+        <div class="strategy-icon" style="background:rgba(239,68,68,0.08);color:#ef4444"><i class="fa-solid fa-kit-medical"></i></div>
+        <div>
+          <h3 class="text-xl font-black text-gray-900">D. 掉队者集群 — 休克疗法预案</h3>
+          <p class="text-sm text-gray-500">紧急干预 · 退出通道 · 风险兜底</p>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="strategy-lever" style="background:rgba(239,68,68,0.04)">
+          <i class="fa-solid fa-truck-medical mt-0.5" style="color:#ef4444;font-size:.7rem"></i>
+          <div><strong class="text-gray-800 text-sm">紧急干预</strong><p class="text-xs text-gray-500 mt-0.5">派驻督导组接管关键岗位 / 暂停账期优惠直至达标</p></div>
+        </div>
+        <div class="strategy-lever" style="background:rgba(239,68,68,0.04)">
+          <i class="fa-solid fa-door-open mt-0.5" style="color:#ef4444;font-size:.7rem"></i>
+          <div><strong class="text-gray-800 text-sm">退出机制</strong><p class="text-xs text-gray-500 mt-0.5">协商转为品牌授权模式 / 协助转让给更有实力接手方</p></div>
+        </div>
+        <div class="strategy-lever" style="background:rgba(239,68,68,0.04)">
+          <i class="fa-solid fa-ban mt-0.5" style="color:#ef4444;font-size:.7rem"></i>
+          <div><strong class="text-gray-800 text-sm">止损红线</strong><p class="text-xs text-gray-500 mt-0.5">连续两季未达基础指标则终止合作（附法律文书范本）</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: 动态调优系统 -->
+<section class="px-6 py-16" style="background:#fff">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-microchip text-[#6D4AFF]"></i> 动态调优系统
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">关键技术支撑</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">数据驱动的客群动态管理与策略迭代闭环</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 reveal">
+      <div class="sys-card" style="--line:#ef4444">
+        <div class="sys-icon" style="background:rgba(239,68,68,0.08);color:#ef4444"><i class="fa-solid fa-bell"></i></div>
+        <h4 class="text-lg font-black text-gray-800 mb-2">智能预警平台</h4>
+        <p class="text-sm text-gray-500 leading-relaxed">实时监测客户活跃度指标，自动触发挽留流程。当客户连续 30 天未登录时，启动三级预警→店长通知→督导上门</p>
+        <div class="mt-4 flex justify-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full" style="background:#10b981"></span>
+          <span class="w-2.5 h-2.5 rounded-full" style="background:#f59e0b"></span>
+          <span class="w-2.5 h-2.5 rounded-full" style="background:#ef4444"></span>
+          <span class="text-xs text-gray-400 ml-1">正常 · 关注 · 告警</span>
+        </div>
+      </div>
+      <div class="sys-card" style="--line:#2563eb">
+        <div class="sys-icon" style="background:rgba(37,99,235,0.08);color:#2563eb"><i class="fa-solid fa-flask"></i></div>
+        <h4 class="text-lg font-black text-gray-800 mb-2">AB 测试工坊</h4>
+        <p class="text-sm text-gray-500 leading-relaxed">针对不同客群同步运行多种策略，实时比对转化率、留存率等核心指标，择优固化为标准化 SOP 推广至全渠道</p>
+        <div class="mt-4 flex justify-center gap-3 text-xs">
+          <span class="px-2 py-1 rounded font-bold" style="background:rgba(109,74,255,0.08);color:#6D4AFF">方案A</span>
+          <span class="text-gray-300">vs</span>
+          <span class="px-2 py-1 rounded font-bold" style="background:rgba(37,99,235,0.08);color:#2563eb">方案B</span>
+        </div>
+      </div>
+      <div class="sys-card" style="--line:#6D4AFF">
+        <div class="sys-icon" style="background:rgba(109,74,255,0.08);color:#6D4AFF"><i class="fa-solid fa-chart-line"></i></div>
+        <h4 class="text-lg font-black text-gray-800 mb-2">成长轨迹看板</h4>
+        <p class="text-sm text-gray-500 leading-relaxed">可视化呈现客户从"触达 → 转化 → 深耕"全生命周期变化，支持单客 360° 画像与群组对比分析</p>
+        <div class="mt-4 flex justify-center items-center gap-1 text-xs text-gray-400">
+          <span>触达</span><i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <span>转化</span><i class="fa-solid fa-arrow-right text-[10px]"></i>
+          <span style="color:#6D4AFF;font-weight:700">深耕</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: 成效评估体系 -->
+<section class="px-6 py-16">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-chart-simple text-[#6D4AFF]"></i> 成效评估体系
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">季度战报指标</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">建议每季度更新，以数据驱动策略迭代</p>
+    </div>
+    <div class="max-w-2xl mx-auto reveal space-y-1">
+      <div class="metric-row">
+        <span class="metric-label">客群覆盖率</span>
+        <div class="metric-track"><div class="metric-fill" style="width:87%;background:linear-gradient(90deg,#6D4AFF,rgba(109,74,255,0.4))"></div></div>
+        <span class="metric-val" style="color:#6D4AFF">87%</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">策略匹配精准度</span>
+        <div class="metric-track"><div class="metric-fill" style="width:92%;background:linear-gradient(90deg,#2563eb,rgba(37,99,235,0.4))"></div></div>
+        <span class="metric-val" style="color:#2563eb">92%</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">客户升级转化率</span>
+        <div class="metric-track"><div class="metric-fill" style="width:68%;background:linear-gradient(90deg,#059669,rgba(5,150,105,0.4))"></div></div>
+        <span class="metric-val" style="color:#059669">68%</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">预警挽留成功率</span>
+        <div class="metric-track"><div class="metric-fill" style="width:74%;background:linear-gradient(90deg,#d97706,rgba(245,158,11,0.4))"></div></div>
+        <span class="metric-val" style="color:#d97706">74%</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">掉队者复苏率</span>
+        <div class="metric-track"><div class="metric-fill" style="width:45%;background:linear-gradient(90deg,#ef4444,rgba(239,68,68,0.4))"></div></div>
+        <span class="metric-val" style="color:#ef4444">45%</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-label">客户生命周期价值↑</span>
+        <div class="metric-track"><div class="metric-fill" style="width:83%;background:linear-gradient(90deg,#6D4AFF,rgba(109,74,255,0.4))"></div></div>
+        <span class="metric-val" style="color:#6D4AFF">+83%</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-purple-100 py-8 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+    <p class="text-xs text-gray-400">千店千面 · 客户基因图谱突围战法 · 2026</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el);});
+})();
+</script>
+</body>
+</html>
