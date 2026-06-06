@@ -86,8 +86,8 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 .province-border{fill:none;stroke:rgba(109,74,255,0.29);stroke-width:1.2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:3 4}
 .map-city{fill:#fff;stroke:#6D4AFF;stroke-width:2;cursor:pointer;transition:fill .3s ease}
 .map-city:hover{fill:#6D4AFF}
-.map-city.blink{animation:cityBlink 0.25s ease-in-out 8}
-@keyframes cityBlink{0%,100%{fill:#fff;r:var(--r)}50%{fill:#FFD700;r:calc(var(--r) + 4px);stroke:#FFD700;stroke-width:3}}
+.map-city.blink{animation:cityBlink 0.125s ease-in-out 8}
+@keyframes cityBlink{0%,100%{fill:#fff;r:var(--r)}50%{fill:#F78986;r:calc(var(--r) + 4px);stroke:#F78986;stroke-width:3}}
 .map-tooltip{position:absolute;padding:1rem;background:#fff;border-radius:.75rem;box-shadow:0 10px 40px rgba(0,0,0,0.15);opacity:0;transition:opacity .3s;z-index:100;min-width:200px;pointer-events:auto}
 .map-tooltip.visible{opacity:1}
 .tooltip-city{font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:.5rem}
@@ -531,15 +531,15 @@ function animateAll(activeSet, newSet) {
       setTimeout(function(){
         el.circle.classList.add('blink');
         el.circle.style.setProperty('--r', el.radius+'px');
-        el.circle.setAttribute('stroke','#FFD700');
+        el.circle.setAttribute('stroke','#F78986');
         el.circle.setAttribute('stroke-width','3');
-        // Restore after 2s
+        // Restore after 1s
         setTimeout(function(){
           el.circle.classList.remove('blink');
           el.circle.setAttribute('fill','#fff');
           el.circle.setAttribute('stroke','#6D4AFF');
           el.circle.setAttribute('stroke-width','2');
-        },2000);
+        },1000);
       },1200);
     });
   }
