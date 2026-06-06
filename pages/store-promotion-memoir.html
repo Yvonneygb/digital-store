@@ -28,15 +28,6 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 .reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* Hero */
-.hero-section{background:linear-gradient(135deg,#6D4AFF 0%,#4C2FCC 100%);position:relative;overflow:hidden}
-.hero-section::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.12) 0%, transparent 60%),
-             radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%);
-}
-.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:999px;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);font-size:.75rem;font-weight:600;letter-spacing:.06em;border:1px solid rgba(255,255,255,0.2)}
-
 /* Phase steps */
 .phase-steps{display:grid;grid-template-columns:1fr;gap:1rem}
 @media(min-width:1024px){.phase-steps{grid-template-columns:repeat(3,1fr)}}
@@ -46,11 +37,11 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 .phase-card-body{padding:1.5rem}
 
 /* Milestone timeline */
-.milestone-track{position:relative;padding:1.5rem 0}
-.milestone-line{position:absolute;top:50%;left:4%;right:4%;height:3px;background:linear-gradient(90deg,transparent,rgba(109,74,255,0.3) 10%,rgba(109,74,255,0.5) 50%,rgba(109,74,255,0.3) 90%,transparent);transform:translateY(-50%)}
-.milestone-node{position:relative;display:flex;flex-direction:column;align-items:center;gap:.4rem}
-.milestone-dot{width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 3px var(--c, #6D4AFF);background:var(--c, #6D4AFF);position:relative;z-index:2}
-.milestone-label{font-size:.7rem;font-weight:700;color:#6b7280;white-space:nowrap}
+.milestone-track{position:relative;padding:2rem 0 0.5rem}
+.milestone-line{position:absolute;top:8px;left:4%;right:4%;height:3px;background:linear-gradient(90deg,transparent,rgba(109,74,255,0.3) 10%,rgba(109,74,255,0.5) 50%,rgba(109,74,255,0.3) 90%,transparent)}
+.milestone-node{display:flex;flex-direction:column;align-items:center}
+.milestone-dot{width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 3px var(--c, #6D4AFF);background:var(--c, #6D4AFF);position:relative;z-index:2;margin-bottom:.7rem}
+.milestone-label{font-size:.7rem;font-weight:700;color:#6b7280;white-space:nowrap;text-align:center}
 .milestone-title{font-size:.6rem;color:#9ca3af;white-space:nowrap}
 
 /* Battle card */
@@ -58,20 +49,9 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 .battle-card:hover{box-shadow:0 12px 32px rgba(0,0,0,0.06);border-color:rgba(109,74,255,0.2)}
 .battle-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
 
-/* Dashboard cards */
-.dash-card{border-radius:1rem;background:#fff;border:1px solid rgba(0,0,0,0.06);padding:1.25rem;transition:all .3s}
-.dash-card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.06)}
-.dash-indicator{width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:.4rem}
-.dash-indicator.green{background:#10B981;box-shadow:0 0 8px rgba(16,185,129,0.3)}
-.dash-indicator.yellow{background:#F59E0B;box-shadow:0 0 8px rgba(245,158,11,0.3)}
-.dash-indicator.red{background:#EF4444;box-shadow:0 0 8px rgba(239,68,68,0.3)}
-
 /* Progress bar */
 .progress-bar{height:8px;border-radius:4px;background:#f3f4f6;overflow:hidden}
 .progress-fill{height:100%;border-radius:4px;transition:width 1.2s ease}
-
-/* Map section */
-.map-hint{border-radius:1rem;background:linear-gradient(135deg,rgba(109,74,255,0.04),rgba(109,74,255,0.08));border:2px dashed rgba(109,74,255,0.2);padding:2rem;text-align:center}
 
 /* Innovation highlight */
 .innovation-tag{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .75rem;border-radius:999px;background:rgba(109,74,255,0.08);color:#6D4AFF;font-size:.7rem;font-weight:600;border:1px solid rgba(109,74,255,0.15)}
@@ -81,17 +61,102 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 .gantt-label{width:100px;font-size:.75rem;font-weight:600;color:#374151;flex-shrink:0}
 .gantt-track{flex:1;height:28px;border-radius:6px;background:#f3f4f6;position:relative;overflow:hidden}
 .gantt-bar{position:absolute;top:2px;height:24px;border-radius:5px;display:flex;align-items:center;padding:0 .5rem;font-size:.6rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;transition:width 1s ease}
+
+/* Map section - from store-promotion */
+.map-container{position:relative;width:100%;height:580px;background:#fff;border-radius:1rem;overflow:hidden;box-shadow:0 4px 20px rgba(109,74,255,0.08)}
+.map-layout{display:flex;gap:1.5rem;align-items:stretch}
+.map-left{flex:0 0 65%;min-width:0}
+.map-right{flex:1;display:flex;flex-direction:column;min-width:0}
+.rank-card{background:#fff;border-radius:1rem;padding:1.25rem 1.25rem 3rem 1.25rem;box-shadow:0 2px 12px rgba(109,74,255,0.06);flex:1;max-height:580px;overflow-y:auto}
+.rank-card::-webkit-scrollbar{width:4px}
+.rank-card::-webkit-scrollbar-track{background:transparent}
+.rank-card::-webkit-scrollbar-thumb{background:rgba(109,74,255,0.15);border-radius:2px}
+.rank-title{font-size:.75rem;font-weight:700;color:#6D4AFF;letter-spacing:.05em;margin-bottom:1rem}
+.rank-item{display:flex;align-items:center;gap:.5rem;padding:.5rem .25rem;border-radius:.5rem;transition:background .2s;cursor:pointer}
+.rank-item:hover{background:rgba(109,74,255,0.04)}
+.rank-medal{font-size:.75rem;flex-shrink:0;width:1.5rem;text-align:center}
+.rank-num{width:1.25rem;height:1.25rem;border-radius:.25rem;display:flex;align-items:center;justify-content:center;font-size:.625rem;font-weight:700;color:#9ca3af;background:rgba(109,74,255,0.06);flex-shrink:0}
+.rank-name{font-size:.75rem;font-weight:600;color:#1a1a2e;min-width:2.5rem;flex-shrink:0}
+.rank-bar{flex:1;height:.35rem;border-radius:9999px;background:#f3f4f6;overflow:hidden;position:relative}
+.rank-fill{height:100%;border-radius:9999px;background:linear-gradient(90deg,#6D4AFF,rgba(109,74,255,0.4));will-change:width}
+.rank-val{font-size:.6875rem;font-family:monospace;color:#6D4AFF;font-weight:600;min-width:2.25rem;text-align:right;flex-shrink:0}
+.map-svg{position:absolute;inset:0;width:100%;height:100%}
+.map-center{fill:#6D4AFF}
+.china-outline{fill:rgba(109,74,255,0.025);stroke:#D1D5DB;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
+.province-border{fill:none;stroke:rgba(109,74,255,0.29);stroke-width:1.2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:3 4}
+.map-city{fill:#fff;stroke:#6D4AFF;stroke-width:2;cursor:pointer;transition:all .3s ease;transition-property:fill,opacity}
+.map-city:hover{fill:#6D4AFF}
+.map-line-anim{fill:none;stroke:#6D4AFF;stroke-width:2;stroke-linecap:round;opacity:0.6}
+.map-tooltip{position:absolute;padding:1rem;background:#fff;border-radius:.75rem;box-shadow:0 10px 40px rgba(0,0,0,0.15);opacity:0;transition:opacity .3s;z-index:100;min-width:200px;pointer-events:auto}
+.map-tooltip.visible{opacity:1}
+.tooltip-city{font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:.5rem}
+.tooltip-info{font-size:.75rem;color:#6b7280;margin-bottom:.25rem}
+.tooltip-btn{display:inline-block;margin-top:.75rem;padding:.5rem 1rem;background:#6D4AFF;color:#fff;font-size:.75rem;font-weight:500;border-radius:.5rem;cursor:pointer;transition:background .2s}
+.tooltip-btn:hover{background:#5a3dd9}
+.map-legend{position:absolute;bottom:1rem;right:1rem;display:flex;gap:1rem;font-size:.625rem;color:#9ca3af;background:rgba(255,255,255,0.9);padding:.5rem .75rem;border-radius:.5rem}
+.legend-dot{display:flex;align-items:center;gap:.25rem}
+.legend-center{width:.5rem;height:.5rem;border-radius:50%;background:#6D4AFF}
+
+/* Carousel */
+.carousel-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:1000;display:none;align-items:center;justify-content:center;perspective:1200px}
+.carousel-overlay.active{display:flex}
+.carousel-3d{position:relative;width:80vw;max-width:900px;height:500px;transform-style:preserve-3d}
+.carousel-item{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .7s ease;backface-visibility:hidden;transform-origin:center center}
+.carousel-item img{max-width:100%;max-height:100%;object-fit:contain;border-radius:.75rem;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.carousel-item.active{z-index:10;transform:translateZ(0) scale(1);opacity:1}
+.carousel-item.prev{z-index:5;transform:translateX(-120%) rotateY(30deg) scale(.7);opacity:.3}
+.carousel-item.next{z-index:5;transform:translateX(120%) rotateY(-30deg) scale(.7);opacity:.3}
+.carousel-item.far-prev{z-index:1;transform:translateX(-200%) rotateY(45deg) scale(.4);opacity:0}
+.carousel-item.far-next{z-index:1;transform:translateX(200%) rotateY(-45deg) scale(.4);opacity:0}
+.carousel-ctrl{position:absolute;top:50%;transform:translateY(-50%);width:3rem;height:3rem;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.25rem;cursor:pointer;transition:background .2s;z-index:20}
+.carousel-ctrl:hover{background:rgba(255,255,255,0.2)}
+.carousel-prev{left:1rem}
+.carousel-next{right:1rem}
+.carousel-close{position:absolute;top:1.5rem;right:1.5rem;width:2.5rem;height:2.5rem;background:rgba(255,255,255,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;transition:background .2s;z-index:20}
+.carousel-close:hover{background:rgba(255,255,255,0.2)}
+.carousel-dots{position:absolute;bottom:-2.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem}
+.carousel-dot{width:.5rem;height:.5rem;border-radius:50%;background:rgba(255,255,255,0.3);cursor:pointer;transition:background .2s}
+.carousel-dot.active{background:#6D4AFF}
+.carousel-counter{position:absolute;top:-2rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:.75rem;font-family:monospace}
+
+/* Toggle buttons for map mode */
+.toggle-group{display:inline-flex;border-radius:999px;background:#f3f4f6;padding:3px}
+.toggle-btn{padding:.45rem 1.25rem;border-radius:999px;border:none;cursor:pointer;font-size:.8rem;font-weight:600;transition:all .25s;color:#6b7280;background:transparent;font-family:inherit;white-space:nowrap}
+.toggle-btn.active{background:#6D4AFF;color:#fff;box-shadow:0 2px 8px rgba(109,74,255,0.3)}
+
+/* Month scroller */
+.month-scroller{display:flex;align-items:center;gap:.3rem;overflow-x:auto;padding:.3rem 0}
+.month-scroller::-webkit-scrollbar{height:3px}
+.month-scroller::-webkit-scrollbar-thumb{background:rgba(109,74,255,0.2);border-radius:2px}
+.month-btn{flex-shrink:0;width:2.2rem;height:2.2rem;border-radius:50%;border:2px solid #e5e7eb;cursor:pointer;font-size:.65rem;font-weight:700;color:#9ca3af;background:#fff;transition:all .25s;display:flex;align-items:center;justify-content:center;font-family:inherit}
+.month-btn:hover{border-color:#6D4AFF;color:#6D4AFF}
+.month-btn.active{background:#6D4AFF;color:#fff;border-color:#6D4AFF;box-shadow:0 2px 8px rgba(109,74,255,0.3)}
+
+/* Month info badge */
+.month-info{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .85rem;border-radius:999px;font-size:.7rem;font-weight:600;background:rgba(109,74,255,0.08);color:#6D4AFF}
+
+@media(max-width:768px){
+  .carousel-ctrl{width:2rem;height:2rem;font-size:.875rem}
+  .carousel-prev{left:.5rem}.carousel-next{right:.5rem}
+  .carousel-item.prev{transform:translateX(-60%) rotateY(20deg) scale(.6)}
+  .carousel-item.next{transform:translateX(60%) rotateY(-20deg) scale(.6)}
+  .map-layout{flex-direction:column}.map-left{flex:none;width:100%}.map-right{width:100%}.rank-card{max-height:300px}
+}
 </style>
 </head>
 <body>
 
-<!-- Hero -->
-<section class="hero-section px-6 py-16 md:py-24">
-  <div class="relative z-10 w-[80%] mx-auto">
+<!-- Hero - White background, consistent with other pages -->
+<section class="px-6 py-16 md:py-20">
+  <div class="w-[80%] mx-auto">
     <div class="text-center reveal">
-      <span class="hero-badge mb-6"><i class="fa-solid fa-globe text-white/60"></i> 全域推广全景纪实</span>
-      <h1 class="text-white font-black tracking-tight leading-tight mb-4" style="font-size:clamp(2.5rem,6vw,5rem)">数字化门店</h1>
-      <p class="text-white/70 text-base md:text-xl font-light max-w-2xl mx-auto mb-8">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-globe text-[#6D4AFF]"></i> 全域推广全景纪实
+      </span>
+      <h1 class="font-black tracking-tight leading-tight mb-4" style="font-size:clamp(2.5rem,6vw,5rem);color:#1a1a2e">
+        数字化<span style="color:#6D4AFF">门店</span>
+      </h1>
+      <p class="text-gray-500 text-base md:text-xl font-light max-w-2xl mx-auto mb-8">
         从种子培育到生态共建 — 分阶段全域推广蓝图全景展示
       </p>
       <div class="flex flex-wrap justify-center gap-3">
@@ -104,7 +169,7 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 </section>
 
 <!-- Section 1: 分阶段推广蓝图 -->
-<section class="px-6 py-16">
+<section class="px-6 py-16" style="background:#fff">
   <div class="w-[80%] mx-auto">
     <div class="text-center mb-10 reveal">
       <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
@@ -114,13 +179,11 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
       <p class="text-gray-500 max-w-2xl mx-auto">全景呈现从种子培育到规模复制的推广节奏与关键节点</p>
     </div>
 
-    <!-- Gantt Chart -->
     <div class="bg-white rounded-2xl border border-gray-100 p-6 md:p-10 reveal shadow-sm mb-10">
       <div class="flex items-center gap-2 mb-6">
         <div class="w-2 h-5 rounded bg-[#6D4AFF]"></div>
         <h3 class="text-lg font-bold text-gray-800">推广时间线</h3>
       </div>
-
       <div class="gantt-row">
         <span class="gantt-label">种子培育期</span>
         <div class="gantt-track">
@@ -140,8 +203,8 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
         </div>
       </div>
 
-      <!-- Milestones -->
-      <div class="milestone-track relative mt-6">
+      <!-- Milestones - dots on line, labels below -->
+      <div class="milestone-track">
         <div class="milestone-line"></div>
         <div class="flex justify-between px-[4%]" style="position:relative;z-index:2">
           <div class="milestone-node">
@@ -173,7 +236,6 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
       </div>
     </div>
 
-    <!-- Innovation Highlights -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 reveal">
       <div class="battle-card">
         <div class="flex items-start gap-4">
@@ -198,7 +260,7 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 </section>
 
 <!-- Section 2: 攻坚策略与实战打法 -->
-<section class="px-6 py-16" style="background:#fff">
+<section class="px-6 py-16">
   <div class="w-[80%] mx-auto">
     <div class="text-center mb-10 reveal">
       <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
@@ -208,23 +270,17 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
       <p class="text-gray-500 max-w-2xl mx-auto">从 0→1 突破到 N→∞ 进化，系统化攻坚路径</p>
     </div>
 
-    <!-- Phase Progress Bar -->
     <div class="flex items-center gap-0 mb-10 reveal max-w-3xl mx-auto">
       <div class="flex-1 h-2 rounded-l-full" style="background:#6D4AFF"></div>
       <div class="flex-1 h-2" style="background:#2563eb"></div>
       <div class="flex-1 h-2 rounded-r-full" style="background:#059669"></div>
     </div>
 
-    <!-- 3 Phase Cards -->
     <div class="phase-steps">
-      <!-- Phase 1: 种子培育期 -->
       <div class="phase-card reveal" style="transition-delay:0.15s">
         <div class="phase-card-header" style="background:linear-gradient(135deg,#6D4AFF,#8B6FFF)">
           <i class="fa-solid fa-seedling text-xl"></i>
-          <div>
-            <h3 class="font-black text-base">种子培育期</h3>
-            <p class="text-xs text-white/70">0 → 1 突破</p>
-          </div>
+          <div><h3 class="font-black text-base">种子培育期</h3><p class="text-xs text-white/70">0 → 1 突破</p></div>
         </div>
         <div class="phase-card-body space-y-3">
           <div class="flex items-start gap-3">
@@ -246,14 +302,10 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
         </div>
       </div>
 
-      <!-- Phase 2: 规模复制期 -->
       <div class="phase-card reveal" style="transition-delay:0.3s">
         <div class="phase-card-header" style="background:linear-gradient(135deg,#2563eb,#3B82F6)">
           <i class="fa-solid fa-rocket text-xl"></i>
-          <div>
-            <h3 class="font-black text-base">规模复制期</h3>
-            <p class="text-xs text-white/70">1 → N 加速</p>
-          </div>
+          <div><h3 class="font-black text-base">规模复制期</h3><p class="text-xs text-white/70">1 → N 加速</p></div>
         </div>
         <div class="phase-card-body space-y-3">
           <div class="flex items-start gap-3">
@@ -276,14 +328,10 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
         </div>
       </div>
 
-      <!-- Phase 3: 生态共建期 -->
       <div class="phase-card reveal" style="transition-delay:0.45s">
         <div class="phase-card-header" style="background:linear-gradient(135deg,#059669,#10B981)">
           <i class="fa-solid fa-infinity text-xl"></i>
-          <div>
-            <h3 class="font-black text-base">生态共建期</h3>
-            <p class="text-xs text-white/70">N → ∞ 进化</p>
-          </div>
+          <div><h3 class="font-black text-base">生态共建期</h3><p class="text-xs text-white/70">N → ∞ 进化</p></div>
         </div>
         <div class="phase-card-body space-y-3">
           <div class="flex items-start gap-3">
@@ -304,186 +352,420 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
   </div>
 </section>
 
-<!-- Section 3: 可视化作战地图 -->
-<section class="px-6 py-16">
-  <div class="w-[80%] mx-auto">
-    <div class="text-center mb-10 reveal">
-      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
-        <i class="fa-solid fa-chart-pie text-[#6D4AFF]"></i> 可视化作战地图
-      </span>
-      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">联动仪表盘</h2>
-      <p class="text-gray-500 max-w-2xl mx-auto">时空维度 × 状态标识 — 全国推进态势一目了然</p>
-    </div>
-
-    <!-- Dashboard Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 reveal">
-      <div class="dash-card text-center">
-        <div class="text-3xl font-black text-[#6D4AFF] mb-1">78%</div>
-        <div class="text-xs text-gray-500 mb-2">华北区渗透率</div>
-        <div class="progress-bar h-2 mb-2">
-          <div class="progress-fill" style="width:78%;background:linear-gradient(90deg,#6D4AFF,#8B6FFF)"></div>
-        </div>
-        <span class="text-[10px] text-gray-400">领跑全国</span>
-      </div>
-      <div class="dash-card text-center">
-        <div class="text-3xl font-black text-[#059669] mb-1">67%</div>
-        <div class="text-xs text-gray-500 mb-2">缺货率降幅</div>
-        <div class="progress-bar h-2 mb-2">
-          <div class="progress-fill" style="width:67%;background:linear-gradient(90deg,#10B981,#34D399)"></div>
-        </div>
-        <span class="text-[10px] text-gray-400">动态补货算法</span>
-      </div>
-      <div class="dash-card text-center">
-        <div class="text-3xl font-black text-[#2563eb] mb-1">92%</div>
-        <div class="text-xs text-gray-500 mb-2">供应链预测准确率</div>
-        <div class="progress-bar h-2 mb-2">
-          <div class="progress-fill" style="width:92%;background:linear-gradient(90deg,#2563eb,#3B82F6)"></div>
-        </div>
-        <span class="text-[10px] text-gray-400">数据反哺优化</span>
-      </div>
-      <div class="dash-card text-center">
-        <div class="text-3xl font-black text-[#F59E0B] mb-1">12 项</div>
-        <div class="text-xs text-gray-500 mb-2">健康度指标监测</div>
-        <div class="progress-bar h-2 mb-2">
-          <div class="progress-fill" style="width:100%;background:linear-gradient(90deg,#F59E0B,#FBBF24)"></div>
-        </div>
-        <span class="text-[10px] text-gray-400">驾驶舱实时</span>
-      </div>
-    </div>
-
-    <!-- Status Indicators -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 reveal">
-      <div class="dash-card" style="border-left:4px solid #10B981">
-        <div class="flex items-center gap-3 mb-3">
-          <span class="dash-indicator green"></span>
-          <h4 class="font-bold text-gray-800 text-sm">已达标门店</h4>
-        </div>
-        <p class="text-xs text-gray-500">连续3个月达成 GMV/坪效目标，进入稳定运营期</p>
-        <div class="mt-3 flex items-center gap-2">
-          <div class="flex-1 h-1.5 rounded-full bg-gray-100"><div class="h-full rounded-full bg-[#10B981]" style="width:65%"></div></div>
-          <span class="text-xs font-bold text-[#10B981]">65%</span>
-        </div>
-      </div>
-      <div class="dash-card" style="border-left:4px solid #F59E0B">
-        <div class="flex items-center gap-3 mb-3">
-          <span class="dash-indicator yellow"></span>
-          <h4 class="font-bold text-gray-800 text-sm">爬坡期门店</h4>
-        </div>
-        <p class="text-xs text-gray-500">需重点关注人员流动率指标，加强培训与辅导</p>
-        <div class="mt-3 flex items-center gap-2">
-          <div class="flex-1 h-1.5 rounded-full bg-gray-100"><div class="h-full rounded-full bg-[#F59E0B]" style="width:25%"></div></div>
-          <span class="text-xs font-bold text-[#F59E0B]">25%</span>
-        </div>
-      </div>
-      <div class="dash-card" style="border-left:4px solid #EF4444">
-        <div class="flex items-center gap-3 mb-3">
-          <span class="dash-indicator red"></span>
-          <h4 class="font-bold text-gray-800 text-sm">滞后门店</h4>
-        </div>
-        <p class="text-xs text-gray-500">启动「急诊室」专项帮扶，总部派驻专家定点支持</p>
-        <div class="mt-3 flex items-center gap-2">
-          <div class="flex-1 h-1.5 rounded-full bg-gray-100"><div class="h-full rounded-full bg-[#EF4444]" style="width:10%"></div></div>
-          <span class="text-xs font-bold text-[#EF4444]">10%</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Note on visualization tools -->
-    <div class="map-hint reveal">
-      <i class="fa-solid fa-chart-line text-3xl text-[#6D4AFF] mb-3 block"></i>
-      <p class="text-sm text-gray-600">
-        <strong>推荐工具：</strong>Power BI / Tableau 制作联动仪表盘
-      </p>
-      <p class="text-xs text-gray-400 mt-1">
-        热力图展示全国推进态势 · 折线图追踪月度新增量 · 区域钻取逐级下探
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- Section 4: 推广地图 -->
+<!-- Section 3: 推广地图 -->
 <section class="px-6 py-16" style="background:#fff">
   <div class="w-[80%] mx-auto">
-    <div class="text-center mb-10 reveal">
+    <div class="text-center mb-8 reveal">
       <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
         <i class="fa-solid fa-map-location-dot text-[#6D4AFF]"></i> 推广地图
       </span>
       <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">全国推广全景</h2>
-      <p class="text-gray-500 max-w-2xl mx-auto">支持实时地图与按月查看两种模式</p>
     </div>
 
-    <!-- Map content - two columns -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 reveal">
-      <div class="lg:col-span-2 map-hint flex flex-col items-center justify-center" style="min-height:320px">
-        <i class="fa-solid fa-map text-5xl text-[#6D4AFF]/30 mb-4"></i>
-        <h4 class="font-bold text-gray-700 mb-2">中国推广地图</h4>
-        <p class="text-xs text-gray-400 text-center max-w-md">
-          以佛山为中心，覆盖 20 个城市的多阶段推广路线图。<br>
-          支持按月份切换查看不同阶段的推进态势与城市排行榜。
-        </p>
-        <a href="store-promotion.html" class="inline-flex items-center gap-2 mt-4 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition" style="background:#6D4AFF">
-          <i class="fa-solid fa-arrow-right"></i> 查看互动地图
-        </a>
+    <!-- Toggle + Month Scroller -->
+    <div class="flex flex-wrap items-center gap-4 mb-6 reveal justify-center">
+      <div class="toggle-group">
+        <button class="toggle-btn active" id="btnRealtime" onclick="switchMapMode('realtime')">
+          <i class="fa-solid fa-map"></i> 实时地图
+        </button>
+        <button class="toggle-btn" id="btnMonth" onclick="switchMapMode('month')">
+          <i class="fa-solid fa-calendar"></i> 月视图
+        </button>
       </div>
+      <div class="month-scroller" id="monthScroller" style="display:none">
+        <button class="month-btn active" data-m="7" onclick="selectMonth(7)">7月</button>
+        <button class="month-btn" data-m="8" onclick="selectMonth(8)">8月</button>
+        <button class="month-btn" data-m="9" onclick="selectMonth(9)">9月</button>
+        <button class="month-btn" data-m="10" onclick="selectMonth(10)">10月</button>
+        <button class="month-btn" data-m="11" onclick="selectMonth(11)">11月</button>
+        <button class="month-btn" data-m="12" onclick="selectMonth(12)">12月</button>
+      </div>
+      <span class="month-info" id="monthInfo" style="display:none">
+        <i class="fa-solid fa-city"></i> <span id="monthCityCount">6</span> 座城市
+      </span>
+    </div>
 
-      <div class="dash-card flex flex-col justify-center">
-        <div class="flex items-center gap-2 mb-4">
-          <div class="w-1.5 h-4 rounded bg-[#6D4AFF]"></div>
-          <h4 class="font-bold text-gray-800 text-sm">月视图模式</h4>
+    <!-- Map Layout -->
+    <div class="map-layout reveal">
+      <div class="map-left">
+        <div class="map-container" id="mapContainer">
+          <svg class="map-svg" id="mapSvg" viewBox="0 0 800 600" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#6D4AFF;stop-opacity:0.9"/><stop offset="100%" style="stop-color:#6D4AFF;stop-opacity:0.15"/></linearGradient>
+              <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <path class="china-outline" id="chinaOutline" d=""/>
+            <g class="province-borders">
+              <path class="province-border" d="M505,145 L505,170 L510,170 L505,145 Z"/><path class="province-border" d="M520,115 L530,125 L540,115 L530,100 Z"/><path class="province-border" d="M480,168 L490,190 L500,210 L510,225 L490,240 L470,250 L460,255 L450,265"/><path class="province-border" d="M480,155 L470,175 L480,190 L500,210 L510,225 L500,230 L480,235 L465,245 L450,260 L440,270"/><path class="province-border" d="M510,225 L505,180 L495,165 L480,168"/><path class="province-border" d="M440,270 L480,270 L510,280 L530,280 L510,305 L490,305 L480,295 L450,285"/><path class="province-border" d="M480,295 L500,285 L510,305 L520,310 L490,320 L470,315 L480,295"/><path class="province-border" d="M490,320 L520,310 L530,280 L510,305"/><path class="province-border" d="M490,320 L510,340 L520,355 L500,365 L490,365 L470,350"/><path class="province-border" d="M470,350 L490,365 L480,380 L470,390 L450,395 L440,380 L455,375 L470,350"/><path class="province-border" d="M450,395 L470,390 L490,380 L500,370 L510,360 L520,370 L510,380 L500,390 L490,415 L470,410 L450,395"/><path class="province-border" d="M440,380 L455,375 L440,370 L425,365 L415,370 L405,380 L385,405 L380,415 L440,380"/><path class="province-border" d="M385,405 L375,390 L355,380 L330,370 L310,390 L320,400 L350,410 L385,405"/><path class="province-border" d="M310,390 L330,360 L350,355 L355,340 L340,320 L320,310 L300,315 L280,330 L290,350 L310,380"/><path class="province-border" d="M340,320 L355,355 L350,370 L340,375 L320,360 L300,340 L280,330 L290,310 L310,300"/><path class="province-border" d="M340,320 L355,300 L370,280 L390,290 L400,300 L410,305 L430,310 L415,345"/><path class="province-border" d="M430,310 L440,270 L450,260 L460,250 L470,265 L490,275 L500,270 L480,250 L460,240 L440,250"/><path class="province-border" d="M430,310 L460,320 L470,330 L480,340 L475,350 L450,355 L415,345"/><path class="province-border" d="M475,350 L470,330 L480,340 L490,350 L500,365 L490,380 L480,375 L475,350"/><path class="province-border" d="M375,280 L370,260 L360,250 L350,260 L345,280 L355,300 L370,280"/><path class="province-border" d="M370,260 L380,240 L390,230 L400,220 L420,230 L430,240 L440,250 L450,260"/><path class="province-border" d="M380,240 L370,250 L350,240 L330,230 L310,220 L290,240 L280,260 L300,270"/><path class="province-border" d="M370,200 L380,220 L400,230 L420,220 L430,200 L420,180 L400,170 L380,165"/><path class="province-border" d="M350,200 L370,220 L380,240 L360,250 L330,240 L310,230 L290,240 L270,235 L250,240 L240,260 L250,270 L270,290"/><path class="province-border" d="M290,240 L270,200 L250,180 L230,170 L210,165 L190,175 L180,190 L190,210 L210,230 L230,250 L250,260"/><path class="province-border" d="M180,190 L160,210 L140,230 L130,260 L135,280 L150,290 L170,285 L190,270 L210,250 L230,230"/><path class="province-border" d="M150,290 L170,285 L190,320 L210,340 L230,350 L240,340 L250,320 L260,300 L270,290"/><path class="province-border" d="M210,230 L190,250 L180,230 L170,210 L150,190 L125,180 L110,175"/>
+            </g>
+            <g id="linesGroup"></g>
+            <g id="citiesGroup"></g>
+            <circle class="map-center" cx="455" cy="380" r="14" filter="url(#glow)">
+              <animate attributeName="r" values="14;18;14" dur="2s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="455" cy="380" r="5" fill="#fff" style="pointer-events:none"/>
+            <text x="455" y="412" text-anchor="middle" fill="#6D4AFF" font-size="13" font-weight="700">佛山</text>
+          </svg>
+          <div class="map-tooltip" id="mapTooltip">
+            <div class="tooltip-city" id="tooltipCity"></div>
+            <div class="tooltip-info"><i class="fa-solid fa-store" style="color:#6D4AFF;margin-right:.25rem"></i>推广门店：<span id="tooltipStores"></span> 家</div>
+            <div class="tooltip-info"><i class="fa-solid fa-chart-area" style="color:#6D4AFF;margin-right:.25rem"></i>覆盖范围：<span id="tooltipRange"></span> km²</div>
+            <div class="tooltip-btn" id="tooltipBtn"><i class="fa-solid fa-images" style="margin-right:.25rem"></i>查看图册</div>
+          </div>
+          <div class="map-legend"><div class="legend-dot"><div class="legend-center"></div>推广中心</div><div style="display:flex;align-items:center;gap:.25rem"><i class="fa-solid fa-circle" style="font-size:.5rem;color:#6D4AFF"></i>推广城市</div></div>
         </div>
-        <p class="text-xs text-gray-500 mb-4">选择月份查看不同阶段的推进情况</p>
-        <div class="space-y-2">
-          <div class="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 hover:bg-gray-100 cursor-pointer transition">
-            <span class="text-sm font-bold text-[#6D4AFF]">7月</span>
-            <span class="text-xs text-gray-500">种子期播种 · 首批城市启动</span>
-          </div>
-          <div class="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 hover:bg-gray-100 cursor-pointer transition">
-            <span class="text-sm font-bold text-[#2563eb]">8月</span>
-            <span class="text-xs text-gray-500">扩张加速 · 灯塔城市发力</span>
-          </div>
-          <div class="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 hover:bg-gray-100 cursor-pointer transition">
-            <span class="text-sm font-bold text-[#10B981]">10月</span>
-            <span class="text-xs text-gray-500">规模复制 · 第二批城市上线</span>
-          </div>
-          <div class="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 hover:bg-gray-100 cursor-pointer transition">
-            <span class="text-sm font-bold text-gray-400">12月</span>
-            <span class="text-xs text-gray-400">持续运营 · 生态闭环</span>
-          </div>
+      </div>
+      <div class="map-right">
+        <div class="rank-card" id="rankCard">
+          <div class="rank-title"><i class="fa-solid fa-ranking-star" style="margin-right:.375rem"></i>城市排名</div>
+          <div id="rankingList"></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- Footer -->
 <footer class="border-t border-purple-100 py-8 px-6">
   <div class="max-w-6xl mx-auto text-center">
     <p class="text-xs text-gray-400">数字化门店 · 全域推广全景纪实 · 2026</p>
   </div>
 </footer>
 
-<script>
-(function(){
-  // Intersection Observer for reveal animations
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}
-    })
-  },{threshold:0.15,rootMargin:'0px 0px -40px 0px'})
-  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el))
+<!-- Carousel -->
+<div class="carousel-overlay" id="carouselOverlay">
+  <div class="carousel-close" id="carouselClose"><i class="fa-solid fa-xmark"></i></div>
+  <div class="carousel-ctrl carousel-prev" id="carouselPrev"><i class="fa-solid fa-chevron-left"></i></div>
+  <div class="carousel-ctrl carousel-next" id="carouselNext"><i class="fa-solid fa-chevron-right"></i></div>
+  <div class="carousel-counter" id="carouselCounter">1 / 1</div>
+  <div class="carousel-3d" id="carousel3d"></div>
+  <div class="carousel-dots" id="carouselDots"></div>
+</div>
 
-  // Animate progress bars on scroll
-  const progressObserver = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting && !e.target.dataset.animated){
-        e.target.dataset.animated = '1'
-        const fill = e.target.querySelector('.progress-fill')
-        if(fill){fill.style.width=fill.style.width}
+<script>
+// ===================== CHINA MAP OUTLINE =====================
+function a(x,y){return (x*3.2+100)+','+(y*2.8+40)}
+var chinaPoints=[[135,54],[136,54],[131,52],[128,51],[127,49],[125,49],[123,49],[122,48],[122,47],[121,46],[120,47],[120,46],[121,45],[120,44],[120,42],[118,42],[119,40],[120,40],[120,39],[118,38],[118,36],[121,36],[122,35],[122,33],[121,32],[120,31],[118,31],[118,30],[118,29],[120,28],[121,27],[122,28],[123,29],[125,30],[126,31],[126,32],[128,32],[128,33],[127,34],[126,34],[126,35],[125,36],[124,37],[125,38],[126,39],[126,40],[125,43],[124,44],[122,44],[121,45],[122,46],[123,47],[122,48],[123,49],[122,51],[123,52],[124,53],[124,54],[123,54],[121,55],[120,57],[121,59],[122,60],[124,60],[125,58],[127,57],[128,56],[129,56],[130,55],[130,54],[130,53],[131,54],[134,54],[135,54]];
+var chinaD='M'+a(chinaPoints[0][0],chinaPoints[0][1]);
+for(var i=1;i<chinaPoints.length;i++) chinaD+=' L'+a(chinaPoints[i][0],chinaPoints[i][1]);
+chinaD+=' Z';
+document.getElementById('chinaOutline').setAttribute('d',chinaD);
+
+// ===================== CITY DATA =====================
+var citiesData = [
+  {name:'北京',x:480,y:155,stores:210,range:16410,imgs:['https://picsum.photos/seed/bj1/800/600','https://picsum.photos/seed/bj2/800/600','https://picsum.photos/seed/bj3/800/600','https://picsum.photos/seed/bj4/800/600','https://picsum.photos/seed/bj5/800/600','https://picsum.photos/seed/bj6/800/600']},
+  {name:'上海',x:530,y:280,stores:245,range:6340,imgs:['https://picsum.photos/seed/sh1/800/600','https://picsum.photos/seed/sh2/800/600','https://picsum.photos/seed/sh3/800/600','https://picsum.photos/seed/sh4/800/600','https://picsum.photos/seed/sh5/800/600','https://picsum.photos/seed/sh6/800/600']},
+  {name:'广州',x:440,y:375,stores:187,range:7434,imgs:['https://picsum.photos/seed/gz1/800/600','https://picsum.photos/seed/gz2/800/600','https://picsum.photos/seed/gz3/800/600','https://picsum.photos/seed/gz4/800/600','https://picsum.photos/seed/gz5/800/600','https://picsum.photos/seed/gz6/800/600']},
+  {name:'深圳',x:455,y:390,stores:198,range:1997,imgs:['https://picsum.photos/seed/sz1/800/600','https://picsum.photos/seed/sz2/800/600','https://picsum.photos/seed/sz3/800/600','https://picsum.photos/seed/sz4/800/600','https://picsum.photos/seed/sz5/800/600','https://picsum.photos/seed/sz6/800/600']},
+  {name:'成都',x:340,y:340,stores:165,range:14335,imgs:['https://picsum.photos/seed/cd1/800/600','https://picsum.photos/seed/cd2/800/600','https://picsum.photos/seed/cd3/800/600','https://picsum.photos/seed/cd4/800/600','https://picsum.photos/seed/cd5/800/600','https://picsum.photos/seed/cd6/800/600']},
+  {name:'杭州',x:510,y:305,stores:152,range:16596,imgs:['https://picsum.photos/seed/hz1/800/600','https://picsum.photos/seed/hz2/800/600','https://picsum.photos/seed/hz3/800/600','https://picsum.photos/seed/hz4/800/600','https://picsum.photos/seed/hz5/800/600','https://picsum.photos/seed/hz6/800/600']},
+  {name:'武汉',x:430,y:310,stores:138,range:8494,imgs:['https://picsum.photos/seed/wh1/800/600','https://picsum.photos/seed/wh2/800/600','https://picsum.photos/seed/wh3/800/600','https://picsum.photos/seed/wh4/800/600','https://picsum.photos/seed/wh5/800/600','https://picsum.photos/seed/wh6/800/600']},
+  {name:'南京',x:495,y:285,stores:126,range:6587,imgs:['https://picsum.photos/seed/nj1/800/600','https://picsum.photos/seed/nj2/800/600','https://picsum.photos/seed/nj3/800/600','https://picsum.photos/seed/nj4/800/600','https://picsum.photos/seed/nj5/800/600','https://picsum.photos/seed/nj6/800/600']},
+  {name:'西安',x:375,y:280,stores:118,range:10097,imgs:['https://picsum.photos/seed/xa1/800/600','https://picsum.photos/seed/xa2/800/600','https://picsum.photos/seed/xa3/800/600','https://picsum.photos/seed/xa4/800/600','https://picsum.photos/seed/xa5/800/600','https://picsum.photos/seed/xa6/800/600']},
+  {name:'长沙',x:415,y:345,stores:105,range:11819,imgs:['https://picsum.photos/seed/cs1/800/600','https://picsum.photos/seed/cs2/800/600','https://picsum.photos/seed/cs3/800/600','https://picsum.photos/seed/cs4/800/600','https://picsum.photos/seed/cs5/800/600','https://picsum.photos/seed/cs6/800/600']},
+  {name:'重庆',x:355,y:355,stores:142,range:82400,imgs:['https://picsum.photos/seed/cq1/800/600','https://picsum.photos/seed/cq2/800/600','https://picsum.photos/seed/cq3/800/600','https://picsum.photos/seed/cq4/800/600','https://picsum.photos/seed/cq5/800/600','https://picsum.photos/seed/cq6/800/600']},
+  {name:'天津',x:480,y:168,stores:132,range:11966,imgs:['https://picsum.photos/seed/tj1/800/600','https://picsum.photos/seed/tj2/800/600','https://picsum.photos/seed/tj3/800/600','https://picsum.photos/seed/tj4/800/600','https://picsum.photos/seed/tj5/800/600','https://picsum.photos/seed/tj6/800/600']},
+  {name:'郑州',x:440,y:270,stores:108,range:7446,imgs:['https://picsum.photos/seed/zz1/800/600','https://picsum.photos/seed/zz2/800/600','https://picsum.photos/seed/zz3/800/600','https://picsum.photos/seed/zz4/800/600','https://picsum.photos/seed/zz5/800/600','https://picsum.photos/seed/zz6/800/600']},
+  {name:'青岛',x:505,y:225,stores:95,range:11282,imgs:['https://picsum.photos/seed/qd1/800/600','https://picsum.photos/seed/qd2/800/600','https://picsum.photos/seed/qd3/800/600','https://picsum.photos/seed/qd4/800/600','https://picsum.photos/seed/qd5/800/600','https://picsum.photos/seed/qd6/800/600']},
+  {name:'厦门',x:490,y:365,stores:88,range:1699,imgs:['https://picsum.photos/seed/xm1/800/600','https://picsum.photos/seed/xm2/800/600','https://picsum.photos/seed/xm3/800/600','https://picsum.photos/seed/xm4/800/600','https://picsum.photos/seed/xm5/800/600','https://picsum.photos/seed/xm6/800/600']},
+  {name:'昆明',x:310,y:390,stores:78,range:21473,imgs:['https://picsum.photos/seed/km1/800/600','https://picsum.photos/seed/km2/800/600','https://picsum.photos/seed/km3/800/600','https://picsum.photos/seed/km4/800/600','https://picsum.photos/seed/km5/800/600','https://picsum.photos/seed/km6/800/600']},
+  {name:'沈阳',x:505,y:145,stores:92,range:12948,imgs:['https://picsum.photos/seed/sy1/800/600','https://picsum.photos/seed/sy2/800/600','https://picsum.photos/seed/sy3/800/600','https://picsum.photos/seed/sy4/800/600','https://picsum.photos/seed/sy5/800/600','https://picsum.photos/seed/sy6/800/600']},
+  {name:'大连',x:510,y:170,stores:82,range:13237,imgs:['https://picsum.photos/seed/dl1/800/600','https://picsum.photos/seed/dl2/800/600','https://picsum.photos/seed/dl3/800/600','https://picsum.photos/seed/dl4/800/600','https://picsum.photos/seed/dl5/800/600','https://picsum.photos/seed/dl6/800/600']},
+  {name:'哈尔滨',x:520,y:115,stores:72,range:53186,imgs:['https://picsum.photos/seed/heb1/800/600','https://picsum.photos/seed/heb2/800/600','https://picsum.photos/seed/heb3/800/600','https://picsum.photos/seed/heb4/800/600','https://picsum.photos/seed/heb5/800/600','https://picsum.photos/seed/heb6/800/600']},
+  {name:'南宁',x:385,y:405,stores:68,range:22112,imgs:['https://picsum.photos/seed/nn1/800/600','https://picsum.photos/seed/nn2/800/600','https://picsum.photos/seed/nn3/800/600','https://picsum.photos/seed/nn4/800/600','https://picsum.photos/seed/nn5/800/600','https://picsum.photos/seed/nn6/800/600']}
+];
+
+// Monthly progression: which city indices are active at each month
+// Index in citiesData: 0=北京,1=上海,2=广州,3=深圳,4=成都,5=杭州,6=武汉,7=南京,8=西安,9=长沙,10=重庆,11=天津,12=郑州,13=青岛,14=厦门,15=昆明,16=沈阳,17=大连,18=哈尔滨,19=南宁
+var monthCities = {
+  7: [0,1,2,3,4,5],          // 6 cities: 北京,上海,广州,深圳,成都,杭州
+  8: [0,1,2,3,4,5,6,7,8,10,11],  // 11 cities: + 武汉,南京,西安,重庆,天津
+  9: [0,1,2,3,4,5,6,7,8,10,11,12,13,9],  // 14 cities: + 郑州,青岛,长沙
+  10: [0,1,2,3,4,5,6,7,8,10,11,12,13,9,14,16,17,19], // 18 cities: + 厦门,沈阳,大连,南宁
+  11: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,19,15], // 19 cities: + 昆明
+  12: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]  // 20 cities: + 哈尔滨
+};
+
+var currentMonth = 7;
+var currentMode = 'realtime';
+var mapSvg = document.getElementById('mapSvg');
+var linesGroup = document.getElementById('linesGroup');
+var citiesGroup = document.getElementById('citiesGroup');
+var tooltip = document.getElementById('mapTooltip');
+var currentCityImages = [];
+var startX = 455, startY = 380;
+var tooltipTimeout = null;
+var mapElements = {}; // city idx -> {line, circle, text}
+
+// Render city dots and lines
+citiesData.forEach(function(city, idx) {
+  var radius = Math.max(4, Math.min(11, city.stores / 16));
+  // Line
+  var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+  var mx = startX, my = startY;
+  var cx = (mx + city.x) / 2;
+  var cy = (my + city.y) / 2 - 60;
+  var d = 'M' + mx + ',' + my + ' Q' + cx + ',' + cy + ' ' + city.x + ',' + city.y;
+  var len = Math.sqrt((city.x - mx) * (city.x - mx) + (city.y - my) * (city.y - my)) + 40;
+  path.setAttribute('d', d);
+  path.setAttribute('fill', 'none');
+  path.setAttribute('stroke', '#6D4AFF');
+  path.setAttribute('stroke-width', '2');
+  path.setAttribute('opacity', '0');
+  path.setAttribute('stroke-linecap', 'round');
+  path.setAttribute('stroke-dasharray', len);
+  path.setAttribute('stroke-dashoffset', len);
+  linesGroup.appendChild(path);
+
+  // Circle
+  var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  circle.setAttribute('cx', city.x);
+  circle.setAttribute('cy', city.y);
+  circle.setAttribute('r', '0');
+  circle.setAttribute('class', 'map-city');
+  circle.setAttribute('opacity', '0');
+  circle.setAttribute('data-name', city.name);
+  circle.setAttribute('data-stores', city.stores);
+  circle.setAttribute('data-range', city.range);
+  circle.setAttribute('data-imgs', JSON.stringify(city.imgs));
+  citiesGroup.appendChild(circle);
+
+  // Text
+  var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+  text.setAttribute('x', city.x);
+  text.setAttribute('y', city.y + radius + 13);
+  text.setAttribute('text-anchor', 'middle');
+  text.setAttribute('fill', '#6b7280');
+  text.setAttribute('font-size', '9');
+  text.setAttribute('opacity', '0');
+  text.textContent = city.name;
+  citiesGroup.appendChild(text);
+
+  mapElements[idx] = { line: path, circle: circle, text: text, radius: radius };
+});
+
+// Show cities for a given month
+function showMonthCities(month) {
+  var activeSet = new Set(monthCities[month] || []);
+  for (var idx = 0; idx < citiesData.length; idx++) {
+    var el = mapElements[idx];
+    var active = activeSet.has(idx);
+    if (active) {
+      var len = el.line.getAttribute('stroke-dasharray');
+      el.line.setAttribute('stroke-dashoffset', '0');
+      el.line.setAttribute('opacity', '0.5');
+      el.circle.setAttribute('r', el.radius);
+      el.circle.setAttribute('opacity', '1');
+      el.text.setAttribute('opacity', '1');
+    } else {
+      el.line.setAttribute('stroke-dashoffset', el.line.getAttribute('stroke-dasharray'));
+      el.line.setAttribute('opacity', '0');
+      el.circle.setAttribute('r', '0');
+      el.circle.setAttribute('opacity', '0');
+      el.text.setAttribute('opacity', '0');
+    }
+  }
+  currentMonth = month;
+  document.getElementById('monthCityCount').textContent = activeSet.size;
+  // Update ranking
+  buildRanking(activeSet);
+}
+
+// Show all cities (realtime mode)
+function showAllCities() {
+  for (var idx = 0; idx < citiesData.length; idx++) {
+    var el = mapElements[idx];
+    var len = el.line.getAttribute('stroke-dasharray');
+    el.line.setAttribute('stroke-dashoffset', '0');
+    el.line.setAttribute('opacity', '0.5');
+    el.circle.setAttribute('r', el.radius);
+    el.circle.setAttribute('opacity', '1');
+    el.text.setAttribute('opacity', '1');
+  }
+  // Build full ranking
+  var allSet = new Set(citiesData.map(function(_, i) { return i; }));
+  buildRanking(allSet);
+}
+
+// Build ranking list
+function buildRanking(activeSet) {
+  var activeCities = [];
+  activeSet.forEach(function(idx) {
+    activeCities.push(citiesData[idx]);
+  });
+  activeCities.sort(function(a, b) { return b.stores - a.stores; });
+  var maxStores = activeCities.length > 0 ? activeCities[0].stores : 1;
+  var listEl = document.getElementById('rankingList');
+  listEl.innerHTML = '';
+  activeCities.forEach(function(city, i) {
+    var pct = Math.round((city.stores / maxStores) * 100);
+    var medalHtml = '';
+    if (i === 0) medalHtml = '<i class="fa-solid fa-medal" style="font-size:1rem;color:#FFD700"></i>';
+    else if (i === 1) medalHtml = '<i class="fa-solid fa-medal" style="font-size:1rem;color:#C0C0C0"></i>';
+    else if (i === 2) medalHtml = '<i class="fa-solid fa-medal" style="font-size:1rem;color:#CD7F32"></i>';
+    else medalHtml = '<div class="rank-num">' + (i + 1) + '</div>';
+    var item = document.createElement('div');
+    item.className = 'rank-item';
+    item.innerHTML = '<div class="rank-medal" style="text-align:center">' + medalHtml + '</div><div class="rank-name">' + city.name + '</div><div class="rank-bar"><div class="rank-fill" style="width:' + pct + '%"></div></div><div class="rank-val">' + city.stores + '</div>';
+    (function(imgs) {
+      item.addEventListener('click', function() { openCarousel(imgs); });
+    })(city.imgs);
+    listEl.appendChild(item);
+  });
+}
+
+// Switch map mode
+function switchMapMode(mode) {
+  currentMode = mode;
+  document.getElementById('btnRealtime').classList.toggle('active', mode === 'realtime');
+  document.getElementById('btnMonth').classList.toggle('active', mode === 'month');
+  document.getElementById('monthScroller').style.display = mode === 'month' ? 'flex' : 'none';
+  document.getElementById('monthInfo').style.display = mode === 'month' ? 'inline-flex' : 'none';
+  if (mode === 'realtime') {
+    showAllCities();
+  } else {
+    // Reset to current month
+    var btns = document.querySelectorAll('.month-btn');
+    btns.forEach(function(b) { b.classList.remove('active'); });
+    var sel = document.querySelector('.month-btn[data-m="' + currentMonth + '"]');
+    if (sel) sel.classList.add('active');
+    showMonthCities(currentMonth);
+  }
+}
+
+// Select month from scroller
+function selectMonth(month) {
+  var btns = document.querySelectorAll('.month-btn');
+  btns.forEach(function(b) { b.classList.toggle('active', parseInt(b.dataset.m) === month); });
+  showMonthCities(month);
+}
+
+// Tooltip
+function showTooltip(city) {
+  if (tooltipTimeout) { clearTimeout(tooltipTimeout); tooltipTimeout = null; }
+  var rect = mapSvg.getBoundingClientRect();
+  var scaleX = rect.width / 800;
+  var scaleY = rect.height / 600;
+  var x = parseFloat(city.getAttribute('cx')) * scaleX;
+  var y = parseFloat(city.getAttribute('cy')) * scaleY;
+  document.getElementById('tooltipCity').textContent = city.getAttribute('data-name');
+  document.getElementById('tooltipStores').textContent = city.getAttribute('data-stores');
+  document.getElementById('tooltipRange').textContent = city.getAttribute('data-range');
+  currentCityImages = JSON.parse(city.getAttribute('data-imgs'));
+  tooltip.style.left = Math.min(x + 20, rect.width - 220) + 'px';
+  tooltip.style.top = Math.max(y - 30, 10) + 'px';
+  tooltip.classList.add('visible');
+}
+function hideTooltip() { tooltipTimeout = setTimeout(function() { tooltip.classList.remove('visible'); }, 200); }
+citiesGroup.addEventListener('mouseover', function(e) { var city = e.target.closest('.map-city'); if (!city) return; showTooltip(city); });
+citiesGroup.addEventListener('mouseout', function(e) { var city = e.target.closest('.map-city'); if (!city) return; hideTooltip(); });
+tooltip.addEventListener('mouseenter', function() { if (tooltipTimeout) { clearTimeout(tooltipTimeout); tooltipTimeout = null; } });
+tooltip.addEventListener('mouseleave', function() { tooltip.classList.remove('visible'); });
+document.getElementById('tooltipBtn').addEventListener('click', function() { openCarousel(currentCityImages); });
+
+// Initialize: show all cities (realtime mode)
+showAllCities();
+
+// ===================== 3D CAROUSEL =====================
+var carouselOverlay = document.getElementById('carouselOverlay');
+var carousel3d = document.getElementById('carousel3d');
+var carouselDots = document.getElementById('carouselDots');
+var carouselCounterEl = document.getElementById('carouselCounter');
+var carouselImages = [];
+var currentIdx = 0;
+
+function openCarousel(images) {
+  if (!images || images.length === 0) return;
+  carouselImages = images;
+  currentIdx = 0;
+  carouselOverlay.classList.add('active');
+  renderCarousel();
+}
+function closeCarousel() { carouselOverlay.classList.remove('active'); }
+function renderCarousel() {
+  carousel3d.innerHTML = '';
+  carouselDots.innerHTML = '';
+  carouselImages.forEach(function(img, i) {
+    var item = document.createElement('div');
+    item.className = 'carousel-item';
+    item.innerHTML = '<img src="' + img + '" alt="">';
+    carousel3d.appendChild(item);
+    var dot = document.createElement('div');
+    dot.className = 'carousel-dot';
+    dot.addEventListener('click', function() { gotoSlide(i); });
+    carouselDots.appendChild(dot);
+  });
+  carouselCounterEl.textContent = '1 / ' + carouselImages.length;
+  updateCarouselPositions();
+}
+function updateCarouselPositions() {
+  var items = carousel3d.querySelectorAll('.carousel-item');
+  var dots = carouselDots.querySelectorAll('.carousel-dot');
+  var n = carouselImages.length;
+  items.forEach(function(item, i) { item.className = 'carousel-item'; });
+  dots.forEach(function(dot, i) { dot.className = 'carousel-dot'; });
+  if (n === 1) { items[0].classList.add('active'); dots[0].classList.add('active'); return; }
+  for (var i = 0; i < n; i++) {
+    var rel = i - currentIdx;
+    if (rel === 0) { items[i].classList.add('active'); dots[i].classList.add('active'); }
+    else if (rel === -1 || rel === n - 1) { items[i].classList.add('prev'); }
+    else if (rel === 1 || rel === -(n - 1)) { items[i].classList.add('next'); }
+    else if (rel < -1) { items[i].classList.add('far-prev'); }
+    else { items[i].classList.add('far-next'); }
+  }
+  carouselCounterEl.textContent = (currentIdx + 1) + ' / ' + n;
+}
+function gotoSlide(idx) {
+  if (idx < 0) idx = carouselImages.length - 1;
+  if (idx >= carouselImages.length) idx = 0;
+  currentIdx = idx;
+  updateCarouselPositions();
+}
+document.getElementById('carouselPrev').addEventListener('click', function() { gotoSlide(currentIdx - 1); });
+document.getElementById('carouselNext').addEventListener('click', function() { gotoSlide(currentIdx + 1); });
+document.getElementById('carouselClose').addEventListener('click', closeCarousel);
+carouselOverlay.addEventListener('click', function(e) { if (e.target === carouselOverlay) closeCarousel(); });
+document.addEventListener('keydown', function(e) {
+  if (!carouselOverlay.classList.contains('active')) return;
+  if (e.key === 'Escape') closeCarousel();
+  if (e.key === 'ArrowLeft') gotoSlide(currentIdx - 1);
+  if (e.key === 'ArrowRight') gotoSlide(currentIdx + 1);
+});
+carousel3d.addEventListener('wheel', function(e) {
+  e.preventDefault();
+  if (wheelThrottle) return;
+  wheelThrottle = true;
+  setTimeout(function() { wheelThrottle = false; }, 400);
+  if (e.deltaY > 0) gotoSlide(currentIdx + 1); else gotoSlide(currentIdx - 1);
+}, { passive: false });
+var wheelThrottle = false;
+var touchStartX = 0;
+carousel3d.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+carousel3d.addEventListener('touchend', function(e) {
+  var diff = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(diff) > 50) { if (diff < 0) gotoSlide(currentIdx + 1); else gotoSlide(currentIdx - 1); }
+});
+
+// ===================== SCROLL REVEAL =====================
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+  var progressObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting && !e.target.dataset.animated) {
+        e.target.dataset.animated = '1';
+        var fill = e.target.querySelector('.progress-fill');
+        if (fill) { fill.style.width = fill.style.width; }
       }
-    })
-  },{threshold:0.3})
-  document.querySelectorAll('.progress-bar').forEach(el=>progressObserver.observe(el))
-})()
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.progress-bar').forEach(function(el) { progressObserver.observe(el); });
+})();
 </script>
 </body>
 </html>
