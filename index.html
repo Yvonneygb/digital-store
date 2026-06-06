@@ -29,7 +29,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .nav-item-text{overflow:hidden;transition:opacity .2s}
 .sidebar.collapsed .nav-item-text{opacity:0;width:0}
 .sidebar-footer{padding:.75rem;border-top:1px solid rgba(0,0,0,0.04);font-size:.65rem;color:#d1d5db;text-align:center;white-space:nowrap;overflow:hidden}
-.sidebar.collapsed .sidebar-footer{opacity:0}
+.sidebar.collapsed .sidebar-footer{opacity:0}.nav-divider{height:1px;background:rgba(0,0,0,0.06);margin:.5rem 1.5rem}
 .main{flex:1;display:flex;flex-direction:column;min-width:0}
 .content-frame{flex:1;width:100%;border:none;background:#fff}
 .mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:99}
@@ -82,6 +82,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
       <a class="nav-item" data-page="store-customer-genome.html" onclick="switchPage(this,'store-customer-genome.html')">
         <span class="nav-item-icon">🧩</span>
         <span class="nav-item-text">千店千面 · 基因图谱</span>
+      </a>
+      <div class="nav-divider"></div>
+      <a class="nav-item" data-page="component-showcase.html" onclick="switchPage(this,'component-showcase.html')">
+        <span class="nav-item-icon">🧩</span>
+        <span class="nav-item-text">组件库展示</span>
       </a>
     </div>
   </nav>

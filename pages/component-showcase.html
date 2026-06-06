@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字化门店组件库 · Showcase</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#fafbfc;color:#1a1a2e;display:flex;min-height:100vh}
+/* Sidebar */
+.sidebar{width:240px;height:100vh;position:fixed;left:0;top:0;background:#fff;border-right:1px solid rgba(0,0,0,0.06);overflow-y:auto;z-index:50;padding:1.5rem 0}
+.sidebar-logo{padding:0 1.5rem 1rem;border-bottom:1px solid rgba(0,0,0,0.06);margin-bottom:.5rem}
+.sidebar-logo h1{font-size:.95rem;font-weight:800;color:#1a1a2e}
+.sidebar-logo p{font-size:.65rem;color:#9ca3af;margin-top:.2rem}
+.nav-cat{padding:.65rem 1.5rem .3rem;font-size:.7rem;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.04em}
+.nav-link{display:block;padding:.4rem 1.5rem .4rem 2rem;font-size:.72rem;color:#6b7280;text-decoration:none;transition:all .15s;border-left:3px solid transparent}
+.nav-link:hover{color:#6D4AFF;background:rgba(109,74,255,0.03)}
+.nav-link.active{color:#6D4AFF;background:rgba(109,74,255,0.06);border-left-color:#6D4AFF;font-weight:600}
+/* Main */
+.main{margin-left:240px;flex:1;padding:2rem;max-width:calc(100% - 240px)}
+.main-header{margin-bottom:2rem}
+.main-header h1{font-size:1.5rem;font-weight:800;color:#1a1a2e;margin-bottom:.3rem}
+.main-header p{font-size:.8rem;color:#6b7280}
+/* Section */
+.section{margin-bottom:2rem;scroll-margin-top:1rem}
+.section-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.75rem}
+.section-id{font-size:.6rem;font-weight:700;color:#9ca3af;background:#f3f4f6;padding:.15rem .4rem;border-radius:4px;font-family:monospace}
+.section-header h2{font-size:.95rem;font-weight:700;color:#1a1a2e;flex:1}
+.section-cat{font-size:.6rem;color:#6D4AFF;background:rgba(109,74,255,0.06);padding:.15rem .5rem;border-radius:8px;font-weight:600}
+.section-demo,.section-css,.section-inter{margin-bottom:.75rem;padding:1rem;background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,0.05)}
+.demo-label{font-size:.62rem;font-weight:700;color:#9ca3af;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.04em}
+.section-css pre{overflow-x:auto;background:#f8f9fb;padding:.6rem;border-radius:6px;font-size:.65rem;line-height:1.5;color:#4b5563;max-height:200px;overflow-y:auto}
+.inter-text{font-size:.72rem;color:#6b7280;display:block;margin-top:.3rem}
+/* RESPONSIVE */
+@media(max-width:768px){.sidebar{display:none}.main{margin-left:0;max-width:100%;padding:1rem}}
+</style>
+</head>
+<body>
+
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <h1>🧩 组件展示</h1>
+    <p>24 components · v1.0</p>
+  </div>
+  <div class="sidebar-links">
+    <div class="nav-cat"><span>🏗️</span> <span>布局与结构</span></div>
+<a class="nav-link" href="#comp-01">Hero 主视觉区</a>
+<a class="nav-link" href="#comp-02">侧边栏导航壳页</a>
+<a class="nav-link" href="#comp-12">BentoGrid 非对称卡片布局</a>
+<div class="nav-cat"><span>📊</span> <span>数据可视化</span></div>
+<a class="nav-link" href="#comp-04">时间轴（渐变渐隐）</a>
+<a class="nav-link" href="#comp-05">甘特图式里程碑</a>
+<a class="nav-link" href="#comp-06">中国地图SVG + 轮播</a>
+<a class="nav-link" href="#comp-08">雷达图</a>
+<a class="nav-link" href="#comp-09">同心环因子图</a>
+<a class="nav-link" href="#comp-10">柱状+环形仪表盘</a>
+<a class="nav-link" href="#comp-17">指标进度条</a>
+<a class="nav-link" href="#comp-18">目标拆解树图</a>
+<div class="nav-cat"><span>🖱️</span> <span>交互组件</span></div>
+<a class="nav-link" href="#comp-03">密码门</a>
+<a class="nav-link" href="#comp-07">3D 卡片轮播</a>
+<a class="nav-link" href="#comp-13">参考来源悬浮框 Tooltip</a>
+<a class="nav-link" href="#comp-14">UI 截图详情弹窗 Modal</a>
+<a class="nav-link" href="#comp-23">月份横向滚轮</a>
+<div class="nav-cat"><span>🃏</span> <span>卡片与网格</span></div>
+<a class="nav-link" href="#comp-11">品牌卡片网格</a>
+<a class="nav-link" href="#comp-15">竞品对比矩阵表</a>
+<a class="nav-link" href="#comp-19">客群四象限矩阵</a>
+<a class="nav-link" href="#comp-20">执行包表格+优先级</a>
+<a class="nav-link" href="#comp-21">阶段卡片组</a>
+<a class="nav-link" href="#comp-22">排行榜 金银铜</a>
+<a class="nav-link" href="#comp-24">策略集群卡片</a>
+<div class="nav-cat"><span>✨</span> <span>动画效果</span></div>
+<a class="nav-link" href="#comp-16">滚动渐显 Reveal</a>
+
+  </div>
+</nav>
+
+<main class="main">
+  <div class="main-header">
+    <h1>数字化门店组件库 Showcase</h1>
+    <p>基于 yvonneygb.github.io/digital-store 提炼 · 24 个核心组件 · 所有文字为「演示文字演示文字」</p>
+  </div>
+
+  <section class="section" id="comp-01">
+  <div class="section-header">
+    <span class="section-id">comp-01</span>
+    <h2>Hero 主视觉区</h2>
+    <span class="section-cat">布局与结构</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-hero">
+  <h1 class="demo-hero-title">演示文字演示文字</h1>
+  <p class="demo-hero-sub">演示文字演示文字、演示文字演示文字、演示文字演示文字——演示文字演示文字</p>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-hero{padding:2rem 1rem;text-align:center}.demo-hero-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;color:#1a1a2e;letter-spacing:-0.02em;line-height:1.15;margin-bottom:.5rem}.demo-hero-sub{font-size:1rem;color:#6b7280;max-width:500px;margin:0 auto;line-height:1.6}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">无交互</span>
+  </div>
+</section>
+<section class="section" id="comp-02">
+  <div class="section-header">
+    <span class="section-id">comp-02</span>
+    <h2>侧边栏导航壳页</h2>
+    <span class="section-cat">布局与结构</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-sidebar-wrap">
+  <div class="demo-sidebar">
+    <div class="demo-nav-item active"><span>📋</span> <span>演示文字演示文字</span></div>
+    <div class="demo-nav-item"><span>📊</span> <span>演示文字演示文字</span></div>
+    <div class="demo-nav-item"><span>🗺️</span> <span>演示文字演示文字</span></div>
+    <div class="demo-nav-item"><span>⚙️</span> <span>演示文字演示文字</span></div>
+  </div>
+  <div class="demo-content-area">
+    <p style="padding:1rem;color:#6b7280">演示文字演示文字</p>
+  </div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-sidebar-wrap{display:flex;border:1px solid rgba(0,0,0,0.06);border-radius:10px;overflow:hidden;height:220px}.demo-sidebar{width:180px;background:#fafafa;border-right:1px solid rgba(0,0,0,0.06);padding:.5rem 0}.demo-nav-item{padding:.5rem 1rem;font-size:.8rem;cursor:default;display:flex;align-items:center;gap:.5rem;border-left:3px solid transparent}.demo-nav-item.active{background:rgba(109,74,255,0.06);color:#6D4AFF;border-left-color:#6D4AFF}.demo-nav-item:not(.active){color:#6b7280}.demo-content-area{flex:1;background:#fff}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">点击菜单项切换，当前页左侧 3px 紫色竖条 + 浅紫背景高亮</span>
+  </div>
+</section>
+<section class="section" id="comp-12">
+  <div class="section-header">
+    <span class="section-id">comp-12</span>
+    <h2>BentoGrid 非对称卡片布局</h2>
+    <span class="section-cat">布局与结构</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-bento">
+  <div class="demo-bento-card bento-2"><strong>演示文字演示文字</strong><p>演示文字演示文字</p></div>
+  <div class="demo-bento-card"><strong>演示文字演示文字</strong><p>演示文字演示文字</p></div>
+  <div class="demo-bento-card"><strong>演示文字演示文字</strong><p>演示文字演示文字</p></div>
+  <div class="demo-bento-card bento-2"><strong>演示文字演示文字</strong><p>演示文字演示文字</p></div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-bento{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}.demo-bento-card{background:#fff;border-radius:14px;padding:1rem;box-shadow:0 2px 8px rgba(0,0,0,0.04);border:1px solid rgba(0,0,0,0.05)}.demo-bento-card strong{font-size:.85rem;color:#1a1a2e}.demo-bento-card p{font-size:.72rem;color:#9ca3af;margin:0}.bento-2{grid-column:span 2}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">reveal 渐显；hover 卡片阴影加深</span>
+  </div>
+</section>
+<section class="section" id="comp-04">
+  <div class="section-header">
+    <span class="section-id">comp-04</span>
+    <h2>时间轴（渐变渐隐）</h2>
+    <span class="section-cat">数据可视化</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-timeline">
+  <div class="demo-tl-line"></div>
+  <div class="demo-tl-items">
+    <div class="demo-tl-item"><div class="demo-tl-dot"></div><div class="demo-tl-label">演示文字</div></div>
+    <div class="demo-tl-item"><div class="demo-tl-dot"></div><div class="demo-tl-label">演示文字</div></div>
+    <div class="demo-tl-item"><div class="demo-tl-dot"></div><div class="demo-tl-label">演示文字</div></div>
+    <div class="demo-tl-item"><div class="demo-tl-dot"></div><div class="demo-tl-label">演示文字</div></div>
+  </div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-timeline{position:relative;padding:1rem 0}.demo-tl-line{height:2px;background:linear-gradient(90deg,transparent,rgba(109,74,255,0.2) 10%,rgba(109,74,255,0.1) 50%,rgba(109,74,255,0.2) 90%,transparent);margin-bottom:1.5rem}.demo-tl-items{display:flex;justify-content:space-between;position:relative;margin-top:-2.3rem}.demo-tl-item{text-align:center}.demo-tl-dot{width:10px;height:10px;background:#6D4AFF;border-radius:50%;margin:0 auto .5rem}.demo-tl-label{font-size:.7rem;color:#9ca3af;font-weight:600}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">渐变渐隐轴线 + clip-path 逐段展开</span>
+  </div>
+</section>
+<section class="section" id="comp-05">
+  <div class="section-header">
+    <span class="section-id">comp-05</span>
+    <h2>甘特图式里程碑</h2>
+    <span class="section-cat">数据可视化</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-gantt">
+  <div class="demo-phase-tabs"><span class="demo-phase-tab active">演示文字</span><span class="demo-phase-tab">演示文字</span><span class="demo-phase-tab">演示文字</span></div>
+  <div class="demo-milestones">
+    <div class="demo-ms"><span class="demo-ms-dot"></span><div class="demo-ms-card"><strong>演示文字演示文字</strong><p>演示文字演示文字</p></div></div>
+    <div class="demo-ms"><span class="demo-ms-dot"></span><div class="demo-ms-card"><strong>演示文字演示文字</strong><p>演示文字演示文字</p></div></div>
+    <div class="demo-ms"><span class="demo-ms-dot"></span><div class="demo-ms-card"><strong>演示文字演示文字</strong><p>演示文字演示文字</p></div></div>
+  </div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-phase-tabs{display:flex;gap:.4rem;margin-bottom:1rem}.demo-phase-tab{padding:.3rem .8rem;border-radius:16px;font-size:.72rem;font-weight:600;cursor:default;border:1px solid rgba(0,0,0,0.06);color:#6b7280}.demo-phase-tab.active{background:rgba(109,74,255,0.08);color:#6D4AFF}.demo-milestones{padding-left:1rem;border-left:2px dashed rgba(109,74,255,0.15)}.demo-ms{position:relative;padding:.6rem 0 .6rem 1.5rem}.demo-ms-dot{position:absolute;left:-1.45rem;top:.85rem;width:8px;height:8px;border-radius:50%;background:#6D4AFF;border:2px solid #fff}.demo-ms-card{padding:.5rem .75rem;background:#fff;border-radius:8px;border:1px solid rgba(0,0,0,0.05);font-size:.75rem}.demo-ms-card strong{color:#1a1a2e}.demo-ms-card p{color:#9ca3af;font-size:.68rem;margin:0}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">阶段切换 + 垂直虚线时间轴</span>
+  </div>
+</section>
+<section class="section" id="comp-06">
+  <div class="section-header">
+    <span class="section-id">comp-06</span>
+    <h2>中国地图SVG + 轮播</h2>
+    <span class="section-cat">数据可视化</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-map-wrap">
+  <svg viewBox="0 0 400 300" class="demo-map-svg">
+    <path d="M140 60 L260 60 L300 100 L290 180 L200 240 L110 230 L90 150 L100 90 Z" fill="#f8f9ff" stroke="rgba(109,74,255,0.2)" stroke-width="1.5" stroke-dasharray="4 2"/>
+    <circle cx="200" cy="160" r="7" fill="#6D4AFF"><animate attributeName="r" values="7;10;7" dur="2s" repeatCount="indefinite"/></circle>
+    <circle cx="155" cy="120" r="4" fill="rgba(109,74,255,0.5)"/>
+    <circle cx="230" cy="100" r="5" fill="rgba(109,74,255,0.5)"/>
+    <circle cx="180" cy="200" r="4" fill="rgba(109,74,255,0.5)"/>
+    <circle cx="250" cy="170" r="3" fill="rgba(109,74,255,0.5)"/>
+    <path d="M200 160 Q175 130 155 120" fill="none" stroke="rgba(109,74,255,0.2)" stroke-width="1"/>
+    <path d="M200 160 Q220 120 230 100" fill="none" stroke="rgba(109,74,255,0.2)" stroke-width="1"/>
+    <path d="M200 160 Q190 190 180 200" fill="none" stroke="rgba(109,74,255,0.2)" stroke-width="1"/>
+  </svg>
+  <div class="demo-carousel-mini">
+    <div class="demo-carousel-card active">
+      <div class="demo-cc-header">演示文字演示</div>
+      <div class="demo-cc-num">12</div>
+      <span class="demo-cc-tag">演示文字</span>
+    </div>
+  </div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-map-wrap{display:flex;gap:1rem;align-items:center}.demo-map-svg{width:55%;height:auto}.demo-carousel-mini{flex:1}.demo-carousel-card{padding:.75rem;border-radius:10px;background:#fff;border:1px solid rgba(0,0,0,0.06);text-align:center}.demo-cc-header{font-size:.78rem;font-weight:700;color:#1a1a2e}.demo-cc-num{font-size:1.8rem;font-weight:800;color:#6D4AFF;line-height:1}.demo-cc-tag{font-size:.65rem;color:#9ca3af;padding:.15rem .5rem;background:rgba(109,74,255,0.06);border-radius:8px}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">抛物线连线 + 脉冲动画 + 轮播卡片</span>
+  </div>
+</section>
+<section class="section" id="comp-08">
+  <div class="section-header">
+    <span class="section-id">comp-08</span>
+    <h2>雷达图</h2>
+    <span class="section-cat">数据可视化</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-radar">
+  <svg viewBox="0 0 200 200" class="demo-radar-svg">
+    <circle cx="100" cy="100" r="70" fill="none" stroke="rgba(109,74,255,0.06)" stroke-width="1"/>
+    <circle cx="100" cy="100" r="47" fill="none" stroke="rgba(109,74,255,0.06)" stroke-width="1"/>
+    <circle cx="100" cy="100" r="23" fill="none" stroke="rgba(109,74,255,0.06)" stroke-width="1"/>
+    <line x1="100" y1="100" x2="100" y2="30" stroke="rgba(0,0,0,0.06)" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <line x1="100" y1="100" x2="167" y2="61" stroke="rgba(0,0,0,0.06)" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <line x1="100" y1="100" x2="141" y2="157" stroke="rgba(0,0,0,0.06)" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <line x1="100" y1="100" x2="59" y2="157" stroke="rgba(0,0,0,0.06)" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <line x1="100" y1="100" x2="33" y2="61" stroke="rgba(0,0,0,0.06)" stroke-width="0.8" stroke-dasharray="3 3"/>
+    <polygon points="100,45 158,72 130,148 70,148 42,72" fill="rgba(109,74,255,0.12)" stroke="#6D4AFF" stroke-width="1.5"/>
+    <text x="100" y="22" text-anchor="middle" font-size="8" fill="#6b7280">演示文字</text>
+    <text x="176" y="58" text-anchor="middle" font-size="8" fill="#6b7280">演示文字</text>
+    <text x="148" y="170" text-anchor="middle" font-size="8" fill="#6b7280">演示文字</text>
+    <text x="52" y="170" text-anchor="middle" font-size="8" fill="#6b7280">演示文字</text>
+    <text x="25" y="58" text-anchor="middle" font-size="8" fill="#6b7280">演示文字</text>
+  </svg>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-radar{display:flex;justify-content:center}.demo-radar-svg{width:100%;max-width:280px;height:auto}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">5 轴雷达图，静态 SVG 展示</span>
+  </div>
+</section>
+<section class="section" id="comp-09">
+  <div class="section-header">
+    <span class="section-id">comp-09</span>
+    <h2>同心环因子图</h2>
+    <span class="section-cat">数据可视化</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-rings">
+  <svg viewBox="0 0 300 240" class="demo-rings-svg">
+    <circle cx="150" cy="110" r="75" fill="none" stroke="rgba(109,74,255,0.08)" stroke-width="1"/>
+    <circle cx="150" cy="110" r="55" fill="none" stroke="rgba(109,74,255,0.08)" stroke-width="1"/>
+    <circle cx="150" cy="110" r="35" fill="none" stroke="rgba(109,74,255,0.08)" stroke-width="1"/>
+    <circle cx="150" cy="110" r="6" fill="#6D4AFF"/>
+    <!-- ring 1 -->
+    <circle cx="150" cy="35" r="7" fill="rgba(109,74,255,0.7)"/><circle cx="97" cy="50" r="7" fill="rgba(109,74,255,0.7)"/><circle cx="70" cy="95" r="7" fill="rgba(109,74,255,0.7)"/>
+    <circle cx="230" cy="95" r="6.5" fill="rgba(109,74,255,0.7)"/><circle cx="203" cy="50" r="6.5" fill="rgba(109,74,255,0.7)"/>
+    <!-- ring 2 -->
+    <circle cx="150" cy="55" r="5.5" fill="rgba(109,74,255,0.45)"/><circle cx="112" cy="63" r="5" fill="rgba(109,74,255,0.45)"/><circle cx="88" cy="100" r="5" fill="rgba(109,74,255,0.45)"/>
+    <circle cx="212" cy="100" r="5.5" fill="rgba(109,74,255,0.45)"/><circle cx="188" cy="63" r="5" fill="rgba(109,74,255,0.45)"/>
+    <!-- ring 3 -->
+    <circle cx="145" cy="72" r="4" fill="rgba(109,74,255,0.22)"/><circle cx="120" cy="80" r="3.5" fill="rgba(109,74,255,0.22)"/><circle cx="105" cy="108" r="3.5" fill="rgba(109,74,255,0.22)"/>
+    <circle cx="195" cy="108" r="4" fill="rgba(109,74,255,0.22)"/><circle cx="180" cy="80" r="3.5" fill="rgba(109,74,255,0.22)"/>
+    <line x1="75" y1="190" x2="225" y2="190" stroke="rgba(0,0,0,0.12)" stroke-width="1" stroke-dasharray="4 3"/>
+    <text x="68" y="194" font-size="7" fill="#9ca3af">演示</text>
+    <text x="272" y="194" font-size="7" fill="#9ca3af">演示</text>
+  </svg>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-rings{display:flex;justify-content:center}.demo-rings-svg{width:100%;max-width:320px;height:auto}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">4 层同心环 + 底部横虚线轴</span>
+  </div>
+</section>
+<section class="section" id="comp-10">
+  <div class="section-header">
+    <span class="section-id">comp-10</span>
+    <h2>柱状+环形仪表盘</h2>
+    <span class="section-cat">数据可视化</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-dash">
+  <div class="demo-dash-card">
+    <div class="demo-stat-ring">
+      <svg viewBox="0 0 80 80" width="70" height="70"><circle cx="40" cy="40" r="32" fill="none" stroke="rgba(0,0,0,0.06)" stroke-width="6"/><circle cx="40" cy="40" r="32" fill="none" stroke="#6D4AFF" stroke-width="6" stroke-dasharray="150 201" stroke-linecap="round" transform="rotate(-90 40 40)"/></svg>
+      <div class="demo-stat-val">78%</div>
+    </div>
+    <div class="demo-stat-title">演示文字</div>
+  </div>
+  <div class="demo-dash-card">
+    <div class="demo-bar-group">
+      <div class="demo-bar-item"><div class="demo-bar-fill" style="width:85%"></div></div>
+      <div class="demo-bar-item"><div class="demo-bar-fill" style="width:60%"></div></div>
+      <div class="demo-bar-item"><div class="demo-bar-fill" style="width:92%"></div></div>
+    </div>
+    <div class="demo-stat-title">演示文字</div>
+  </div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-dash{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}.demo-dash-card{background:rgba(255,255,255,0.7);border:1px solid rgba(0,0,0,0.05);border-radius:12px;padding:1rem;text-align:center}.demo-stat-ring{position:relative;width:80px;height:80px;margin:0 auto .5rem}.demo-stat-val{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;color:#6D4AFF}.demo-stat-title{font-size:.7rem;color:#9ca3af;font-weight:600}.demo-bar-group{padding:.5rem 0}.demo-bar-item{height:6px;background:rgba(0,0,0,0.05);border-radius:3px;margin-bottom:.4rem;overflow:hidden}.demo-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#6D4AFF,#8B6BFF)}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">环形图 + 柱状图仪表盘</span>
+  </div>
+</section>
+<section class="section" id="comp-17">
+  <div class="section-header">
+    <span class="section-id">comp-17</span>
+    <h2>指标进度条</h2>
+    <span class="section-cat">数据可视化</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-metrics">
+  <div class="demo-m-row"><span class="demo-m-label">演示文字 A</span><div class="demo-m-track"><div class="demo-m-fill" style="width:88%"></div></div><span class="demo-m-val">88%</span></div>
+  <div class="demo-m-row"><span class="demo-m-label">演示文字 B</span><div class="demo-m-track"><div class="demo-m-fill" style="width:65%"></div></div><span class="demo-m-val">65%</span></div>
+  <div class="demo-m-row"><span class="demo-m-label">演示文字 C</span><div class="demo-m-track"><div class="demo-m-fill" style="width:93%"></div></div><span class="demo-m-val">93%</span></div>
+  <div class="demo-m-row"><span class="demo-m-label">演示文字 D</span><div class="demo-m-track"><div class="demo-m-fill" style="width:42%"></div></div><span class="demo-m-val">42%</span></div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-m-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem}.demo-m-label{font-size:.72rem;color:#4b5563;min-width:55px}.demo-m-track{flex:1;height:6px;background:rgba(0,0,0,0.05);border-radius:3px;overflow:hidden}.demo-m-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#6D4AFF,#8B6BFF)}.demo-m-val{font-size:.72rem;font-weight:700;color:#6D4AFF}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">渐变进度条 + 百分比数值</span>
+  </div>
+</section>
+<section class="section" id="comp-18">
+  <div class="section-header">
+    <span class="section-id">comp-18</span>
+    <h2>目标拆解树图</h2>
+    <span class="section-cat">数据可视化</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-tree">
+  <div class="demo-tree-banner">演示文字演示文字</div>
+  <div class="demo-tree-arrow">▼</div>
+  <div class="demo-pillars">
+    <div class="demo-pillar"><div class="demo-pillar-title">演示文字演示</div><p>演示文字演示文字</p></div>
+    <div class="demo-pillar"><div class="demo-pillar-title">演示文字演示</div><p>演示文字演示文字</p></div>
+    <div class="demo-pillar"><div class="demo-pillar-title">演示文字演示</div><p>演示文字演示文字</p></div>
+    <div class="demo-pillar"><div class="demo-pillar-title">演示文字演示</div><p>演示文字演示文字</p></div>
+    <div class="demo-pillar"><div class="demo-pillar-title">演示文字演示</div><p>演示文字演示文字</p></div>
+  </div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-tree{max-width:600px;margin:0 auto}.demo-tree-banner{text-align:center;padding:.75rem;background:linear-gradient(135deg,rgba(109,74,255,0.06),rgba(109,74,255,0.02));border-radius:12px;font-size:.9rem;font-weight:700;color:#1a1a2e}.demo-tree-arrow{text-align:center;color:rgba(109,74,255,0.3);font-size:1rem;padding:.3rem}.demo-pillars{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem}.demo-pillar{text-align:center}.demo-pillar-title{font-size:.72rem;font-weight:700;color:#1a1a2e;border-bottom:2px solid rgba(109,74,255,0.12);padding-bottom:.3rem;margin-bottom:.3rem}.demo-pillar p{font-size:.6rem;color:#9ca3af;margin:0}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">5 柱自上而下拆解树</span>
+  </div>
+</section>
+<section class="section" id="comp-03">
+  <div class="section-header">
+    <span class="section-id">comp-03</span>
+    <h2>密码门</h2>
+    <span class="section-cat">交互组件</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-auth">
+  <div class="demo-auth-card">
+    <div class="demo-auth-icon">🔒</div>
+    <input type="password" class="demo-auth-input" placeholder="演示文字演示文字" value="demo2026" readonly>
+    <button class="demo-auth-btn" onclick="alert('演示文字演示文字')">演示文字</button>
+  </div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-auth{display:flex;justify-content:center}.demo-auth-card{width:100%;max-width:300px;padding:1.5rem;border-radius:12px;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,0.05);text-align:center}.demo-auth-icon{font-size:2rem;margin-bottom:.5rem}.demo-auth-input{width:100%;padding:.5rem .75rem;border:1px solid #e5e7eb;border-radius:8px;font-size:.78rem;text-align:center;margin-bottom:.5rem}.demo-auth-input:focus{border-color:#6D4AFF;outline:none}.demo-auth-btn{width:100%;padding:.5rem;background:#6D4AFF;color:#fff;border:none;border-radius:8px;font-weight:600;font-size:.78rem;cursor:pointer}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">密码验证 → 淡出露出主内容</span>
+  </div>
+</section>
+<section class="section" id="comp-07">
+  <div class="section-header">
+    <span class="section-id">comp-07</span>
+    <h2>3D 卡片轮播</h2>
+    <span class="section-cat">交互组件</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-carousel-3d">
+  <div class="demo-cc3d prev">
+    <div class="demo-cc3d-header">演示文字</div>
+    <div class="demo-cc3d-num">9</div>
+  </div>
+  <div class="demo-cc3d active">
+    <div class="demo-cc3d-header">演示文字</div>
+    <div class="demo-cc3d-num">12</div>
+    <span class="demo-cc3d-tag">演示文字</span>
+  </div>
+  <div class="demo-cc3d next">
+    <div class="demo-cc3d-header">演示文字</div>
+    <div class="demo-cc3d-num">15</div>
+  </div>
+  <div class="demo-cc3d-dots"><span class="demo-cc3d-dot"></span><span class="demo-cc3d-dot active"></span><span class="demo-cc3d-dot"></span></div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-carousel-3d{position:relative;height:180px;display:flex;align-items:center;justify-content:center;gap:.5rem}.demo-cc3d{width:55%;padding:.75rem;border-radius:10px;background:#fff;box-shadow:0 4px 16px rgba(0,0,0,0.05);text-align:center;transition:all .3s}.demo-cc3d.prev{transform:scale(.85);opacity:.4}.demo-cc3d.active{border:1.5px solid rgba(109,74,255,0.2);transform:scale(1.02)}.demo-cc3d.next{transform:scale(.85);opacity:.4}.demo-cc3d-header{font-size:.72rem;font-weight:700}.demo-cc3d-num{font-size:1.5rem;font-weight:800;color:#6D4AFF}.demo-cc3d-tag{font-size:.6rem;color:#6D4AFF;background:rgba(109,74,255,0.06);padding:.15rem .5rem;border-radius:8px}.demo-cc3d-dots{position:absolute;bottom:0;display:flex;gap:.4rem;justify-content:center;width:100%}.demo-cc3d-dot{width:6px;height:6px;border-radius:50%;background:#d1d5db}.demo-cc3d-dot.active{background:#6D4AFF;width:18px;border-radius:3px}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">前后卡片缩小半透明，当前卡居中高亮，圆点导航</span>
+  </div>
+</section>
+<section class="section" id="comp-13">
+  <div class="section-header">
+    <span class="section-id">comp-13</span>
+    <h2>参考来源悬浮框 Tooltip</h2>
+    <span class="section-cat">交互组件</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-tt-wrap">
+  <span class="demo-tt-trigger" data-source-title="演示来源标题" data-source-url="https://demo.com" data-source-brand="演示">演示文字演示文字</span>
+  <div class="demo-tt-tooltip active">
+    <div class="demo-tt-brand">演示</div>
+    <div class="demo-tt-title">演示文字来源标题</div>
+    <a class="demo-tt-link">🔗 打开来源</a>
+  </div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-tt-wrap{position:relative;display:inline-block;padding-bottom:3rem}.demo-tt-trigger{font-size:.8rem;color:#6D4AFF;font-weight:600;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;cursor:default}.demo-tt-tooltip{position:absolute;top:100%;left:0;margin-top:2px;max-width:220px;padding:.6rem .75rem;border-radius:8px;background:#fff;box-shadow:0 8px 24px rgba(0,0,0,0.1);z-index:10}.demo-tt-brand{font-size:.6rem;color:#6D4AFF;font-weight:700}.demo-tt-title{font-size:.68rem;font-weight:600;color:#1f2937;margin:.2rem 0}.demo-tt-link{font-size:.6rem;font-weight:600;color:#6D4AFF;padding:.2rem .4rem;border-radius:4px;background:rgba(109,74,255,0.06);display:inline-block;text-decoration:none}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">hover 显示 → 鼠标移入保持 → 移出 200ms 隐藏</span>
+  </div>
+</section>
+<section class="section" id="comp-14">
+  <div class="section-header">
+    <span class="section-id">comp-14</span>
+    <h2>UI 截图详情弹窗 Modal</h2>
+    <span class="section-cat">交互组件</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-modal-wrap">
+  <button class="demo-modal-trigger" onclick="document.getElementById('demoModal').classList.toggle('open')">演示文字演示</button>
+  <div class="demo-modal" id="demoModal">
+    <div class="demo-modal-bg" onclick="this.parentElement.classList.remove('open')"></div>
+    <div class="demo-modal-panel">
+      <div class="demo-modal-header">
+        <span class="demo-modal-tag">演示</span>
+        <strong>演示文字演示文字</strong>
+      </div>
+      <div class="demo-modal-img"><svg viewBox="0 0 200 100" width="100%"><rect fill="rgba(109,74,255,0.04)" width="200" height="100" rx="8"/><text x="100" y="55" text-anchor="middle" fill="#9ca3af" font-size="11">演示文字演示文字</text></svg></div>
+      <div class="demo-modal-src"><span>📎</span> <span>演示文字来源</span></div>
+      <div class="demo-modal-footer"><button onclick="this.closest('.demo-modal').classList.remove('open')">关闭</button></div>
+    </div>
+  </div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-modal-trigger{padding:.45rem 1rem;background:#6D4AFF;color:#fff;border:none;border-radius:8px;font-weight:600;font-size:.75rem;cursor:pointer}.demo-modal{display:none;position:fixed;inset:0;z-index:100}.demo-modal.open{display:flex;align-items:center;justify-content:center}.demo-modal-bg{position:absolute;inset:0;background:rgba(0,0,0,0.3)}.demo-modal-panel{position:relative;width:90%;max-width:400px;max-height:80vh;overflow-y:auto;background:#fff;border-radius:12px;padding:1.25rem;z-index:1}.demo-modal-tag{padding:.15rem .45rem;background:rgba(109,74,255,0.08);color:#6D4AFF;font-size:.62rem;border-radius:6px;font-weight:600}.demo-modal-header{margin-bottom:.75rem}.demo-modal-header strong{display:block;font-size:.85rem;margin-top:.25rem}.demo-modal-img{margin-bottom:.75rem}.demo-modal-src{display:flex;align-items:center;gap:.3rem;padding:.5rem;background:rgba(109,74,255,0.04);border-radius:8px;font-size:.68rem;color:#6b7280;margin-bottom:.75rem}.demo-modal-footer button{padding:.35rem 1rem;border:1px solid rgba(0,0,0,0.1);border-radius:6px;background:#fff;font-size:.7rem;cursor:pointer}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">点击触发 → 遮罩 + 面板 → 遮罩/按钮关闭</span>
+  </div>
+</section>
+<section class="section" id="comp-23">
+  <div class="section-header">
+    <span class="section-id">comp-23</span>
+    <h2>月份横向滚轮</h2>
+    <span class="section-cat">交互组件</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-month-scroller">
+  <span class="demo-mchip">演示文字</span>
+  <span class="demo-mchip">演示文字</span>
+  <span class="demo-mchip active">演示文字</span>
+  <span class="demo-mchip">演示文字</span>
+  <span class="demo-mchip">演示文字</span>
+  <span class="demo-mchip">演示文字</span>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-month-scroller{display:flex;gap:.4rem;overflow-x:auto;padding:.3rem 0}.demo-mchip{padding:.25rem .7rem;border-radius:14px;font-size:.7rem;font-weight:600;cursor:default;border:1px solid #e5e7eb;color:#6b7280;white-space:nowrap}.demo-mchip.active{background:#6D4AFF;color:#fff;border-color:#6D4AFF}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">点击切换 → 联动地图/数据更新</span>
+  </div>
+</section>
+<section class="section" id="comp-11">
+  <div class="section-header">
+    <span class="section-id">comp-11</span>
+    <h2>品牌卡片网格</h2>
+    <span class="section-cat">卡片与网格</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-brand-grid">
+  <div class="demo-brand-card">
+    <svg width="36" height="36" viewBox="0 0 36 36"><rect fill="rgba(109,74,255,0.1)" width="36" height="36" rx="8"/><text x="18" y="24" text-anchor="middle" font-size="14" fill="#6D4AFF" font-weight="700">A</text></svg>
+    <div class="demo-brand-name">演示文字</div>
+    <div class="demo-brand-desc">演示文字演示文字</div>
+    <span class="demo-brand-tag">演示文字</span>
+  </div>
+  <div class="demo-brand-card">
+    <svg width="36" height="36" viewBox="0 0 36 36"><rect fill="rgba(109,74,255,0.1)" width="36" height="36" rx="8"/><text x="18" y="24" text-anchor="middle" font-size="14" fill="#6D4AFF" font-weight="700">B</text></svg>
+    <div class="demo-brand-name">演示文字</div>
+    <div class="demo-brand-desc">演示文字演示文字</div>
+    <span class="demo-brand-tag">演示文字</span>
+  </div>
+  <div class="demo-brand-card">
+    <svg width="36" height="36" viewBox="0 0 36 36"><rect fill="rgba(109,74,255,0.1)" width="36" height="36" rx="8"/><text x="18" y="24" text-anchor="middle" font-size="14" fill="#6D4AFF" font-weight="700">C</text></svg>
+    <div class="demo-brand-name">演示文字</div>
+    <div class="demo-brand-desc">演示文字演示文字</div>
+    <span class="demo-brand-tag">演示文字</span>
+  </div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-brand-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}.demo-brand-card{padding:.75rem;border-radius:10px;background:#fff;border:1px solid rgba(0,0,0,0.05);transition:transform .2s}.demo-brand-card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.06)}.demo-brand-name{font-size:.78rem;font-weight:700;margin:.4rem 0 .2rem;color:#1a1a2e}.demo-brand-desc{font-size:.65rem;color:#6b7280;margin-bottom:.3rem}.demo-brand-tag{padding:.15rem .4rem;border-radius:8px;font-size:.6rem;font-weight:600;background:rgba(109,74,255,0.06);color:#6D4AFF}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">hover 上浮 + 阴影增强</span>
+  </div>
+</section>
+<section class="section" id="comp-15">
+  <div class="section-header">
+    <span class="section-id">comp-15</span>
+    <h2>竞品对比矩阵表</h2>
+    <span class="section-cat">卡片与网格</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <table class="demo-comp-table">
+  <tr><th></th><th>演示文字A</th><th>演示文字B</th><th>演示文字C</th></tr>
+  <tr><td class="demo-cell-label">演示文字维度1</td><td>✅</td><td>✅</td><td>❌</td></tr>
+  <tr><td class="demo-cell-label">演示文字维度2</td><td>85</td><td>62</td><td>90</td></tr>
+  <tr><td class="demo-cell-label">演示文字维度3</td><td>演示文字</td><td>演示文字</td><td>演示文字</td></tr>
+  <tr><td class="demo-cell-label">演示文字维度4</td><td>⭐</td><td>⭐⭐⭐</td><td>⭐⭐</td></tr>
+</table>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-comp-table{width:100%;border-collapse:separate;border-spacing:0;font-size:.7rem}.demo-comp-table th{padding:.4rem .6rem;background:#fafafa;font-weight:700;color:#4b5563;border-bottom:1px solid rgba(0,0,0,0.06);text-align:center}.demo-comp-table td{padding:.35rem .6rem;color:#4b5563;text-align:center;border-bottom:1px solid rgba(0,0,0,0.04)}.demo-comp-table tr:hover td{background:rgba(109,74,255,0.03)}.demo-cell-label{font-weight:600;text-align:left!important;color:#1a1a2e!important}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">hover 行高亮 + 第一列 sticky</span>
+  </div>
+</section>
+<section class="section" id="comp-19">
+  <div class="section-header">
+    <span class="section-id">comp-19</span>
+    <h2>客群四象限矩阵</h2>
+    <span class="section-cat">卡片与网格</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-quad">
+  <div class="demo-quad-cell purple"><strong>演示文字A</strong><p>演示文字演示文字</p></div>
+  <div class="demo-quad-cell blue"><strong>演示文字B</strong><p>演示文字演示文字</p></div>
+  <div class="demo-quad-cell green"><strong>演示文字C</strong><p>演示文字演示文字</p></div>
+  <div class="demo-quad-cell orange"><strong>演示文字D</strong><p>演示文字演示文字</p></div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-quad{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}.demo-quad-cell{padding:.75rem;border-radius:10px;background:#fff;border:1px solid rgba(0,0,0,0.05);transition:transform .2s}.demo-quad-cell:hover{transform:scale(1.02)}.demo-quad-cell strong{font-size:.75rem;color:#1a1a2e}.demo-quad-cell p{font-size:.62rem;color:#6b7280;margin:0}.demo-quad-cell.purple{border-left:3px solid #6D4AFF}.demo-quad-cell.blue{border-left:3px solid #3b82f6}.demo-quad-cell.green{border-left:3px solid #10b981}.demo-quad-cell.orange{border-left:3px solid #f59e0b}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">hover 放大 + 4色左边框区分</span>
+  </div>
+</section>
+<section class="section" id="comp-20">
+  <div class="section-header">
+    <span class="section-id">comp-20</span>
+    <h2>执行包表格+优先级</h2>
+    <span class="section-cat">卡片与网格</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <table class="demo-exec-table">
+  <tr><th>演示文字</th><th>演示文字</th><th>演示文字</th></tr>
+  <tr><td>演示文字演示</td><td><span class="demo-ex-tag">A</span><span class="demo-ex-tag">B</span></td><td><span class="demo-prio P0">P0</span></td></tr>
+  <tr><td>演示文字演示</td><td><span class="demo-ex-tag">C</span></td><td><span class="demo-prio P1">P1</span></td></tr>
+  <tr><td>演示文字演示</td><td><span class="demo-ex-tag">D</span><span class="demo-ex-tag">E</span></td><td><span class="demo-prio P2">P2</span></td></tr>
+</table>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-exec-table{width:100%;border-collapse:separate;border-spacing:0;font-size:.7rem}.demo-exec-table th{padding:.35rem .5rem;font-weight:700;color:#9ca3af;text-align:left;border-bottom:1px solid rgba(0,0,0,0.06)}.demo-exec-table td{padding:.4rem .5rem;border-bottom:1px solid rgba(0,0,0,0.04);color:#4b5563}.demo-ex-tag{display:inline-block;padding:.1rem .4rem;margin:0 .15rem;border-radius:6px;font-size:.6rem;font-weight:600;background:rgba(109,74,255,0.06);color:#6D4AFF}.demo-prio{padding:.1rem .45rem;border-radius:6px;font-size:.6rem;font-weight:700}.demo-prio.P0{background:rgba(239,68,68,0.1);color:#ef4444}.demo-prio.P1{background:rgba(249,115,22,0.1);color:#f97316}.demo-prio.P2{background:rgba(59,130,246,0.1);color:#3b82f6}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">P0 脉冲动画 + 彩色优先级徽章</span>
+  </div>
+</section>
+<section class="section" id="comp-21">
+  <div class="section-header">
+    <span class="section-id">comp-21</span>
+    <h2>阶段卡片组</h2>
+    <span class="section-cat">卡片与网格</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-phase-grid">
+  <div class="demo-p-card"><div class="demo-p-num">01</div><strong>演示文字演示</strong><p>演示文字演示文字</p><div class="demo-p-bar"></div></div>
+  <div class="demo-p-card"><div class="demo-p-num">02</div><strong>演示文字演示</strong><p>演示文字演示文字</p><div class="demo-p-bar"></div></div>
+  <div class="demo-p-card"><div class="demo-p-num">03</div><strong>演示文字演示</strong><p>演示文字演示文字</p><div class="demo-p-bar"></div></div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-phase-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}.demo-p-card{position:relative;padding:.75rem;background:#fff;border-radius:10px;border:1px solid rgba(0,0,0,0.05);transition:transform .2s;overflow:hidden}.demo-p-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.06)}.demo-p-num{font-size:1.8rem;font-weight:900;background:linear-gradient(135deg,#6D4AFF,rgba(109,74,255,0.3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.demo-p-card strong{display:block;font-size:.75rem;color:#1a1a2e;margin-bottom:.2rem}.demo-p-card p{font-size:.62rem;color:#6b7280;margin:0}.demo-p-bar{position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#6D4AFF,rgba(109,74,255,0.2))}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">hover 上浮 + 底部渐变装饰条</span>
+  </div>
+</section>
+<section class="section" id="comp-22">
+  <div class="section-header">
+    <span class="section-id">comp-22</span>
+    <h2>排行榜 金银铜</h2>
+    <span class="section-cat">卡片与网格</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-rank">
+  <div class="demo-r-item gold"><span class="demo-r-icon">🥇</span><span class="demo-r-name">演示文字演示 A</span><span class="demo-r-count">128</span></div>
+  <div class="demo-r-item silver"><span class="demo-r-icon">🥈</span><span class="demo-r-name">演示文字演示 B</span><span class="demo-r-count">96</span></div>
+  <div class="demo-r-item bronze"><span class="demo-r-icon">🥉</span><span class="demo-r-name">演示文字演示 C</span><span class="demo-r-count">82</span></div>
+  <div class="demo-r-item"><span class="demo-r-num">4</span><span class="demo-r-name">演示文字演示 D</span><span class="demo-r-count">65</span></div>
+  <div class="demo-r-item"><span class="demo-r-num">5</span><span class="demo-r-name">演示文字演示 E</span><span class="demo-r-count">51</span></div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-rank{max-width:280px}.demo-r-item{display:flex;align-items:center;gap:.5rem;padding:.4rem .6rem;border-radius:8px;margin-bottom:.2rem;transition:background .15s}.demo-r-item:hover{background:rgba(109,74,255,0.03)}.demo-r-item.gold{background:rgba(234,179,8,0.06)}.demo-r-item.silver{background:rgba(148,163,184,0.06)}.demo-r-item.bronze{background:rgba(251,146,60,0.06)}.demo-r-icon{font-size:.85rem}.demo-r-num{width:20px;text-align:center;font-weight:700;font-size:.7rem;color:#9ca3af}.demo-r-name{flex:1;font-size:.72rem;font-weight:600;color:#1a1a2e}.demo-r-count{font-size:.75rem;font-weight:700;color:#6D4AFF}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">hover 行高亮 + 前三名金银铜背景</span>
+  </div>
+</section>
+<section class="section" id="comp-24">
+  <div class="section-header">
+    <span class="section-id">comp-24</span>
+    <h2>策略集群卡片</h2>
+    <span class="section-cat">卡片与网格</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-strategy-grid">
+  <div class="demo-s-card leader"><strong>演示文字 A</strong><div class="demo-s-step"><span class="demo-s-num">1</span>演示文字演示文字</div><div class="demo-s-step"><span class="demo-s-num">2</span>演示文字演示文字</div></div>
+  <div class="demo-s-card" style="border-left:4px solid #3b82f6"><strong>演示文字 B</strong><div class="demo-s-step"><span class="demo-s-num" style="background:#3b82f6">1</span>演示文字演示文字</div><div class="demo-s-step"><span class="demo-s-num" style="background:#3b82f6">2</span>演示文字演示文字</div></div>
+  <div class="demo-s-card" style="border-left:4px solid #10b981"><strong>演示文字 C</strong><div class="demo-s-step"><span class="demo-s-num" style="background:#10b981">1</span>演示文字演示文字</div></div>
+  <div class="demo-s-card" style="border-left:4px solid #f59e0b"><strong>演示文字 D</strong><div class="demo-s-step"><span class="demo-s-num" style="background:#f59e0b">1</span>演示文字演示文字</div></div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-strategy-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.demo-s-card{padding:.75rem;border-radius:10px;background:#fff;border:1px solid rgba(0,0,0,0.05);transition:transform .2s}.demo-s-card:hover{transform:scale(1.02)}.demo-s-card.leader{border-left:4px solid #6D4AFF}.demo-s-card strong{font-size:.75rem;color:#1a1a2e;display:block;margin-bottom:.4rem}.demo-s-step{display:flex;align-items:flex-start;gap:.35rem;font-size:.65rem;color:#6b7280;margin:.2rem 0}.demo-s-num{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:700;color:#fff;background:#6D4AFF;flex-shrink:0}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">hover 放大 + 4色左边框 + 编号圆圈</span>
+  </div>
+</section>
+<section class="section" id="comp-16">
+  <div class="section-header">
+    <span class="section-id">comp-16</span>
+    <h2>滚动渐显 Reveal</h2>
+    <span class="section-cat">动画效果</span>
+  </div>
+  <div class="section-demo">
+    <div class="demo-label">📦 效果预览</div>
+    <div class="demo-reveal-group">
+  <div class="demo-rev-card">演示文字演示文字</div>
+  <div class="demo-rev-card">演示文字演示文字</div>
+  <div class="demo-rev-card">演示文字演示文字</div>
+</div>
+  </div>
+  <div class="section-css">
+    <div class="demo-label">🎨 CSS</div>
+    <pre><code>.demo-reveal-group{display:flex;flex-direction:column;gap:.5rem}.demo-rev-card{padding:.75rem;background:#fff;border-radius:8px;border:1px solid rgba(0,0,0,0.05);font-size:.72rem;color:#4b5563;transform:translateY(12px);animation:demoReveal .6s ease forwards}.demo-rev-card:nth-child(2){animation-delay:.15s}.demo-rev-card:nth-child(3){animation-delay:.3s}@keyframes demoReveal{to{opacity:1;transform:translateY(0)}}</code></pre>
+  </div>
+  <div class="section-inter">
+    <span class="demo-label">🖱️ 交互</span>
+    <span class="inter-text">逐条从下往上渐显，stagger 延迟</span>
+  </div>
+</section>
+
+</main>
+
+<script>
+// IntersectionObserver for sidebar active state
+const sections=document.querySelectorAll('.section');
+const links=document.querySelectorAll('.nav-link');
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      links.forEach(l=>l.classList.remove('active'));
+      const link=document.querySelector('.nav-link[href="#'+e.target.id+'"]');
+      if(link)link.classList.add('active');
+    }
+  });
+},{threshold:0.3});
+sections.forEach(s=>observer.observe(s));
+
+// Demo Modal close on bg click
+document.addEventListener('click',function(e){
+  if(e.target.classList.contains('demo-modal-bg')){
+    e.target.parentElement.classList.remove('open');
+  }
+});
+</script>
+</body>
+</html>
