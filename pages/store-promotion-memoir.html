@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字化门店 · 全域推广全景纪实</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: { brand: { DEFAULT: '#6D4AFF', 50: 'rgba(109,74,255,0.05)', 100: 'rgba(109,74,255,0.1)', 200: 'rgba(109,74,255,0.2)', 300: 'rgba(109,74,255,0.3)', 400: 'rgba(109,74,255,0.4)', 500: 'rgba(109,74,255,0.5)', 600: 'rgba(109,74,255,0.6)', 700: 'rgba(109,74,255,0.7)', 800: 'rgba(109,74,255,0.85)', 900: 'rgba(109,74,255,0.95)' } },
+      fontFamily: { sans: ['"Noto Sans SC"','Inter','sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* Hero */
+.hero-section{background:linear-gradient(135deg,#6D4AFF 0%,#4C2FCC 100%);position:relative;overflow:hidden}
+.hero-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.12) 0%, transparent 60%),
+             radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%);
+}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border-radius:999px;background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.9);font-size:.75rem;font-weight:600;letter-spacing:.06em;border:1px solid rgba(255,255,255,0.2)}
+
+/* Phase steps */
+.phase-steps{display:grid;grid-template-columns:1fr;gap:1rem}
+@media(min-width:1024px){.phase-steps{grid-template-columns:repeat(3,1fr)}}
+.phase-card{border-radius:1rem;background:#fff;border:1px solid rgba(0,0,0,0.06);overflow:hidden;transition:transform .3s,box-shadow .3s}
+.phase-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.08)}
+.phase-card-header{padding:1.25rem 1.5rem;color:#fff;display:flex;align-items:center;gap:.75rem}
+.phase-card-body{padding:1.5rem}
+
+/* Milestone timeline */
+.milestone-track{position:relative;padding:1.5rem 0}
+.milestone-line{position:absolute;top:50%;left:4%;right:4%;height:3px;background:linear-gradient(90deg,transparent,rgba(109,74,255,0.3) 10%,rgba(109,74,255,0.5) 50%,rgba(109,74,255,0.3) 90%,transparent);transform:translateY(-50%)}
+.milestone-node{position:relative;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.milestone-dot{width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 3px var(--c, #6D4AFF);background:var(--c, #6D4AFF);position:relative;z-index:2}
+.milestone-label{font-size:.7rem;font-weight:700;color:#6b7280;white-space:nowrap}
+.milestone-title{font-size:.6rem;color:#9ca3af;white-space:nowrap}
+
+/* Battle card */
+.battle-card{border-radius:1rem;background:#fff;border:1px solid rgba(0,0,0,0.06);padding:1.5rem;transition:all .3s}
+.battle-card:hover{box-shadow:0 12px 32px rgba(0,0,0,0.06);border-color:rgba(109,74,255,0.2)}
+.battle-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+
+/* Dashboard cards */
+.dash-card{border-radius:1rem;background:#fff;border:1px solid rgba(0,0,0,0.06);padding:1.25rem;transition:all .3s}
+.dash-card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.06)}
+.dash-indicator{width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:.4rem}
+.dash-indicator.green{background:#10B981;box-shadow:0 0 8px rgba(16,185,129,0.3)}
+.dash-indicator.yellow{background:#F59E0B;box-shadow:0 0 8px rgba(245,158,11,0.3)}
+.dash-indicator.red{background:#EF4444;box-shadow:0 0 8px rgba(239,68,68,0.3)}
+
+/* Progress bar */
+.progress-bar{height:8px;border-radius:4px;background:#f3f4f6;overflow:hidden}
+.progress-fill{height:100%;border-radius:4px;transition:width 1.2s ease}
+
+/* Map section */
+.map-hint{border-radius:1rem;background:linear-gradient(135deg,rgba(109,74,255,0.04),rgba(109,74,255,0.08));border:2px dashed rgba(109,74,255,0.2);padding:2rem;text-align:center}
+
+/* Innovation highlight */
+.innovation-tag{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .75rem;border-radius:999px;background:rgba(109,74,255,0.08);color:#6D4AFF;font-size:.7rem;font-weight:600;border:1px solid rgba(109,74,255,0.15)}
+
+/* Gantt bar */
+.gantt-row{display:flex;align-items:center;gap:.75rem;padding:.5rem 0}
+.gantt-label{width:100px;font-size:.75rem;font-weight:600;color:#374151;flex-shrink:0}
+.gantt-track{flex:1;height:28px;border-radius:6px;background:#f3f4f6;position:relative;overflow:hidden}
+.gantt-bar{position:absolute;top:2px;height:24px;border-radius:5px;display:flex;align-items:center;padding:0 .5rem;font-size:.6rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;transition:width 1s ease}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero-section px-6 py-16 md:py-24">
+  <div class="relative z-10 w-[80%] mx-auto">
+    <div class="text-center reveal">
+      <span class="hero-badge mb-6"><i class="fa-solid fa-globe text-white/60"></i> 全域推广全景纪实</span>
+      <h1 class="text-white font-black tracking-tight leading-tight mb-4" style="font-size:clamp(2.5rem,6vw,5rem)">数字化门店</h1>
+      <p class="text-white/70 text-base md:text-xl font-light max-w-2xl mx-auto mb-8">
+        从种子培育到生态共建 — 分阶段全域推广蓝图全景展示
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <span class="innovation-tag"><i class="fa-solid fa-seedling"></i> 种子期 0→1</span>
+        <span class="innovation-tag"><i class="fa-solid fa-rocket"></i> 扩张期 1→N</span>
+        <span class="innovation-tag"><i class="fa-solid fa-infinity"></i> 生态期 N→∞</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 1: 分阶段推广蓝图 -->
+<section class="px-6 py-16">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-diagram-project text-[#6D4AFF]"></i> 分阶段推广蓝图
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">甘特图 &amp; 里程碑看板</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">全景呈现从种子培育到规模复制的推广节奏与关键节点</p>
+    </div>
+
+    <!-- Gantt Chart -->
+    <div class="bg-white rounded-2xl border border-gray-100 p-6 md:p-10 reveal shadow-sm mb-10">
+      <div class="flex items-center gap-2 mb-6">
+        <div class="w-2 h-5 rounded bg-[#6D4AFF]"></div>
+        <h3 class="text-lg font-bold text-gray-800">推广时间线</h3>
+      </div>
+
+      <div class="gantt-row">
+        <span class="gantt-label">种子培育期</span>
+        <div class="gantt-track">
+          <div class="gantt-bar" style="left:0%;width:28%;background:linear-gradient(90deg,#6D4AFF,#8B7BFF)">Q1-Q2</div>
+        </div>
+      </div>
+      <div class="gantt-row">
+        <span class="gantt-label">规模复制期</span>
+        <div class="gantt-track">
+          <div class="gantt-bar" style="left:28%;width:44%;background:linear-gradient(90deg,#2563eb,#3B82F6)">Q2-Q4</div>
+        </div>
+      </div>
+      <div class="gantt-row">
+        <span class="gantt-label">生态共建期</span>
+        <div class="gantt-track">
+          <div class="gantt-bar" style="left:72%;width:28%;background:linear-gradient(90deg,#059669,#10B981)">Q4+</div>
+        </div>
+      </div>
+
+      <!-- Milestones -->
+      <div class="milestone-track relative mt-6">
+        <div class="milestone-line"></div>
+        <div class="flex justify-between px-[4%]" style="position:relative;z-index:2">
+          <div class="milestone-node">
+            <div class="milestone-dot" style="--c:#6D4AFF"></div>
+            <span class="milestone-label">M1 试点完成</span>
+            <span class="milestone-title">Q1 末</span>
+          </div>
+          <div class="milestone-node">
+            <div class="milestone-dot" style="--c:#6D4AFF"></div>
+            <span class="milestone-label">M2 SOP v1.0</span>
+            <span class="milestone-title">Q2 初</span>
+          </div>
+          <div class="milestone-node">
+            <div class="milestone-dot" style="--c:#2563eb"></div>
+            <span class="milestone-label">M3 灯塔启动</span>
+            <span class="milestone-title">Q2 末</span>
+          </div>
+          <div class="milestone-node">
+            <div class="milestone-dot" style="--c:#2563eb"></div>
+            <span class="milestone-label">M4 覆盖 50%</span>
+            <span class="milestone-title">Q3 末</span>
+          </div>
+          <div class="milestone-node">
+            <div class="milestone-dot" style="--c:#059669"></div>
+            <span class="milestone-label">M5 平台开放</span>
+            <span class="milestone-title">Q4</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Innovation Highlights -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 reveal">
+      <div class="battle-card">
+        <div class="flex items-start gap-4">
+          <div class="battle-icon" style="background:rgba(109,74,255,0.08);color:#6D4AFF"><i class="fa-solid fa-arrows-spin"></i></div>
+          <div>
+            <h4 class="font-bold text-gray-800 mb-1">双周复盘会机制</h4>
+            <p class="text-sm text-gray-500">种子期采用「双周复盘会」机制，累计优化 SOP 文档多个版本，确保经验快速沉淀与迭代</p>
+          </div>
+        </div>
+      </div>
+      <div class="battle-card">
+        <div class="flex items-start gap-4">
+          <div class="battle-icon" style="background:rgba(5,150,105,0.08);color:#059669"><i class="fa-solid fa-lightbulb"></i></div>
+          <div>
+            <h4 class="font-bold text-gray-800 mb-1">灯塔计划</h4>
+            <p class="text-sm text-gray-500">扩张期推出「灯塔计划」，选拔优秀店长担任区域导师，以标杆带动全面推广</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: 攻坚策略与实战打法 -->
+<section class="px-6 py-16" style="background:#fff">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-crosshairs text-[#6D4AFF]"></i> 攻坚策略与实战打法
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">三阶段推进体系</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">从 0→1 突破到 N→∞ 进化，系统化攻坚路径</p>
+    </div>
+
+    <!-- Phase Progress Bar -->
+    <div class="flex items-center gap-0 mb-10 reveal max-w-3xl mx-auto">
+      <div class="flex-1 h-2 rounded-l-full" style="background:#6D4AFF"></div>
+      <div class="flex-1 h-2" style="background:#2563eb"></div>
+      <div class="flex-1 h-2 rounded-r-full" style="background:#059669"></div>
+    </div>
+
+    <!-- 3 Phase Cards -->
+    <div class="phase-steps">
+      <!-- Phase 1: 种子培育期 -->
+      <div class="phase-card reveal" style="transition-delay:0.15s">
+        <div class="phase-card-header" style="background:linear-gradient(135deg,#6D4AFF,#8B6FFF)">
+          <i class="fa-solid fa-seedling text-xl"></i>
+          <div>
+            <h3 class="font-black text-base">种子培育期</h3>
+            <p class="text-xs text-white/70">0 → 1 突破</p>
+          </div>
+        </div>
+        <div class="phase-card-body space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1);color:#6D4AFF;font-size:.7rem"><i class="fa-solid fa-check"></i></span>
+            <p class="text-sm text-gray-600"><strong class="text-gray-800">深度陪跑模式</strong><br>组建「1+N」专项组（1名 PM + N个职能专家），进驻标杆市场深度辅导</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1);color:#6D4AFF;font-size:.7rem"><i class="fa-solid fa-check"></i></span>
+            <p class="text-sm text-gray-600"><strong class="text-gray-800">典型问题攻克</strong><br>POS系统对接 → 开发通用API接口；店员抵触 → 游戏化积分体系</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1);color:#6D4AFF;font-size:.7rem"><i class="fa-solid fa-check"></i></span>
+            <p class="text-sm text-gray-600"><strong class="text-gray-800">知识沉淀</strong><br>《数字化门店建设指南》V1.0：3大模块 / 21项操作细则</p>
+          </div>
+          <div class="pt-2">
+            <div class="progress-bar"><div class="progress-fill" style="width:100%;background:#6D4AFF"></div></div>
+            <p class="text-xs text-gray-400 mt-1">完成度 100%</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2: 规模复制期 -->
+      <div class="phase-card reveal" style="transition-delay:0.3s">
+        <div class="phase-card-header" style="background:linear-gradient(135deg,#2563eb,#3B82F6)">
+          <i class="fa-solid fa-rocket text-xl"></i>
+          <div>
+            <h3 class="font-black text-base">规模复制期</h3>
+            <p class="text-xs text-white/70">1 → N 加速</p>
+          </div>
+        </div>
+        <div class="phase-card-body space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(37,99,235,0.1);color:#2563eb;font-size:.7rem"><i class="fa-solid fa-check"></i></span>
+            <p class="text-sm text-gray-600"><strong class="text-gray-800">铁三角赋能模型</strong><br>总部智库 + 区域教练 + 数字工具 三位一体</p>
+          </div>
+          <div class="bg-gray-50 rounded-xl p-3 space-y-2 text-xs">
+            <div class="flex items-center gap-2"><i class="fa-solid fa-brain text-[#6D4AFF]"></i> <span class="font-semibold">总部智库</span>：每周推送「场景化解决方案包」</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-person-chalkboard text-blue-500"></i> <span class="font-semibold">区域教练</span>：开展「门店诊断工作坊」</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-mobile-screen text-emerald-500"></i> <span class="font-semibold">数字工具</span>：「智慧门店驾驶舱」实时监测12项健康度指标</div>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(37,99,235,0.1);color:#2563eb;font-size:.7rem"><i class="fa-solid fa-star"></i></span>
+            <p class="text-sm text-gray-600"><strong class="text-gray-800">典型案例</strong><br>华东区 A 类店通过动态补货算法，缺货率下降 <span class="text-[#2563eb] font-bold">67%</span></p>
+          </div>
+          <div class="pt-2">
+            <div class="progress-bar"><div class="progress-fill" style="width:65%;background:#2563eb"></div></div>
+            <p class="text-xs text-gray-400 mt-1">推进中 65%</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3: 生态共建期 -->
+      <div class="phase-card reveal" style="transition-delay:0.45s">
+        <div class="phase-card-header" style="background:linear-gradient(135deg,#059669,#10B981)">
+          <i class="fa-solid fa-infinity text-xl"></i>
+          <div>
+            <h3 class="font-black text-base">生态共建期</h3>
+            <p class="text-xs text-white/70">N → ∞ 进化</p>
+          </div>
+        </div>
+        <div class="phase-card-body space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(5,150,105,0.1);color:#059669;font-size:.7rem"><i class="fa-solid fa-check"></i></span>
+            <p class="text-sm text-gray-600"><strong class="text-gray-800">开放平台战略</strong><br>接入第三方服务商，形成 SaaS 应用商店生态</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(5,150,105,0.1);color:#059669;font-size:.7rem"><i class="fa-solid fa-check"></i></span>
+            <p class="text-sm text-gray-600"><strong class="text-gray-800">数据反哺机制</strong><br>门店经营数据反向优化供应链预测准确率至 <span class="text-[#059669] font-bold">92%</span></p>
+          </div>
+          <div class="pt-2">
+            <div class="progress-bar"><div class="progress-fill" style="width:25%;background:#059669"></div></div>
+            <p class="text-xs text-gray-400 mt-1">规划中 25%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: 可视化作战地图 -->
+<section class="px-6 py-16">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-chart-pie text-[#6D4AFF]"></i> 可视化作战地图
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">联动仪表盘</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">时空维度 × 状态标识 — 全国推进态势一目了然</p>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 reveal">
+      <div class="dash-card text-center">
+        <div class="text-3xl font-black text-[#6D4AFF] mb-1">78%</div>
+        <div class="text-xs text-gray-500 mb-2">华北区渗透率</div>
+        <div class="progress-bar h-2 mb-2">
+          <div class="progress-fill" style="width:78%;background:linear-gradient(90deg,#6D4AFF,#8B6FFF)"></div>
+        </div>
+        <span class="text-[10px] text-gray-400">领跑全国</span>
+      </div>
+      <div class="dash-card text-center">
+        <div class="text-3xl font-black text-[#059669] mb-1">67%</div>
+        <div class="text-xs text-gray-500 mb-2">缺货率降幅</div>
+        <div class="progress-bar h-2 mb-2">
+          <div class="progress-fill" style="width:67%;background:linear-gradient(90deg,#10B981,#34D399)"></div>
+        </div>
+        <span class="text-[10px] text-gray-400">动态补货算法</span>
+      </div>
+      <div class="dash-card text-center">
+        <div class="text-3xl font-black text-[#2563eb] mb-1">92%</div>
+        <div class="text-xs text-gray-500 mb-2">供应链预测准确率</div>
+        <div class="progress-bar h-2 mb-2">
+          <div class="progress-fill" style="width:92%;background:linear-gradient(90deg,#2563eb,#3B82F6)"></div>
+        </div>
+        <span class="text-[10px] text-gray-400">数据反哺优化</span>
+      </div>
+      <div class="dash-card text-center">
+        <div class="text-3xl font-black text-[#F59E0B] mb-1">12 项</div>
+        <div class="text-xs text-gray-500 mb-2">健康度指标监测</div>
+        <div class="progress-bar h-2 mb-2">
+          <div class="progress-fill" style="width:100%;background:linear-gradient(90deg,#F59E0B,#FBBF24)"></div>
+        </div>
+        <span class="text-[10px] text-gray-400">驾驶舱实时</span>
+      </div>
+    </div>
+
+    <!-- Status Indicators -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 reveal">
+      <div class="dash-card" style="border-left:4px solid #10B981">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="dash-indicator green"></span>
+          <h4 class="font-bold text-gray-800 text-sm">已达标门店</h4>
+        </div>
+        <p class="text-xs text-gray-500">连续3个月达成 GMV/坪效目标，进入稳定运营期</p>
+        <div class="mt-3 flex items-center gap-2">
+          <div class="flex-1 h-1.5 rounded-full bg-gray-100"><div class="h-full rounded-full bg-[#10B981]" style="width:65%"></div></div>
+          <span class="text-xs font-bold text-[#10B981]">65%</span>
+        </div>
+      </div>
+      <div class="dash-card" style="border-left:4px solid #F59E0B">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="dash-indicator yellow"></span>
+          <h4 class="font-bold text-gray-800 text-sm">爬坡期门店</h4>
+        </div>
+        <p class="text-xs text-gray-500">需重点关注人员流动率指标，加强培训与辅导</p>
+        <div class="mt-3 flex items-center gap-2">
+          <div class="flex-1 h-1.5 rounded-full bg-gray-100"><div class="h-full rounded-full bg-[#F59E0B]" style="width:25%"></div></div>
+          <span class="text-xs font-bold text-[#F59E0B]">25%</span>
+        </div>
+      </div>
+      <div class="dash-card" style="border-left:4px solid #EF4444">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="dash-indicator red"></span>
+          <h4 class="font-bold text-gray-800 text-sm">滞后门店</h4>
+        </div>
+        <p class="text-xs text-gray-500">启动「急诊室」专项帮扶，总部派驻专家定点支持</p>
+        <div class="mt-3 flex items-center gap-2">
+          <div class="flex-1 h-1.5 rounded-full bg-gray-100"><div class="h-full rounded-full bg-[#EF4444]" style="width:10%"></div></div>
+          <span class="text-xs font-bold text-[#EF4444]">10%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Note on visualization tools -->
+    <div class="map-hint reveal">
+      <i class="fa-solid fa-chart-line text-3xl text-[#6D4AFF] mb-3 block"></i>
+      <p class="text-sm text-gray-600">
+        <strong>推荐工具：</strong>Power BI / Tableau 制作联动仪表盘
+      </p>
+      <p class="text-xs text-gray-400 mt-1">
+        热力图展示全国推进态势 · 折线图追踪月度新增量 · 区域钻取逐级下探
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: 推广地图 -->
+<section class="px-6 py-16" style="background:#fff">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-map-location-dot text-[#6D4AFF]"></i> 推广地图
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">全国推广全景</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">支持实时地图与按月查看两种模式</p>
+    </div>
+
+    <!-- Map content - two columns -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 reveal">
+      <div class="lg:col-span-2 map-hint flex flex-col items-center justify-center" style="min-height:320px">
+        <i class="fa-solid fa-map text-5xl text-[#6D4AFF]/30 mb-4"></i>
+        <h4 class="font-bold text-gray-700 mb-2">中国推广地图</h4>
+        <p class="text-xs text-gray-400 text-center max-w-md">
+          以佛山为中心，覆盖 20 个城市的多阶段推广路线图。<br>
+          支持按月份切换查看不同阶段的推进态势与城市排行榜。
+        </p>
+        <a href="store-promotion.html" class="inline-flex items-center gap-2 mt-4 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition" style="background:#6D4AFF">
+          <i class="fa-solid fa-arrow-right"></i> 查看互动地图
+        </a>
+      </div>
+
+      <div class="dash-card flex flex-col justify-center">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-1.5 h-4 rounded bg-[#6D4AFF]"></div>
+          <h4 class="font-bold text-gray-800 text-sm">月视图模式</h4>
+        </div>
+        <p class="text-xs text-gray-500 mb-4">选择月份查看不同阶段的推进情况</p>
+        <div class="space-y-2">
+          <div class="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 hover:bg-gray-100 cursor-pointer transition">
+            <span class="text-sm font-bold text-[#6D4AFF]">7月</span>
+            <span class="text-xs text-gray-500">种子期播种 · 首批城市启动</span>
+          </div>
+          <div class="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 hover:bg-gray-100 cursor-pointer transition">
+            <span class="text-sm font-bold text-[#2563eb]">8月</span>
+            <span class="text-xs text-gray-500">扩张加速 · 灯塔城市发力</span>
+          </div>
+          <div class="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 hover:bg-gray-100 cursor-pointer transition">
+            <span class="text-sm font-bold text-[#10B981]">10月</span>
+            <span class="text-xs text-gray-500">规模复制 · 第二批城市上线</span>
+          </div>
+          <div class="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 hover:bg-gray-100 cursor-pointer transition">
+            <span class="text-sm font-bold text-gray-400">12月</span>
+            <span class="text-xs text-gray-400">持续运营 · 生态闭环</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="border-t border-purple-100 py-8 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+    <p class="text-xs text-gray-400">数字化门店 · 全域推广全景纪实 · 2026</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Intersection Observer for reveal animations
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}
+    })
+  },{threshold:0.15,rootMargin:'0px 0px -40px 0px'})
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el))
+
+  // Animate progress bars on scroll
+  const progressObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting && !e.target.dataset.animated){
+        e.target.dataset.animated = '1'
+        const fill = e.target.querySelector('.progress-fill')
+        if(fill){fill.style.width=fill.style.width}
+      }
+    })
+  },{threshold:0.3})
+  document.querySelectorAll('.progress-bar').forEach(el=>progressObserver.observe(el))
+})()
+</script>
+</body>
+</html>
