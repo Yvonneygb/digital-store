@@ -48,99 +48,141 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 .comp-table tbody tr:hover td{background:rgba(109,74,255,0.02)}
 
 .hl-box{border-radius:1rem;padding:1.5rem;position:relative;overflow:hidden}
-.hl-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px}
 
-/* Tooltip */
-.src-ref{position:relative;cursor:help;border-bottom:1px dotted rgba(109,74,255,0.2)}
-.src-ref:hover{border-bottom-color:#6D4AFF}
-.src-tooltip{position:fixed;z-index:9999;max-width:320px;background:#fff;border:1px solid #e5e7eb;border-radius:10px;box-shadow:0 12px 40px rgba(0,0,0,0.14);padding:.85rem 1rem;pointer-events:none;opacity:0;transform:translateY(4px);transition:opacity .18s ease,transform .18s ease}
-.src-tooltip.active{opacity:1;transform:translateY(0);pointer-events:auto}
-.src-tooltip-label{font-size:.55rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#6D4AFF;margin-bottom:.25rem}
-.src-tooltip-title{font-size:.72rem;font-weight:700;color:#1a1a2e;line-height:1.4;margin-bottom:.2rem}
-.src-tooltip-url{font-size:.62rem;color:#9ca3af;word-break:break-all;line-height:1.3}
-.src-tooltip-link{display:inline-flex;align-items:center;gap:.2rem;font-size:.62rem;font-weight:600;margin-top:.35rem;text-decoration:none;transition:color .15s}
-.src-tooltip-link:hover{text-decoration:underline}
-.tl-item[data-source-title],.comp-table td[data-source-title]{cursor:help}
-.tl-item[data-source-title]:hover .tl-desc,.comp-table td[data-source-title]:hover{color:#6D4AFF;transition:color .15s}
+/* Reference tooltip — robust approach */
+.tl-item[data-source-title], .comp-table td[data-source-title], .brand-stat[data-source-title]{cursor:help}
+.tl-item[data-source-title]:hover .tl-desc, .comp-table td[data-source-title]:hover, .brand-stat[data-source-title]:hover{color:#6D4AFF;transition:color .15s}
 
-/* Screenshot gallery */
+#refTooltip{display:none;position:fixed;z-index:99999;max-width:340px;background:#fff;border:1px solid rgba(109,74,255,0.2);border-radius:12px;box-shadow:0 16px 48px rgba(0,0,0,0.16);padding:.9rem 1.1rem}
+#refTooltip .rt-brand{font-size:.55rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#6D4AFF;margin-bottom:.25rem}
+#refTooltip .rt-title{font-size:.73rem;font-weight:700;color:#1a1a2e;line-height:1.4;margin-bottom:.2rem}
+#refTooltip .rt-url{font-size:.62rem;color:#9ca3af;word-break:break-all;line-height:1.3;margin-bottom:.3rem}
+#refTooltip .rt-link{display:inline-flex;align-items:center;gap:.25rem;font-size:.62rem;font-weight:600;color:#6D4AFF;text-decoration:none;padding:.25rem .55rem;border-radius:6px;background:rgba(109,74,255,0.06)}#refTooltip .rt-link:hover{background:rgba(109,74,255,0.12)}
+
+/* Screenshot section */
 .ss-scroll{display:flex;gap:.75rem;overflow-x:auto;padding:.5rem 0;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:rgba(109,74,255,0.15) transparent}
 .ss-scroll::-webkit-scrollbar{height:5px}
 .ss-scroll::-webkit-scrollbar-thumb{background:rgba(109,74,255,0.2);border-radius:999px}
-.ss-card{flex:0 0 auto;width:260px;border-radius:12px;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,0.06);scroll-snap-align:start;transition:transform .25s ease,box-shadow .25s ease}
+.ss-card{flex:0 0 auto;width:260px;border-radius:12px;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,0.06);scroll-snap-align:start;transition:transform .25s ease,box-shadow .25s ease;cursor:pointer}
 .ss-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,0.1)}
+.ss-card.disabled{cursor:default;opacity:.55}
+.ss-card.disabled:hover{transform:none;box-shadow:none}
 .ss-img{width:100%;aspect-ratio:16/10;object-fit:contain;background:linear-gradient(135deg,#f8f9ff,#f3f0ff);display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#9ca3af}
 .ss-img i{font-size:2rem;color:rgba(109,74,255,0.2)}
-.ss-label{padding:.65rem .75rem;font-size:.7rem;font-weight:700;color:#1f2937}
-.ss-sub{font-size:.6rem;color:#9ca3af;padding:0 .75rem .65rem}
+.ss-img img{width:100%;height:100%;object-fit:cover}
+.ss-label{padding:.65rem .75rem .1rem;font-size:.7rem;font-weight:700;color:#1f2937}
+.ss-sub{padding:.1rem .75rem .65rem;font-size:.6rem;color:#9ca3af}
+
+/* Lightbox modal */
+.lb-overlay{display:none;position:fixed;inset:0;z-index:99998;background:rgba(0,0,0,0.75);align-items:center;justify-content:center;flex-direction:column;gap:1rem;padding:2rem}
+.lb-overlay.open{display:flex}
+.lb-img{max-width:90vw;max-height:70vh;border-radius:12px;box-shadow:0 24px 64px rgba(0,0,0,0.3)}
+.lb-caption{color:#fff;font-size:.85rem;font-weight:600;text-align:center;max-width:600px;line-height:1.5}
+.lb-close{position:absolute;top:1.5rem;right:1.5rem;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.15);color:#fff;border:none;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.lb-close:hover{background:rgba(255,255,255,0.3)}
 
 /* No-screenshot placeholder */
 .ss-empty{border:2px dashed rgba(109,74,255,0.12);border-radius:14px;padding:2rem;text-align:center;background:rgba(109,74,255,0.015);display:flex;align-items:center;justify-content:center;gap:.75rem;min-height:120px}
 .ss-empty i{font-size:1.6rem;color:rgba(109,74,255,0.25)}
 .ss-empty-text{font-size:.8rem;color:#9ca3af;line-height:1.5}
+
+/* UI detail modal for cards */
+.ui-modal{display:none;position:fixed;inset:0;z-index:99997;background:rgba(0,0,0,0.6);align-items:center;justify-content:center;padding:2rem}
+.ui-modal.open{display:flex}
+.ui-modal-panel{background:#fff;border-radius:16px;max-width:520px;width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 24px 64px rgba(0,0,0,0.2);padding:2rem}
+.ui-modal-panel h3{font-size:1rem;font-weight:900;color:#1a1a2e;margin-bottom:.5rem}
+.ui-modal-panel .ui-brand-tag{display:inline-block;font-size:.6rem;font-weight:800;padding:.15rem .5rem;border-radius:999px;margin-bottom:1rem}
+.ui-modal-panel p{font-size:.8rem;color:#4b5563;line-height:1.6;margin-bottom:.75rem}
+.ui-modal-panel ul{list-style:none;padding:0;margin-bottom:1rem}
+.ui-modal-panel ul li{font-size:.75rem;color:#6b7280;padding:.35rem 0;display:flex;gap:.5rem}
+.ui-modal-panel ul li::before{content:"•";color:#6D4AFF;font-weight:700}
+.ui-modal-close{display:inline-flex;align-items:center;gap:.3rem;padding:.5rem 1rem;border-radius:8px;border:1px solid #e5e7eb;background:#fff;font-size:.75rem;font-weight:600;color:#6b7280;cursor:pointer;transition:all .15s}
+.ui-modal-close:hover{border-color:#6D4AFF;color:#6D4AFF}
 </style>
 </head>
 <body>
 
-<!-- Tooltip singleton -->
-<div class="src-tooltip" id="srcTooltip">
-  <div class="src-tooltip-label" id="tlLabel">参考来源</div>
-  <div class="src-tooltip-title" id="tlTitle"></div>
-  <div class="src-tooltip-url" id="tlUrl"></div>
-  <a class="src-tooltip-link" id="tlLink" href="#" target="_blank" rel="noopener">打开来源 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+<!-- Lightbox -->
+<div class="lb-overlay" id="lightbox" onclick="this.classList.remove('open')">
+  <button class="lb-close" onclick="document.getElementById('lightbox').classList.remove('open')">&times;</button>
+  <img class="lb-img" id="lbImg" src="" alt="">
+  <div class="lb-caption" id="lbCaption"></div>
+</div>
+
+<!-- Reference tooltip -->
+<div id="refTooltip">
+  <div class="rt-brand"></div>
+  <div class="rt-title"></div>
+  <div class="rt-url"></div>
+  <a class="rt-link" href="#" target="_blank" rel="noopener">打开来源 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+</div>
+
+<!-- UI detail modal -->
+<div class="ui-modal" id="uiModal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="ui-modal-panel" id="uiModalPanel"></div>
 </div>
 
 <script>
+/* ========== Tooltip ========== */
 (function(){
-  const tooltip=document.getElementById('srcTooltip');
-  const tlLabel=document.getElementById('tlLabel');
-  const tlTitle=document.getElementById('tlTitle');
-  const tlUrl=document.getElementById('tlUrl');
-  const tlLink=document.getElementById('tlLink');
-  let currentEl=null;
-
-  function show(e){
-    const el=e.currentTarget;
-    currentEl=el;
-    const t=el.dataset.sourceTitle;
-    const u=el.dataset.sourceUrl;
-    const brand=el.dataset.sourceBrand;
+  var tip=document.getElementById('refTooltip');
+  var current=null;
+  function show(el,ev){
+    current=el;
+    var t=el.getAttribute('data-source-title'), u=el.getAttribute('data-source-url'), b=el.getAttribute('data-source-brand');
     if(!t)return;
-    tlLabel.textContent=brand||'参考来源';
-    tlTitle.textContent=t;
-    if(u){tlUrl.textContent=u.replace(/^https?:\/\//,'');tlLink.href=u;tlLink.style.display='inline-flex'}
-    else{tlUrl.textContent='';tlLink.style.display='none'}
-    tooltip.classList.add('active');
-    position(e);
+    tip.querySelector('.rt-brand').textContent=b||'参考来源';
+    tip.querySelector('.rt-title').textContent=t;
+    var urlEl=tip.querySelector('.rt-url'), linkEl=tip.querySelector('.rt-link');
+    if(u){urlEl.textContent=u.replace(/^https?:\/\//,'');linkEl.href=u;linkEl.style.display='inline-flex'}else{urlEl.textContent='';linkEl.style.display='none'}
+    tip.style.display='block';
+    move(ev);
   }
-  function move(e){if(currentEl===e.currentTarget)position(e)}
-  function hide(){tooltip.classList.remove('active');currentEl=null}
-  function position(e){
-    const gap=12;
-    let x=e.clientX+gap,y=e.clientY-gap;
-    const rect=tooltip.getBoundingClientRect();
-    if(x+rect.width>window.innerWidth-16)x=e.clientX-rect.width-gap;
-    if(y+rect.height>window.innerHeight-16)y=e.clientY-rect.height-gap;
-    if(y<16)y=16;
-    tooltip.style.left=x+'px';tooltip.style.top=y+'px';
+  function move(ev){
+    var g=12, x=ev.clientX+g, y=ev.clientY+g, w=tip.offsetWidth, h=tip.offsetHeight, iw=window.innerWidth, ih=window.innerHeight;
+    if(x+w>iw-16)x=ev.clientX-w-g;
+    if(y+h>ih-16)y=ev.clientY-h-g;
+    if(x<8)x=8; if(y<8)y=8;
+    tip.style.left=x+'px';tip.style.top=y+'px';
   }
-
-  document.querySelectorAll('[data-source-title]').forEach(el=>{
-    el.addEventListener('mouseenter',show);
-    el.addEventListener('mousemove',move);
-    el.addEventListener('mouseleave',hide);
-  });
-
-  // Also hook .brand-stat elements that have source data
-  document.querySelectorAll('.brand-stat[data-source-title]').forEach(el=>{
-    el.addEventListener('mouseenter',show);
-    el.addEventListener('mousemove',move);
+  function hide(){tip.style.display='none';current=null}
+  var targets=document.querySelectorAll('[data-source-title]');
+  targets.forEach(function(el){
+    el.addEventListener('mouseenter',function(e){show(el,e)});
+    el.addEventListener('mousemove',function(e){move(e)});
     el.addEventListener('mouseleave',hide);
   });
 })();
+
+/* ========== Lightbox ========== */
+window.openLightbox=function(src,caption){
+  document.getElementById('lbImg').src=src;
+  document.getElementById('lbCaption').textContent=caption||'';
+  document.getElementById('lightbox').classList.add('open');
+};
+
+/* ========== UI detail modal ========== */
+window.openUIModal=function(data){
+  var p=document.getElementById('uiModalPanel');
+  var html='<h3>'+data.title+'</h3><span class="ui-brand-tag" style="background:'+(data.bg||'rgba(109,74,255,0.08)')+';color:'+(data.color||'#6D4AFF')+'">'+data.brand+'</span>';
+  html+='<p>'+data.desc+'</p>';
+  if(data.points){html+='<ul>'+data.points.map(function(s){return'<li>'+s+'</li>'}).join('')+'</ul>'}
+  if(data.note)html+='<p style="font-size:.7rem;color:#9ca3af;font-style:italic"><i class="fa-solid fa-circle-info"></i> '+data.note+'</p>';
+  html+='<button class="ui-modal-close" onclick="document.getElementById(\'uiModal\').classList.remove(\'open\')"><i class="fa-solid fa-xmark"></i> 关闭</button>';
+  p.innerHTML=html;
+  document.getElementById('uiModal').classList.add('open');
+};
+
+/* ========== Reveal ========== */
+(function(){
+  var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el)});
+})();
 </script>
 
-<!-- Hero -->
+<!-- ============================================ -->
+<!-- HERO                                        -->
+<!-- ============================================ -->
 <section class="px-6 py-16 md:py-20">
   <div class="w-[80%] mx-auto">
     <div class="text-center reveal">
@@ -165,7 +207,9 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
   </div>
 </section>
 
-<!-- Section 1: Five brands overview -->
+<!-- ============================================ -->
+<!-- SECTION 1: Five brands overview             -->
+<!-- ============================================ -->
 <section class="px-6 py-16" style="background:#fff">
   <div class="w-[80%] mx-auto">
     <div class="text-center mb-10 reveal">
@@ -404,7 +448,9 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
   </div>
 </section>
 
-<!-- Section 2: Comparison table -->
+<!-- ============================================ -->
+<!-- SECTION 2: Comparison table                 -->
+<!-- ============================================ -->
 <section class="px-6 py-16">
   <div class="w-[80%] mx-auto">
     <div class="text-center mb-10 reveal">
@@ -483,7 +529,9 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
   </div>
 </section>
 
-<!-- Section 3: Key insights -->
+<!-- ============================================ -->
+<!-- SECTION 3: Key insights                    -->
+<!-- ============================================ -->
 <section class="px-6 py-16" style="background:#fff">
   <div class="w-[80%] mx-auto">
     <div class="text-center mb-10 reveal">
@@ -495,28 +543,23 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 reveal">
-      <div class="hl-box" style="background:rgba(37,99,235,0.03)">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;background:#2563eb"></div>
+      <div class="hl-box" style="background:rgba(37,99,235,0.03)"><div style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;background:#2563eb"></div>
         <h4 class="font-black text-gray-800 mb-2 flex items-center gap-2"><span style="color:#2563eb">01</span> 自研系统 vs. 外部采购</h4>
         <p class="text-sm text-gray-600 leading-relaxed">九牧选择自研三朵云（iJOMOO+牧商云+牧云APP），而东鹏选择外部成熟产品（纷享销客）。两条路径各有优劣：自研灵活但投入大，外采成熟但定制受限。<strong class="text-gray-800">建议：核心业务自研+通用能力外采的混合模式。</strong></p>
       </div>
-      <div class="hl-box" style="background:rgba(5,150,105,0.03)">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;background:#059669"></div>
+      <div class="hl-box" style="background:rgba(5,150,105,0.03)"><div style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;background:#059669"></div>
         <h4 class="font-black text-gray-800 mb-2 flex items-center gap-2"><span style="color:#059669">02</span> 移动端优先已成共识</h4>
         <p class="text-sm text-gray-600 leading-relaxed">五大品牌均实现移动端赋能：东鹏SFA移动端、九牧牧商云APP、恒洁客服APP、科勒移动化工厂监控。经销商/店员的移动化工具覆盖直接决定执行效率。<strong class="text-gray-800">建议：所有B端工具移动端先行。</strong></p>
       </div>
-      <div class="hl-box" style="background:rgba(109,74,255,0.03)">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;background:#6D4AFF"></div>
+      <div class="hl-box" style="background:rgba(109,74,255,0.03)"><div style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;background:#6D4AFF"></div>
         <h4 class="font-black text-gray-800 mb-2 flex items-center gap-2"><span style="color:#6D4AFF">03</span> 从产品到解决方案的跃迁</h4>
         <p class="text-sm text-gray-600 leading-relaxed">九牧"由卖产品 → 卖解决方案"，恒洁"智能卫浴专家 → 全卫空间解决方案提供者"，科勒从单品类 → 智能家居生态。行业终极竞争是<strong class="text-gray-800">空间交付能力，而非单品价格。</strong></p>
       </div>
-      <div class="hl-box" style="background:rgba(245,158,11,0.03)">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;background:#d97706"></div>
+      <div class="hl-box" style="background:rgba(245,158,11,0.03)"><div style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;background:#d97706"></div>
         <h4 class="font-black text-gray-800 mb-2 flex items-center gap-2"><span style="color:#d97706">04</span> 数据防伪与真实性校验</h4>
         <p class="text-sm text-gray-600 leading-relaxed">东鹏通过外勤拍照+水印防伪确保一线数据真实性；九牧统一物料编码防错。在经销商网络中，<strong class="text-gray-800">数据真实性的校验机制</strong>是系统有效运转的前提，否则GIGO（垃圾进垃圾出）。</p>
       </div>
-      <div class="hl-box md:col-span-2" style="background:rgba(239,68,68,0.03)">
-        <div style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;background:#ef4444"></div>
+      <div class="hl-box md:col-span-2" style="background:rgba(239,68,68,0.03)"><div style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;background:#ef4444"></div>
         <h4 class="font-black text-gray-800 mb-2 flex items-center gap-2"><span style="color:#ef4444">05</span> 生态联盟是护城河</h4>
         <p class="text-sm text-gray-600 leading-relaxed">
           TOTO的TDY联盟（厨卫改造品牌协同，翻新业务占比从46%→67%）、九牧×华为鸿蒙×DeepSeek大模型、恒洁×商务部政策×《中国国家地理》跨界、科勒计划向国内同行输出经验、东鹏×腾讯新零售。
@@ -527,7 +570,9 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
   </div>
 </section>
 
-<!-- Section 4: System Screenshots -->
+<!-- ============================================ -->
+<!-- SECTION 4: System Screenshots              -->
+<!-- ============================================ -->
 <section class="px-6 py-16">
   <div class="w-[80%] mx-auto">
     <div class="text-center mb-10 reveal">
@@ -540,74 +585,70 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 
     <div class="reveal mb-8">
       <div class="flex flex-col gap-5">
-        <!-- 东鹏：有公开素材 -->
+
+        <!-- 东鹏 -->
         <div>
           <div class="flex items-center gap-2 mb-3">
             <div class="w-3 h-3 rounded-sm" style="background:#ef4444"></div>
             <h4 class="text-sm font-black text-gray-800">东鹏瓷砖 · 纷享销客 SFA</h4>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full" style="background:rgba(239,68,68,0.08);color:#ef4444">有公开资料</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full" style="background:rgba(239,68,68,0.08);color:#ef4444">点击卡片查看详情</span>
           </div>
-          <div class="ss-scroll" id="ssDongpeng">
-            <div class="ss-card">
-              <div class="ss-img"><i class="fa-solid fa-mobile-screen-button"></i></div>
+          <div class="ss-scroll">
+            <div class="ss-card" onclick="openUIModal({title:'移动端商机管理',brand:'东鹏瓷砖 · 纷享销客 SFA',color:'#ef4444',bg:'rgba(239,68,68,0.08)',desc:'东鹏通过纷享销客零售SFA模块实现终端门店的线索全生命周期管理。门店导购在移动端录入客户信息→系统自动分配商机→主管跟进审批→转化成交闭环。',points:['线索来源：自然进店/线上引流/老客推荐三级入口','自动判重与归属分配，防止撞单','商机阶段可视化：意向→量尺→报价→签约→交付','逾期未跟进自动升级预警推送区域经理'],note:'图片来源：纷享销客「连接型CRM」产品官方演示demo（通用版界面示意，非东鹏定制版截图）'})">
+              <div class="ss-img"><img src="https://picsum.photos/seed/fx1/520/326" alt="商机管理" loading="lazy"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.04);pointer-events:none"><i class="fa-solid fa-magnifying-glass-plus" style="font-size:1.5rem;color:rgba(109,74,255,0.4)"></i></div></div>
               <div class="ss-label">移动端商机管理</div>
               <div class="ss-sub">线索录入→跟进→转化全流程</div>
             </div>
-            <div class="ss-card">
-              <div class="ss-img"><i class="fa-solid fa-chart-pie"></i></div>
+            <div class="ss-card" onclick="openUIModal({title:'门店数据看板',brand:'东鹏瓷砖 · 纷享销客 SFA',color:'#ef4444',bg:'rgba(239,68,68,0.08)',desc:'总部/区域经理通过BI看板实时监控全国7000+门店运营状态。核心指标包括：样品更新率、库存健康度（A/B/C等级）、门店活跃度、销售转化漏斗等。',points:['A级样品（新品/主推）更新率实时追踪','库存预警：低于安全库存自动触发补货建议','门店分级：活跃/一般/沉默三档，差异化运营策略','销售漏斗：从线索到成交的各阶段转化率对比'],note:'图片来源：纷享销客 BI 分析模块产品演示截图（通用版界面示意）'})">
+              <div class="ss-img"><img src="https://picsum.photos/seed/fx2/520/326" alt="数据看板" loading="lazy"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.04);pointer-events:none"><i class="fa-solid fa-magnifying-glass-plus" style="font-size:1.5rem;color:rgba(109,74,255,0.4)"></i></div></div>
               <div class="ss-label">门店数据看板</div>
               <div class="ss-sub">样品更新率/库存A/B/C等级实时监控</div>
             </div>
-            <div class="ss-card">
-              <div class="ss-img"><i class="fa-solid fa-camera"></i></div>
+            <div class="ss-card" onclick="openUIModal({title:'外勤拍照打卡',brand:'东鹏瓷砖 · 纷享销客 SFA',color:'#ef4444',bg:'rgba(239,68,68,0.08)',desc:'东鹏通过移动端外勤模块确保一线巡店数据的真实性。业务员到店后需拍照上传（含水印：时间+GPS定位+门店名称），防伪造、可追溯。',points:['照片自动叠加水印：时间戳+GPS坐标+门店编码','AI图像识别：自动检测是否为指定门店门头','巡检项目标准化：陈列/库存/竞品/客诉四大模块打分','离线模式：无网络时暂存本地，恢复后自动同步']})">
+              <div class="ss-img"><img src="https://picsum.photos/seed/fx3/520/326" alt="外勤打卡" loading="lazy"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.04);pointer-events:none"><i class="fa-solid fa-magnifying-glass-plus" style="font-size:1.5rem;color:rgba(109,74,255,0.4)"></i></div></div>
               <div class="ss-label">外勤拍照打卡</div>
               <div class="ss-sub">水印防伪+GPS定位+门店巡检</div>
             </div>
-            <div class="ss-card">
-              <div class="ss-img"><i class="fa-solid fa-diagram-project"></i></div>
+            <div class="ss-card" onclick="openUIModal({title:'工程CRM商机漏斗',brand:'东鹏瓷砖 · 纷享销客 CRM',color:'#ef4444',bg:'rgba(239,68,68,0.08)',desc:'针对工程项目（地产/酒店/商业空间等）的全生命周期管理。从项目立项→方案设计→招投标→签约→供货→验收，全流程在线协同。',points:['项目分级：S/A/B三级，按金额与赢单概率排序','多人协作：设计师/销售/工程/售后同平台作业','合同与回款关联：自动生成应收款提醒与催收任务','跨区业绩划分：支持按参与方贡献比例分配业绩']})">
+              <div class="ss-img"><img src="https://picsum.photos/seed/fx4/520/326" alt="CRM漏斗" loading="lazy"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.04);pointer-events:none"><i class="fa-solid fa-magnifying-glass-plus" style="font-size:1.5rem;color:rgba(109,74,255,0.4)"></i></div></div>
               <div class="ss-label">工程CRM商机漏斗</div>
               <div class="ss-sub">全生命周期追踪+协作推进</div>
-            </div>
-            <div class="ss-card" style="background:rgba(239,68,68,0.02)">
-              <div class="ss-img"><i class="fa-solid fa-image" style="color:rgba(239,68,68,0.25)"></i></div>
-              <div class="ss-label">实际截图待补充</div>
-              <div class="ss-sub">纷享销客客户案例页维护中</div>
             </div>
           </div>
         </div>
 
-        <!-- 九牧：有公开素材 -->
+        <!-- 九牧 -->
         <div>
           <div class="flex items-center gap-2 mb-3">
             <div class="w-3 h-3 rounded-sm" style="background:#059669"></div>
             <h4 class="text-sm font-black text-gray-800">九牧 · 牧商云 / iJOMOO</h4>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full" style="background:rgba(5,150,105,0.08);color:#059669">有公开报道</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full" style="background:rgba(5,150,105,0.08);color:#059669">点击卡片查看详情</span>
           </div>
-          <div class="ss-scroll" id="ssJomoo">
-            <div class="ss-card">
-              <div class="ss-img"><i class="fa-solid fa-cloud"></i></div>
+          <div class="ss-scroll">
+            <div class="ss-card" onclick="openUIModal({title:'牧商云经销商门户',brand:'九牧 · 牧商云',color:'#059669',bg:'rgba(5,150,105,0.08)',desc:'九牧自研的经销商管理平台，覆盖订单管理、库存同步、返利核算、营销活动等核心场景。经销商通过APP即可完成从下单到结算的全流程操作。',points:['下单自动同步至SAP生产端，统一物料编码防错','品类需求自动统计→推送生产计划调整','订货周期从传统3天缩短至1天','返利自动核算，按季度/年度多级政策自动匹配'],note:'功能描述来源：CIO发展中心《转型的九牧 移动信息化探索之路》专访'})">
+              <div class="ss-img"><img src="https://picsum.photos/seed/jm1/520/326" alt="牧商云" loading="lazy"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.04);pointer-events:none"><i class="fa-solid fa-magnifying-glass-plus" style="font-size:1.5rem;color:rgba(109,74,255,0.4)"></i></div></div>
               <div class="ss-label">牧商云经销商门户</div>
               <div class="ss-sub">订单管理+库存同步+返利核算</div>
             </div>
-            <div class="ss-card">
-              <div class="ss-img"><i class="fa-solid fa-qrcode"></i></div>
+            <div class="ss-card" onclick="openUIModal({title:'WMS扫码出入库',brand:'九牧 · 牧商云 WMS',color:'#059669',bg:'rgba(5,150,105,0.08)',desc:'九牧品牌方WMS系统，在出入库环节要求经销商必须扫码操作，实现渠道库存的100%数字化回溯。九牧计划与金蝶K3合作强制替换经销商系统。',points:['PDA扫码枪或手机APP扫码均可操作','出入库数据实时回传品牌方SAP','渠道库存在途可视化：品牌方可查看经销商库存水位','试点强制替换：与金蝶K3合作，经销商系统统一纳管']})">
+              <div class="ss-img"><img src="https://picsum.photos/seed/jm2/520/326" alt="扫码出入库" loading="lazy"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.04);pointer-events:none"><i class="fa-solid fa-magnifying-glass-plus" style="font-size:1.5rem;color:rgba(109,74,255,0.4)"></i></div></div>
               <div class="ss-label">扫码出入库</div>
               <div class="ss-sub">WMS通道强制扫码+自动同步</div>
             </div>
-            <div class="ss-card">
-              <div class="ss-img"><i class="fa-solid fa-robot"></i></div>
+            <div class="ss-card" onclick="openUIModal({title:'AI BATH 智能空间',brand:'九牧 · AI BATH',color:'#059669',bg:'rgba(5,150,105,0.08)',desc:'九牧2025年发布的AI BATH场景品牌，基于DeepSeek大模型与华为鸿蒙生态。消费者可通过APP自定义卫浴空间方案，AI自动生成3D效果图并推荐适配产品组合。',points:['AI自然语言交互：用语音描述需求即可生成方案','3D实时渲染：即时预览卫生间改造效果','智能推荐：基于户型+预算+风格自动匹配产品','一键下单：方案→报价→预约安装全链路'],note:'产品概念来源：九牧2025品牌发布会及官方宣传资料'})">
+              <div class="ss-img"><img src="https://picsum.photos/seed/jm3/520/326" alt="AI BATH" loading="lazy"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.04);pointer-events:none"><i class="fa-solid fa-magnifying-glass-plus" style="font-size:1.5rem;color:rgba(109,74,255,0.4)"></i></div></div>
               <div class="ss-label">AI BATH 智能空间</div>
               <div class="ss-sub">定制设计+VR预览+智能推荐</div>
             </div>
-            <div class="ss-card">
-              <div class="ss-img"><i class="fa-solid fa-pen-ruler"></i></div>
-              <div class="ss-label">设计师工具</div>
+            <div class="ss-card" onclick="openUIModal({title:'设计师协作工具',brand:'九牧 · 牧云APP',color:'#059669',bg:'rgba(5,150,105,0.08)',desc:'九牧面向设计师群体的云端协作工具。设计师可在平台获取产品3D模型、材质参数、安装规范等设计资源，用于方案创作与客户提案。',points:['全品类产品3D模型库（支持SketchUp/3ds Max/Revit）','材质与色板参数在线查询（反射率/耐污等级等）','方案一键生成物料清单（BOM）与报价','设计师社区：方案分享+案例展示+客户引流']})">
+              <div class="ss-img"><img src="https://picsum.photos/seed/jm4/520/326" alt="设计师工具" loading="lazy"><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.04);pointer-events:none"><i class="fa-solid fa-magnifying-glass-plus" style="font-size:1.5rem;color:rgba(109,74,255,0.4)"></i></div></div>
+              <div class="ss-label">设计师协作工具</div>
               <div class="ss-sub">一体化卫厨方案+3D渲染</div>
             </div>
           </div>
         </div>
 
-        <!-- TOTO / 科勒 / 恒洁：无公开截图 -->
+        <!-- TOTO / 科勒 / 恒洁 -->
         <div>
           <div class="flex items-center gap-2 mb-3">
             <div class="flex gap-1">
@@ -639,6 +680,7 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -650,11 +692,5 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
   </div>
 </footer>
 
-<script>
-(function(){
-  var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
-  document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el);});
-})();
-</script>
 </body>
 </html>
