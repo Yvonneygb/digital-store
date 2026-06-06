@@ -36,11 +36,11 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 .phase-card-header{padding:1.25rem 1.5rem;color:#fff;display:flex;align-items:center;gap:.75rem}
 .phase-card-body{padding:1.5rem}
 
-/* Milestone timeline */
-.milestone-track{position:relative;padding:2rem 0 0.5rem}
+/* Milestone timeline - dots press ON the line */
+.milestone-track{position:relative;padding:0 0 2rem}
 .milestone-line{position:absolute;top:8px;left:4%;right:4%;height:3px;background:linear-gradient(90deg,transparent,rgba(109,74,255,0.3) 10%,rgba(109,74,255,0.5) 50%,rgba(109,74,255,0.3) 90%,transparent)}
 .milestone-node{display:flex;flex-direction:column;align-items:center}
-.milestone-dot{width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 3px var(--c, #6D4AFF);background:var(--c, #6D4AFF);position:relative;z-index:2;margin-bottom:.7rem}
+.milestone-dot{width:16px;height:16px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 3px var(--c, #6D4AFF);background:var(--c, #6D4AFF);position:relative;z-index:2;margin-bottom:1rem}
 .milestone-label{font-size:.7rem;font-weight:700;color:#6b7280;white-space:nowrap;text-align:center}
 .milestone-title{font-size:.6rem;color:#9ca3af;white-space:nowrap}
 
@@ -53,16 +53,16 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 .progress-bar{height:8px;border-radius:4px;background:#f3f4f6;overflow:hidden}
 .progress-fill{height:100%;border-radius:4px;transition:width 1.2s ease}
 
-/* Innovation highlight */
+/* Innovation tag */
 .innovation-tag{display:inline-flex;align-items:center;gap:.35rem;padding:.3rem .75rem;border-radius:999px;background:rgba(109,74,255,0.08);color:#6D4AFF;font-size:.7rem;font-weight:600;border:1px solid rgba(109,74,255,0.15)}
 
-/* Gantt bar */
+/* Gantt */
 .gantt-row{display:flex;align-items:center;gap:.75rem;padding:.5rem 0}
 .gantt-label{width:100px;font-size:.75rem;font-weight:600;color:#374151;flex-shrink:0}
 .gantt-track{flex:1;height:28px;border-radius:6px;background:#f3f4f6;position:relative;overflow:hidden}
 .gantt-bar{position:absolute;top:2px;height:24px;border-radius:5px;display:flex;align-items:center;padding:0 .5rem;font-size:.6rem;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;transition:width 1s ease}
 
-/* Map section - from store-promotion */
+/* Map */
 .map-container{position:relative;width:100%;height:580px;background:#fff;border-radius:1rem;overflow:hidden;box-shadow:0 4px 20px rgba(109,74,255,0.08)}
 .map-layout{display:flex;gap:1.5rem;align-items:stretch}
 .map-left{flex:0 0 65%;min-width:0}
@@ -84,9 +84,10 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 .map-center{fill:#6D4AFF}
 .china-outline{fill:rgba(109,74,255,0.025);stroke:#D1D5DB;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
 .province-border{fill:none;stroke:rgba(109,74,255,0.29);stroke-width:1.2;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:3 4}
-.map-city{fill:#fff;stroke:#6D4AFF;stroke-width:2;cursor:pointer;transition:all .3s ease;transition-property:fill,opacity}
+.map-city{fill:#fff;stroke:#6D4AFF;stroke-width:2;cursor:pointer;transition:fill .3s ease}
 .map-city:hover{fill:#6D4AFF}
-.map-line-anim{fill:none;stroke:#6D4AFF;stroke-width:2;stroke-linecap:round;opacity:0.6}
+.map-city.blink{animation:cityBlink 0.25s ease-in-out 8}
+@keyframes cityBlink{0%,100%{fill:#fff;r:var(--r)}50%{fill:#FFD700;r:calc(var(--r) + 4px);stroke:#FFD700;stroke-width:3}}
 .map-tooltip{position:absolute;padding:1rem;background:#fff;border-radius:.75rem;box-shadow:0 10px 40px rgba(0,0,0,0.15);opacity:0;transition:opacity .3s;z-index:100;min-width:200px;pointer-events:auto}
 .map-tooltip.visible{opacity:1}
 .tooltip-city{font-size:1rem;font-weight:700;color:#1a1a2e;margin-bottom:.5rem}
@@ -119,7 +120,7 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 .carousel-dot.active{background:#6D4AFF}
 .carousel-counter{position:absolute;top:-2rem;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.6);font-size:.75rem;font-family:monospace}
 
-/* Toggle buttons for map mode */
+/* Toggle */
 .toggle-group{display:inline-flex;border-radius:999px;background:#f3f4f6;padding:3px}
 .toggle-btn{padding:.45rem 1.25rem;border-radius:999px;border:none;cursor:pointer;font-size:.8rem;font-weight:600;transition:all .25s;color:#6b7280;background:transparent;font-family:inherit;white-space:nowrap}
 .toggle-btn.active{background:#6D4AFF;color:#fff;box-shadow:0 2px 8px rgba(109,74,255,0.3)}
@@ -131,8 +132,6 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 .month-btn{flex-shrink:0;width:2.2rem;height:2.2rem;border-radius:50%;border:2px solid #e5e7eb;cursor:pointer;font-size:.65rem;font-weight:700;color:#9ca3af;background:#fff;transition:all .25s;display:flex;align-items:center;justify-content:center;font-family:inherit}
 .month-btn:hover{border-color:#6D4AFF;color:#6D4AFF}
 .month-btn.active{background:#6D4AFF;color:#fff;border-color:#6D4AFF;box-shadow:0 2px 8px rgba(109,74,255,0.3)}
-
-/* Month info badge */
 .month-info{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .85rem;border-radius:999px;font-size:.7rem;font-weight:600;background:rgba(109,74,255,0.08);color:#6D4AFF}
 
 @media(max-width:768px){
@@ -146,7 +145,7 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 </head>
 <body>
 
-<!-- Hero - White background, consistent with other pages -->
+<!-- Hero -->
 <section class="px-6 py-16 md:py-20">
   <div class="w-[80%] mx-auto">
     <div class="text-center reveal">
@@ -178,7 +177,6 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
       <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">甘特图 &amp; 里程碑看板</h2>
       <p class="text-gray-500 max-w-2xl mx-auto">全景呈现从种子培育到规模复制的推广节奏与关键节点</p>
     </div>
-
     <div class="bg-white rounded-2xl border border-gray-100 p-6 md:p-10 reveal shadow-sm mb-10">
       <div class="flex items-center gap-2 mb-6">
         <div class="w-2 h-5 rounded bg-[#6D4AFF]"></div>
@@ -186,24 +184,16 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
       </div>
       <div class="gantt-row">
         <span class="gantt-label">种子培育期</span>
-        <div class="gantt-track">
-          <div class="gantt-bar" style="left:0%;width:28%;background:linear-gradient(90deg,#6D4AFF,#8B7BFF)">Q1-Q2</div>
-        </div>
+        <div class="gantt-track"><div class="gantt-bar" style="left:0%;width:28%;background:linear-gradient(90deg,#6D4AFF,#8B7BFF)">Q1-Q2</div></div>
       </div>
       <div class="gantt-row">
         <span class="gantt-label">规模复制期</span>
-        <div class="gantt-track">
-          <div class="gantt-bar" style="left:28%;width:44%;background:linear-gradient(90deg,#2563eb,#3B82F6)">Q2-Q4</div>
-        </div>
+        <div class="gantt-track"><div class="gantt-bar" style="left:28%;width:44%;background:linear-gradient(90deg,#2563eb,#3B82F6)">Q2-Q4</div></div>
       </div>
       <div class="gantt-row">
         <span class="gantt-label">生态共建期</span>
-        <div class="gantt-track">
-          <div class="gantt-bar" style="left:72%;width:28%;background:linear-gradient(90deg,#059669,#10B981)">Q4+</div>
-        </div>
+        <div class="gantt-track"><div class="gantt-bar" style="left:72%;width:28%;background:linear-gradient(90deg,#059669,#10B981)">Q4+</div></div>
       </div>
-
-      <!-- Milestones - dots on line, labels below -->
       <div class="milestone-track">
         <div class="milestone-line"></div>
         <div class="flex justify-between px-[4%]" style="position:relative;z-index:2">
@@ -235,24 +225,17 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
         </div>
       </div>
     </div>
-
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 reveal">
       <div class="battle-card">
         <div class="flex items-start gap-4">
           <div class="battle-icon" style="background:rgba(109,74,255,0.08);color:#6D4AFF"><i class="fa-solid fa-arrows-spin"></i></div>
-          <div>
-            <h4 class="font-bold text-gray-800 mb-1">双周复盘会机制</h4>
-            <p class="text-sm text-gray-500">种子期采用「双周复盘会」机制，累计优化 SOP 文档多个版本，确保经验快速沉淀与迭代</p>
-          </div>
+          <div><h4 class="font-bold text-gray-800 mb-1">双周复盘会机制</h4><p class="text-sm text-gray-500">种子期采用「双周复盘会」机制，累计优化 SOP 文档多个版本，确保经验快速沉淀与迭代</p></div>
         </div>
       </div>
       <div class="battle-card">
         <div class="flex items-start gap-4">
           <div class="battle-icon" style="background:rgba(5,150,105,0.08);color:#059669"><i class="fa-solid fa-lightbulb"></i></div>
-          <div>
-            <h4 class="font-bold text-gray-800 mb-1">灯塔计划</h4>
-            <p class="text-sm text-gray-500">扩张期推出「灯塔计划」，选拔优秀店长担任区域导师，以标杆带动全面推广</p>
-          </div>
+          <div><h4 class="font-bold text-gray-800 mb-1">灯塔计划</h4><p class="text-sm text-gray-500">扩张期推出「灯塔计划」，选拔优秀店长担任区域导师，以标杆带动全面推广</p></div>
         </div>
       </div>
     </div>
@@ -269,83 +252,40 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
       <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">三阶段推进体系</h2>
       <p class="text-gray-500 max-w-2xl mx-auto">从 0→1 突破到 N→∞ 进化，系统化攻坚路径</p>
     </div>
-
     <div class="flex items-center gap-0 mb-10 reveal max-w-3xl mx-auto">
       <div class="flex-1 h-2 rounded-l-full" style="background:#6D4AFF"></div>
       <div class="flex-1 h-2" style="background:#2563eb"></div>
       <div class="flex-1 h-2 rounded-r-full" style="background:#059669"></div>
     </div>
-
     <div class="phase-steps">
       <div class="phase-card reveal" style="transition-delay:0.15s">
-        <div class="phase-card-header" style="background:linear-gradient(135deg,#6D4AFF,#8B6FFF)">
-          <i class="fa-solid fa-seedling text-xl"></i>
-          <div><h3 class="font-black text-base">种子培育期</h3><p class="text-xs text-white/70">0 → 1 突破</p></div>
-        </div>
+        <div class="phase-card-header" style="background:linear-gradient(135deg,#6D4AFF,#8B6FFF)"><i class="fa-solid fa-seedling text-xl"></i><div><h3 class="font-black text-base">种子培育期</h3><p class="text-xs text-white/70">0 → 1 突破</p></div></div>
         <div class="phase-card-body space-y-3">
-          <div class="flex items-start gap-3">
-            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1);color:#6D4AFF;font-size:.7rem"><i class="fa-solid fa-check"></i></span>
-            <p class="text-sm text-gray-600"><strong class="text-gray-800">深度陪跑模式</strong><br>组建「1+N」专项组（1名 PM + N个职能专家），进驻标杆市场深度辅导</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1);color:#6D4AFF;font-size:.7rem"><i class="fa-solid fa-check"></i></span>
-            <p class="text-sm text-gray-600"><strong class="text-gray-800">典型问题攻克</strong><br>POS系统对接 → 开发通用API接口；店员抵触 → 游戏化积分体系</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1);color:#6D4AFF;font-size:.7rem"><i class="fa-solid fa-check"></i></span>
-            <p class="text-sm text-gray-600"><strong class="text-gray-800">知识沉淀</strong><br>《数字化门店建设指南》V1.0：3大模块 / 21项操作细则</p>
-          </div>
-          <div class="pt-2">
-            <div class="progress-bar"><div class="progress-fill" style="width:100%;background:#6D4AFF"></div></div>
-            <p class="text-xs text-gray-400 mt-1">完成度 100%</p>
-          </div>
+          <div class="flex items-start gap-3"><span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1);color:#6D4AFF;font-size:.7rem"><i class="fa-solid fa-check"></i></span><p class="text-sm text-gray-600"><strong class="text-gray-800">深度陪跑模式</strong><br>组建「1+N」专项组（1名 PM + N个职能专家），进驻标杆市场深度辅导</p></div>
+          <div class="flex items-start gap-3"><span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1);color:#6D4AFF;font-size:.7rem"><i class="fa-solid fa-check"></i></span><p class="text-sm text-gray-600"><strong class="text-gray-800">典型问题攻克</strong><br>POS系统对接 → 开发通用API接口；店员抵触 → 游戏化积分体系</p></div>
+          <div class="flex items-start gap-3"><span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(109,74,255,0.1);color:#6D4AFF;font-size:.7rem"><i class="fa-solid fa-check"></i></span><p class="text-sm text-gray-600"><strong class="text-gray-800">知识沉淀</strong><br>《数字化门店建设指南》V1.0：3大模块 / 21项操作细则</p></div>
+          <div class="pt-2"><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#6D4AFF"></div></div><p class="text-xs text-gray-400 mt-1">完成度 100%</p></div>
         </div>
       </div>
-
       <div class="phase-card reveal" style="transition-delay:0.3s">
-        <div class="phase-card-header" style="background:linear-gradient(135deg,#2563eb,#3B82F6)">
-          <i class="fa-solid fa-rocket text-xl"></i>
-          <div><h3 class="font-black text-base">规模复制期</h3><p class="text-xs text-white/70">1 → N 加速</p></div>
-        </div>
+        <div class="phase-card-header" style="background:linear-gradient(135deg,#2563eb,#3B82F6)"><i class="fa-solid fa-rocket text-xl"></i><div><h3 class="font-black text-base">规模复制期</h3><p class="text-xs text-white/70">1 → N 加速</p></div></div>
         <div class="phase-card-body space-y-3">
-          <div class="flex items-start gap-3">
-            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(37,99,235,0.1);color:#2563eb;font-size:.7rem"><i class="fa-solid fa-check"></i></span>
-            <p class="text-sm text-gray-600"><strong class="text-gray-800">铁三角赋能模型</strong><br>总部智库 + 区域教练 + 数字工具 三位一体</p>
-          </div>
+          <div class="flex items-start gap-3"><span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(37,99,235,0.1);color:#2563eb;font-size:.7rem"><i class="fa-solid fa-check"></i></span><p class="text-sm text-gray-600"><strong class="text-gray-800">铁三角赋能模型</strong><br>总部智库 + 区域教练 + 数字工具 三位一体</p></div>
           <div class="bg-gray-50 rounded-xl p-3 space-y-2 text-xs">
-            <div class="flex items-center gap-2"><i class="fa-solid fa-brain text-[#6D4AFF]"></i> <span class="font-semibold">总部智库</span>：每周推送「场景化解决方案包」</div>
-            <div class="flex items-center gap-2"><i class="fa-solid fa-person-chalkboard text-blue-500"></i> <span class="font-semibold">区域教练</span>：开展「门店诊断工作坊」</div>
-            <div class="flex items-center gap-2"><i class="fa-solid fa-mobile-screen text-emerald-500"></i> <span class="font-semibold">数字工具</span>：「智慧门店驾驶舱」实时监测12项健康度指标</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-brain text-[#6D4AFF]"></i><span class="font-semibold">总部智库</span>：每周推送「场景化解决方案包」</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-person-chalkboard text-blue-500"></i><span class="font-semibold">区域教练</span>：开展「门店诊断工作坊」</div>
+            <div class="flex items-center gap-2"><i class="fa-solid fa-mobile-screen text-emerald-500"></i><span class="font-semibold">数字工具</span>：「智慧门店驾驶舱」实时监测12项健康度指标</div>
           </div>
-          <div class="flex items-start gap-3">
-            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(37,99,235,0.1);color:#2563eb;font-size:.7rem"><i class="fa-solid fa-star"></i></span>
-            <p class="text-sm text-gray-600"><strong class="text-gray-800">典型案例</strong><br>华东区 A 类店通过动态补货算法，缺货率下降 <span class="text-[#2563eb] font-bold">67%</span></p>
-          </div>
-          <div class="pt-2">
-            <div class="progress-bar"><div class="progress-fill" style="width:65%;background:#2563eb"></div></div>
-            <p class="text-xs text-gray-400 mt-1">推进中 65%</p>
-          </div>
+          <div class="flex items-start gap-3"><span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(37,99,235,0.1);color:#2563eb;font-size:.7rem"><i class="fa-solid fa-star"></i></span><p class="text-sm text-gray-600"><strong class="text-gray-800">典型案例</strong><br>华东区 A 类店通过动态补货算法，缺货率下降 <span class="text-[#2563eb] font-bold">67%</span></p></div>
+          <div class="pt-2"><div class="progress-bar"><div class="progress-fill" style="width:65%;background:#2563eb"></div></div><p class="text-xs text-gray-400 mt-1">推进中 65%</p></div>
         </div>
       </div>
-
       <div class="phase-card reveal" style="transition-delay:0.45s">
-        <div class="phase-card-header" style="background:linear-gradient(135deg,#059669,#10B981)">
-          <i class="fa-solid fa-infinity text-xl"></i>
-          <div><h3 class="font-black text-base">生态共建期</h3><p class="text-xs text-white/70">N → ∞ 进化</p></div>
-        </div>
+        <div class="phase-card-header" style="background:linear-gradient(135deg,#059669,#10B981)"><i class="fa-solid fa-infinity text-xl"></i><div><h3 class="font-black text-base">生态共建期</h3><p class="text-xs text-white/70">N → ∞ 进化</p></div></div>
         <div class="phase-card-body space-y-3">
-          <div class="flex items-start gap-3">
-            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(5,150,105,0.1);color:#059669;font-size:.7rem"><i class="fa-solid fa-check"></i></span>
-            <p class="text-sm text-gray-600"><strong class="text-gray-800">开放平台战略</strong><br>接入第三方服务商，形成 SaaS 应用商店生态</p>
-          </div>
-          <div class="flex items-start gap-3">
-            <span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(5,150,105,0.1);color:#059669;font-size:.7rem"><i class="fa-solid fa-check"></i></span>
-            <p class="text-sm text-gray-600"><strong class="text-gray-800">数据反哺机制</strong><br>门店经营数据反向优化供应链预测准确率至 <span class="text-[#059669] font-bold">92%</span></p>
-          </div>
-          <div class="pt-2">
-            <div class="progress-bar"><div class="progress-fill" style="width:25%;background:#059669"></div></div>
-            <p class="text-xs text-gray-400 mt-1">规划中 25%</p>
-          </div>
+          <div class="flex items-start gap-3"><span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(5,150,105,0.1);color:#059669;font-size:.7rem"><i class="fa-solid fa-check"></i></span><p class="text-sm text-gray-600"><strong class="text-gray-800">开放平台战略</strong><br>接入第三方服务商，形成 SaaS 应用商店生态</p></div>
+          <div class="flex items-start gap-3"><span class="mt-0.5 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(5,150,105,0.1);color:#059669;font-size:.7rem"><i class="fa-solid fa-check"></i></span><p class="text-sm text-gray-600"><strong class="text-gray-800">数据反哺机制</strong><br>门店经营数据反向优化供应链预测准确率至 <span class="text-[#059669] font-bold">92%</span></p></div>
+          <div class="pt-2"><div class="progress-bar"><div class="progress-fill" style="width:25%;background:#059669"></div></div><p class="text-xs text-gray-400 mt-1">规划中 25%</p></div>
         </div>
       </div>
     </div>
@@ -361,16 +301,10 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
       </span>
       <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">全国推广全景</h2>
     </div>
-
-    <!-- Toggle + Month Scroller -->
     <div class="flex flex-wrap items-center gap-4 mb-6 reveal justify-center">
       <div class="toggle-group">
-        <button class="toggle-btn active" id="btnRealtime" onclick="switchMapMode('realtime')">
-          <i class="fa-solid fa-map"></i> 实时地图
-        </button>
-        <button class="toggle-btn" id="btnMonth" onclick="switchMapMode('month')">
-          <i class="fa-solid fa-calendar"></i> 月视图
-        </button>
+        <button class="toggle-btn active" id="btnRealtime" onclick="switchMapMode('realtime')"><i class="fa-solid fa-map"></i> 实时地图</button>
+        <button class="toggle-btn" id="btnMonth" onclick="switchMapMode('month')"><i class="fa-solid fa-calendar"></i> 月视图</button>
       </div>
       <div class="month-scroller" id="monthScroller" style="display:none">
         <button class="month-btn active" data-m="7" onclick="selectMonth(7)">7月</button>
@@ -380,12 +314,8 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
         <button class="month-btn" data-m="11" onclick="selectMonth(11)">11月</button>
         <button class="month-btn" data-m="12" onclick="selectMonth(12)">12月</button>
       </div>
-      <span class="month-info" id="monthInfo" style="display:none">
-        <i class="fa-solid fa-city"></i> <span id="monthCityCount">6</span> 座城市
-      </span>
+      <span class="month-info" id="monthInfo" style="display:none"><i class="fa-solid fa-city"></i> <span id="monthCityCount">6</span> 座城市</span>
     </div>
-
-    <!-- Map Layout -->
     <div class="map-layout reveal">
       <div class="map-left">
         <div class="map-container" id="mapContainer">
@@ -405,7 +335,7 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
               <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite"/>
             </circle>
             <circle cx="455" cy="380" r="5" fill="#fff" style="pointer-events:none"/>
-            <text x="455" y="412" text-anchor="middle" fill="#6D4AFF" font-size="13" font-weight="700">佛山</text>
+            <text x="455" y="412" text-anchor="middle" fill="#6D4AFF" font-size="13" font-weight="700">佛山中心</text>
           </svg>
           <div class="map-tooltip" id="mapTooltip">
             <div class="tooltip-city" id="tooltipCity"></div>
@@ -427,12 +357,9 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 </section>
 
 <footer class="border-t border-purple-100 py-8 px-6">
-  <div class="max-w-6xl mx-auto text-center">
-    <p class="text-xs text-gray-400">数字化门店 · 全域推广全景纪实 · 2026</p>
-  </div>
+  <div class="max-w-6xl mx-auto text-center"><p class="text-xs text-gray-400">数字化门店 · 全域推广全景纪实 · 2026</p></div>
 </footer>
 
-<!-- Carousel -->
 <div class="carousel-overlay" id="carouselOverlay">
   <div class="carousel-close" id="carouselClose"><i class="fa-solid fa-xmark"></i></div>
   <div class="carousel-ctrl carousel-prev" id="carouselPrev"><i class="fa-solid fa-chevron-left"></i></div>
@@ -443,7 +370,7 @@ body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-se
 </div>
 
 <script>
-// ===================== CHINA MAP OUTLINE =====================
+// CHINA MAP OUTLINE
 function a(x,y){return (x*3.2+100)+','+(y*2.8+40)}
 var chinaPoints=[[135,54],[136,54],[131,52],[128,51],[127,49],[125,49],[123,49],[122,48],[122,47],[121,46],[120,47],[120,46],[121,45],[120,44],[120,42],[118,42],[119,40],[120,40],[120,39],[118,38],[118,36],[121,36],[122,35],[122,33],[121,32],[120,31],[118,31],[118,30],[118,29],[120,28],[121,27],[122,28],[123,29],[125,30],[126,31],[126,32],[128,32],[128,33],[127,34],[126,34],[126,35],[125,36],[124,37],[125,38],[126,39],[126,40],[125,43],[124,44],[122,44],[121,45],[122,46],[123,47],[122,48],[123,49],[122,51],[123,52],[124,53],[124,54],[123,54],[121,55],[120,57],[121,59],[122,60],[124,60],[125,58],[127,57],[128,56],[129,56],[130,55],[130,54],[130,53],[131,54],[134,54],[135,54]];
 var chinaD='M'+a(chinaPoints[0][0],chinaPoints[0][1]);
@@ -451,39 +378,60 @@ for(var i=1;i<chinaPoints.length;i++) chinaD+=' L'+a(chinaPoints[i][0],chinaPoin
 chinaD+=' Z';
 document.getElementById('chinaOutline').setAttribute('d',chinaD);
 
-// ===================== CITY DATA =====================
+// 34 CITIES
 var citiesData = [
-  {name:'北京',x:480,y:155,stores:210,range:16410,imgs:['https://picsum.photos/seed/bj1/800/600','https://picsum.photos/seed/bj2/800/600','https://picsum.photos/seed/bj3/800/600','https://picsum.photos/seed/bj4/800/600','https://picsum.photos/seed/bj5/800/600','https://picsum.photos/seed/bj6/800/600']},
-  {name:'上海',x:530,y:280,stores:245,range:6340,imgs:['https://picsum.photos/seed/sh1/800/600','https://picsum.photos/seed/sh2/800/600','https://picsum.photos/seed/sh3/800/600','https://picsum.photos/seed/sh4/800/600','https://picsum.photos/seed/sh5/800/600','https://picsum.photos/seed/sh6/800/600']},
-  {name:'广州',x:440,y:375,stores:187,range:7434,imgs:['https://picsum.photos/seed/gz1/800/600','https://picsum.photos/seed/gz2/800/600','https://picsum.photos/seed/gz3/800/600','https://picsum.photos/seed/gz4/800/600','https://picsum.photos/seed/gz5/800/600','https://picsum.photos/seed/gz6/800/600']},
-  {name:'深圳',x:455,y:390,stores:198,range:1997,imgs:['https://picsum.photos/seed/sz1/800/600','https://picsum.photos/seed/sz2/800/600','https://picsum.photos/seed/sz3/800/600','https://picsum.photos/seed/sz4/800/600','https://picsum.photos/seed/sz5/800/600','https://picsum.photos/seed/sz6/800/600']},
-  {name:'成都',x:340,y:340,stores:165,range:14335,imgs:['https://picsum.photos/seed/cd1/800/600','https://picsum.photos/seed/cd2/800/600','https://picsum.photos/seed/cd3/800/600','https://picsum.photos/seed/cd4/800/600','https://picsum.photos/seed/cd5/800/600','https://picsum.photos/seed/cd6/800/600']},
-  {name:'杭州',x:510,y:305,stores:152,range:16596,imgs:['https://picsum.photos/seed/hz1/800/600','https://picsum.photos/seed/hz2/800/600','https://picsum.photos/seed/hz3/800/600','https://picsum.photos/seed/hz4/800/600','https://picsum.photos/seed/hz5/800/600','https://picsum.photos/seed/hz6/800/600']},
-  {name:'武汉',x:430,y:310,stores:138,range:8494,imgs:['https://picsum.photos/seed/wh1/800/600','https://picsum.photos/seed/wh2/800/600','https://picsum.photos/seed/wh3/800/600','https://picsum.photos/seed/wh4/800/600','https://picsum.photos/seed/wh5/800/600','https://picsum.photos/seed/wh6/800/600']},
-  {name:'南京',x:495,y:285,stores:126,range:6587,imgs:['https://picsum.photos/seed/nj1/800/600','https://picsum.photos/seed/nj2/800/600','https://picsum.photos/seed/nj3/800/600','https://picsum.photos/seed/nj4/800/600','https://picsum.photos/seed/nj5/800/600','https://picsum.photos/seed/nj6/800/600']},
-  {name:'西安',x:375,y:280,stores:118,range:10097,imgs:['https://picsum.photos/seed/xa1/800/600','https://picsum.photos/seed/xa2/800/600','https://picsum.photos/seed/xa3/800/600','https://picsum.photos/seed/xa4/800/600','https://picsum.photos/seed/xa5/800/600','https://picsum.photos/seed/xa6/800/600']},
-  {name:'长沙',x:415,y:345,stores:105,range:11819,imgs:['https://picsum.photos/seed/cs1/800/600','https://picsum.photos/seed/cs2/800/600','https://picsum.photos/seed/cs3/800/600','https://picsum.photos/seed/cs4/800/600','https://picsum.photos/seed/cs5/800/600','https://picsum.photos/seed/cs6/800/600']},
-  {name:'重庆',x:355,y:355,stores:142,range:82400,imgs:['https://picsum.photos/seed/cq1/800/600','https://picsum.photos/seed/cq2/800/600','https://picsum.photos/seed/cq3/800/600','https://picsum.photos/seed/cq4/800/600','https://picsum.photos/seed/cq5/800/600','https://picsum.photos/seed/cq6/800/600']},
-  {name:'天津',x:480,y:168,stores:132,range:11966,imgs:['https://picsum.photos/seed/tj1/800/600','https://picsum.photos/seed/tj2/800/600','https://picsum.photos/seed/tj3/800/600','https://picsum.photos/seed/tj4/800/600','https://picsum.photos/seed/tj5/800/600','https://picsum.photos/seed/tj6/800/600']},
-  {name:'郑州',x:440,y:270,stores:108,range:7446,imgs:['https://picsum.photos/seed/zz1/800/600','https://picsum.photos/seed/zz2/800/600','https://picsum.photos/seed/zz3/800/600','https://picsum.photos/seed/zz4/800/600','https://picsum.photos/seed/zz5/800/600','https://picsum.photos/seed/zz6/800/600']},
-  {name:'青岛',x:505,y:225,stores:95,range:11282,imgs:['https://picsum.photos/seed/qd1/800/600','https://picsum.photos/seed/qd2/800/600','https://picsum.photos/seed/qd3/800/600','https://picsum.photos/seed/qd4/800/600','https://picsum.photos/seed/qd5/800/600','https://picsum.photos/seed/qd6/800/600']},
-  {name:'厦门',x:490,y:365,stores:88,range:1699,imgs:['https://picsum.photos/seed/xm1/800/600','https://picsum.photos/seed/xm2/800/600','https://picsum.photos/seed/xm3/800/600','https://picsum.photos/seed/xm4/800/600','https://picsum.photos/seed/xm5/800/600','https://picsum.photos/seed/xm6/800/600']},
-  {name:'昆明',x:310,y:390,stores:78,range:21473,imgs:['https://picsum.photos/seed/km1/800/600','https://picsum.photos/seed/km2/800/600','https://picsum.photos/seed/km3/800/600','https://picsum.photos/seed/km4/800/600','https://picsum.photos/seed/km5/800/600','https://picsum.photos/seed/km6/800/600']},
-  {name:'沈阳',x:505,y:145,stores:92,range:12948,imgs:['https://picsum.photos/seed/sy1/800/600','https://picsum.photos/seed/sy2/800/600','https://picsum.photos/seed/sy3/800/600','https://picsum.photos/seed/sy4/800/600','https://picsum.photos/seed/sy5/800/600','https://picsum.photos/seed/sy6/800/600']},
-  {name:'大连',x:510,y:170,stores:82,range:13237,imgs:['https://picsum.photos/seed/dl1/800/600','https://picsum.photos/seed/dl2/800/600','https://picsum.photos/seed/dl3/800/600','https://picsum.photos/seed/dl4/800/600','https://picsum.photos/seed/dl5/800/600','https://picsum.photos/seed/dl6/800/600']},
-  {name:'哈尔滨',x:520,y:115,stores:72,range:53186,imgs:['https://picsum.photos/seed/heb1/800/600','https://picsum.photos/seed/heb2/800/600','https://picsum.photos/seed/heb3/800/600','https://picsum.photos/seed/heb4/800/600','https://picsum.photos/seed/heb5/800/600','https://picsum.photos/seed/heb6/800/600']},
-  {name:'南宁',x:385,y:405,stores:68,range:22112,imgs:['https://picsum.photos/seed/nn1/800/600','https://picsum.photos/seed/nn2/800/600','https://picsum.photos/seed/nn3/800/600','https://picsum.photos/seed/nn4/800/600','https://picsum.photos/seed/nn5/800/600','https://picsum.photos/seed/nn6/800/600']}
+  // 0-5 original core
+  {name:'北京',x:480,y:155,stores:210,range:16410},
+  {name:'上海',x:530,y:280,stores:245,range:6340},
+  {name:'广州',x:440,y:375,stores:187,range:7434},
+  {name:'深圳',x:455,y:390,stores:198,range:1997},
+  {name:'成都',x:340,y:340,stores:165,range:14335},
+  {name:'杭州',x:510,y:305,stores:152,range:16596},
+  // 6-10
+  {name:'武汉',x:430,y:310,stores:138,range:8494},
+  {name:'南京',x:495,y:285,stores:126,range:6587},
+  {name:'西安',x:375,y:280,stores:118,range:10097},
+  {name:'长沙',x:415,y:345,stores:105,range:11819},
+  {name:'重庆',x:355,y:355,stores:142,range:82400},
+  // 11-14
+  {name:'天津',x:480,y:168,stores:132,range:11966},
+  {name:'郑州',x:440,y:270,stores:108,range:7446},
+  {name:'青岛',x:505,y:225,stores:95,range:11282},
+  {name:'厦门',x:490,y:365,stores:88,range:1699},
+  // 15-19
+  {name:'昆明',x:310,y:390,stores:78,range:21473},
+  {name:'沈阳',x:505,y:145,stores:92,range:12948},
+  {name:'大连',x:510,y:170,stores:82,range:13237},
+  {name:'哈尔滨',x:520,y:115,stores:72,range:53186},
+  {name:'南宁',x:385,y:405,stores:68,range:22112},
+  // 20-26 NEW
+  {name:'合肥',x:490,y:300,stores:78,range:11445},
+  {name:'福州',x:495,y:370,stores:65,range:11968},
+  {name:'南昌',x:475,y:335,stores:58,range:7402},
+  {name:'济南',x:475,y:240,stores:85,range:10244},
+  {name:'石家庄',x:465,y:190,stores:55,range:14473},
+  {name:'太原',x:435,y:215,stores:48,range:6988},
+  {name:'呼和浩特',x:415,y:170,stores:35,range:17224},
+  // 27-33
+  {name:'兰州',x:345,y:250,stores:42,range:13085},
+  {name:'银川',x:360,y:210,stores:30,range:9025},
+  {name:'西宁',x:310,y:245,stores:28,range:7660},
+  {name:'贵阳',x:345,y:375,stores:52,range:8034},
+  {name:'乌鲁木齐',x:250,y:120,stores:25,range:14216},
+  {name:'海口',x:440,y:425,stores:38,range:2304},
+  {name:'长春',x:520,y:130,stores:45,range:20565}
 ];
+// Generate imgs for each city
+citiesData.forEach(function(c){c.imgs=['https://picsum.photos/seed/'+encodeURIComponent(c.name)+'1/800/600','https://picsum.photos/seed/'+encodeURIComponent(c.name)+'2/800/600','https://picsum.photos/seed/'+encodeURIComponent(c.name)+'3/800/600','https://picsum.photos/seed/'+encodeURIComponent(c.name)+'4/800/600','https://picsum.photos/seed/'+encodeURIComponent(c.name)+'5/800/600','https://picsum.photos/seed/'+encodeURIComponent(c.name)+'6/800/600'];});
 
-// Monthly progression: which city indices are active at each month
-// Index in citiesData: 0=北京,1=上海,2=广州,3=深圳,4=成都,5=杭州,6=武汉,7=南京,8=西安,9=长沙,10=重庆,11=天津,12=郑州,13=青岛,14=厦门,15=昆明,16=沈阳,17=大连,18=哈尔滨,19=南宁
+// Monthly progression (cumulative city indices)
 var monthCities = {
-  7: [0,1,2,3,4,5],          // 6 cities: 北京,上海,广州,深圳,成都,杭州
-  8: [0,1,2,3,4,5,6,7,8,10,11],  // 11 cities: + 武汉,南京,西安,重庆,天津
-  9: [0,1,2,3,4,5,6,7,8,10,11,12,13,9],  // 14 cities: + 郑州,青岛,长沙
-  10: [0,1,2,3,4,5,6,7,8,10,11,12,13,9,14,16,17,19], // 18 cities: + 厦门,沈阳,大连,南宁
-  11: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,16,17,19,15], // 19 cities: + 昆明
-  12: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]  // 20 cities: + 哈尔滨
+  7: [0,1,2,3,4,5],                         // 6: 北京,上海,广州,深圳,成都,杭州
+  8: [0,1,2,3,4,5,6,7,8,10,11],             // 11: +武汉,南京,西安,重庆,天津
+  9: [0,1,2,3,4,5,6,7,8,10,11,9,12,13,14,20,21,22],  // 18: +长沙,郑州,青岛,厦门,合肥,福州,南昌
+  10: [0,1,2,3,4,5,6,7,8,10,11,9,12,13,14,20,21,22,15,23,24,25,26,27,28], // 25: +昆明,济南,石家庄,太原,呼和浩特,兰州,银川
+  11: [0,1,2,3,4,5,6,7,8,10,11,9,12,13,14,20,21,22,15,23,24,25,26,27,28,16,17,19,29,31,30], // 31: +沈阳,大连,南宁,贵阳,西宁,海口
+  12: [...Array(34).keys()]                 // 34: +哈尔滨,长春,乌鲁木齐
 };
 
 var currentMonth = 7;
@@ -495,276 +443,300 @@ var tooltip = document.getElementById('mapTooltip');
 var currentCityImages = [];
 var startX = 455, startY = 380;
 var tooltipTimeout = null;
-var mapElements = {}; // city idx -> {line, circle, text}
+var mapElements = {};
 
-// Render city dots and lines
+// Render all city dots/lines
 citiesData.forEach(function(city, idx) {
   var radius = Math.max(4, Math.min(11, city.stores / 16));
-  // Line
-  var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-  var mx = startX, my = startY;
-  var cx = (mx + city.x) / 2;
-  var cy = (my + city.y) / 2 - 60;
-  var d = 'M' + mx + ',' + my + ' Q' + cx + ',' + cy + ' ' + city.x + ',' + city.y;
-  var len = Math.sqrt((city.x - mx) * (city.x - mx) + (city.y - my) * (city.y - my)) + 40;
-  path.setAttribute('d', d);
-  path.setAttribute('fill', 'none');
-  path.setAttribute('stroke', '#6D4AFF');
-  path.setAttribute('stroke-width', '2');
-  path.setAttribute('opacity', '0');
-  path.setAttribute('stroke-linecap', 'round');
-  path.setAttribute('stroke-dasharray', len);
-  path.setAttribute('stroke-dashoffset', len);
+  var path = document.createElementNS('http://www.w3.org/2000/svg','path');
+  var mx=startX, my=startY;
+  var cx=(mx+city.x)/2, cy=(my+city.y)/2-60;
+  var d='M'+mx+','+my+' Q'+cx+','+cy+' '+city.x+','+city.y;
+  var len=Math.sqrt((city.x-mx)*(city.x-mx)+(city.y-my)*(city.y-my))+40;
+  path.setAttribute('d',d);
+  path.setAttribute('fill','none');
+  path.setAttribute('stroke','#6D4AFF');
+  path.setAttribute('stroke-width','2');
+  path.setAttribute('opacity','0');
+  path.setAttribute('stroke-linecap','round');
+  path.setAttribute('stroke-dasharray',len);
+  path.setAttribute('stroke-dashoffset',len);
   linesGroup.appendChild(path);
 
-  // Circle
-  var circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-  circle.setAttribute('cx', city.x);
-  circle.setAttribute('cy', city.y);
-  circle.setAttribute('r', '0');
-  circle.setAttribute('class', 'map-city');
-  circle.setAttribute('opacity', '0');
-  circle.setAttribute('data-name', city.name);
-  circle.setAttribute('data-stores', city.stores);
-  circle.setAttribute('data-range', city.range);
-  circle.setAttribute('data-imgs', JSON.stringify(city.imgs));
+  var circle = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  circle.setAttribute('cx',city.x);
+  circle.setAttribute('cy',city.y);
+  circle.setAttribute('r','0');
+  circle.setAttribute('class','map-city');
+  circle.setAttribute('opacity','0');
+  circle.setAttribute('data-name',city.name);
+  circle.setAttribute('data-stores',city.stores);
+  circle.setAttribute('data-range',city.range);
+  circle.setAttribute('data-imgs',JSON.stringify(city.imgs));
   citiesGroup.appendChild(circle);
 
-  // Text
-  var text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-  text.setAttribute('x', city.x);
-  text.setAttribute('y', city.y + radius + 13);
-  text.setAttribute('text-anchor', 'middle');
-  text.setAttribute('fill', '#6b7280');
-  text.setAttribute('font-size', '9');
-  text.setAttribute('opacity', '0');
-  text.textContent = city.name;
+  var text = document.createElementNS('http://www.w3.org/2000/svg','text');
+  text.setAttribute('x',city.x);
+  text.setAttribute('y',city.y+radius+12);
+  text.setAttribute('text-anchor','middle');
+  text.setAttribute('fill','#6b7280');
+  text.setAttribute('font-size','8');
+  text.setAttribute('opacity','0');
+  text.textContent=city.name;
   citiesGroup.appendChild(text);
 
   mapElements[idx] = { line: path, circle: circle, text: text, radius: radius };
 });
 
-// Show cities for a given month
-function showMonthCities(month) {
-  var activeSet = new Set(monthCities[month] || []);
-  for (var idx = 0; idx < citiesData.length; idx++) {
-    var el = mapElements[idx];
-    var active = activeSet.has(idx);
-    if (active) {
-      var len = el.line.getAttribute('stroke-dasharray');
-      el.line.setAttribute('stroke-dashoffset', '0');
-      el.line.setAttribute('opacity', '0.5');
-      el.circle.setAttribute('r', el.radius);
-      el.circle.setAttribute('opacity', '1');
-      el.text.setAttribute('opacity', '1');
-    } else {
-      el.line.setAttribute('stroke-dashoffset', el.line.getAttribute('stroke-dasharray'));
-      el.line.setAttribute('opacity', '0');
-      el.circle.setAttribute('r', '0');
-      el.circle.setAttribute('opacity', '0');
-      el.text.setAttribute('opacity', '0');
-    }
-  }
-  currentMonth = month;
-  document.getElementById('monthCityCount').textContent = activeSet.size;
-  // Update ranking
-  buildRanking(activeSet);
-}
+// Animate ALL currently-active city lines+dots (1.5s stagger)
+function animateAll(activeSet, newSet) {
+  var sorted=[];
+  activeSet.forEach(function(idx){sorted.push(idx);});
+  sorted.sort(function(a,b){return a-b;});
 
-// Show all cities (realtime mode)
-function showAllCities() {
-  for (var idx = 0; idx < citiesData.length; idx++) {
-    var el = mapElements[idx];
-    var len = el.line.getAttribute('stroke-dasharray');
-    el.line.setAttribute('stroke-dashoffset', '0');
-    el.line.setAttribute('opacity', '0.5');
-    el.circle.setAttribute('r', el.radius);
-    el.circle.setAttribute('opacity', '1');
-    el.text.setAttribute('opacity', '1');
-  }
-  // Build full ranking
-  var allSet = new Set(citiesData.map(function(_, i) { return i; }));
-  buildRanking(allSet);
-}
+  sorted.forEach(function(idx,i){
+    var el=mapElements[idx];
+    // Reset line
+    var len=el.line.getAttribute('stroke-dasharray');
+    el.line.setAttribute('stroke-dashoffset',len);
+    el.line.setAttribute('stroke','#6D4AFF');
+    el.line.setAttribute('opacity','0.5');
+    el.line.style.transition='stroke-dashoffset 1.5s cubic-bezier(0.16,1,0.3,1) '+(i*0.06)+'s';
+    // Trigger in next frame
+    requestAnimationFrame(function(){
+      el.line.setAttribute('stroke-dashoffset','0');
+    });
 
-// Build ranking list
-function buildRanking(activeSet) {
-  var activeCities = [];
-  activeSet.forEach(function(idx) {
-    activeCities.push(citiesData[idx]);
+    // Circle
+    el.circle.setAttribute('r','0');
+    el.circle.setAttribute('opacity','1');
+    el.circle.style.transition='r 0.6s cubic-bezier(0.34,1.56,0.64,1) '+(i*0.06+0.4)+'s';
+    requestAnimationFrame(function(){
+      el.circle.setAttribute('r',el.radius);
+    });
+
+    // Text
+    el.text.setAttribute('opacity','0');
+    el.text.style.transition='opacity 0.4s ease '+(i*0.06+0.6)+'s';
+    requestAnimationFrame(function(){
+      el.text.setAttribute('opacity','1');
+    });
   });
-  activeCities.sort(function(a, b) { return b.stores - a.stores; });
-  var maxStores = activeCities.length > 0 ? activeCities[0].stores : 1;
-  var listEl = document.getElementById('rankingList');
-  listEl.innerHTML = '';
-  activeCities.forEach(function(city, i) {
-    var pct = Math.round((city.stores / maxStores) * 100);
-    var medalHtml = '';
-    if (i === 0) medalHtml = '<i class="fa-solid fa-medal" style="font-size:1rem;color:#FFD700"></i>';
-    else if (i === 1) medalHtml = '<i class="fa-solid fa-medal" style="font-size:1rem;color:#C0C0C0"></i>';
-    else if (i === 2) medalHtml = '<i class="fa-solid fa-medal" style="font-size:1rem;color:#CD7F32"></i>';
-    else medalHtml = '<div class="rank-num">' + (i + 1) + '</div>';
-    var item = document.createElement('div');
-    item.className = 'rank-item';
-    item.innerHTML = '<div class="rank-medal" style="text-align:center">' + medalHtml + '</div><div class="rank-name">' + city.name + '</div><div class="rank-bar"><div class="rank-fill" style="width:' + pct + '%"></div></div><div class="rank-val">' + city.stores + '</div>';
-    (function(imgs) {
-      item.addEventListener('click', function() { openCarousel(imgs); });
-    })(city.imgs);
+
+  // Blink newly-added cities (for month view)
+  if(newSet) {
+    newSet.forEach(function(idx){
+      var el=mapElements[idx];
+      if(!el) return;
+      setTimeout(function(){
+        el.circle.classList.add('blink');
+        el.circle.style.setProperty('--r', el.radius+'px');
+        el.circle.setAttribute('stroke','#FFD700');
+        el.circle.setAttribute('stroke-width','3');
+        // Restore after 2s
+        setTimeout(function(){
+          el.circle.classList.remove('blink');
+          el.circle.setAttribute('fill','#fff');
+          el.circle.setAttribute('stroke','#6D4AFF');
+          el.circle.setAttribute('stroke-width','2');
+        },2000);
+      },1200);
+    });
+  }
+}
+
+// Hide inactive cities instantly
+function hideInactive(activeSet) {
+  for(var idx=0;idx<citiesData.length;idx++){
+    if(activeSet.has(idx)) continue;
+    var el=mapElements[idx];
+    el.line.style.transition='none';
+    el.line.setAttribute('stroke-dashoffset',el.line.getAttribute('stroke-dasharray'));
+    el.line.setAttribute('opacity','0');
+    el.circle.style.transition='none';
+    el.circle.setAttribute('r','0');
+    el.circle.setAttribute('opacity','0');
+    el.circle.classList.remove('blink');
+    el.circle.setAttribute('fill','#fff');
+    el.circle.setAttribute('stroke','#6D4AFF');
+    el.circle.setAttribute('stroke-width','2');
+    el.text.style.transition='none';
+    el.text.setAttribute('opacity','0');
+  }
+}
+
+function showMonthCities(month) {
+  var activeSet=new Set(monthCities[month]||[]);
+  var prevSet=new Set(monthCities[(month-1)]||[]);
+  var newSet=new Set();
+  activeSet.forEach(function(idx){ if(!prevSet.has(idx)) newSet.add(idx); });
+
+  hideInactive(activeSet);
+  currentMonth=month;
+  document.getElementById('monthCityCount').textContent=activeSet.size;
+  buildRanking(activeSet);
+  animateAll(activeSet, newSet);
+}
+
+function showAllCities() {
+  // Reset all
+  for(var idx=0;idx<citiesData.length;idx++){
+    var el=mapElements[idx];
+    el.line.style.transition='none';
+    el.line.setAttribute('stroke-dashoffset',el.line.getAttribute('stroke-dasharray'));
+    el.line.setAttribute('opacity','0');
+    el.circle.style.transition='none';
+    el.circle.setAttribute('r','0');
+    el.circle.setAttribute('opacity','0');
+    el.circle.classList.remove('blink');
+    el.circle.setAttribute('fill','#fff');
+    el.circle.setAttribute('stroke','#6D4AFF');
+    el.circle.setAttribute('stroke-width','2');
+    el.text.style.transition='none';
+    el.text.setAttribute('opacity','0');
+  }
+  var allSet=new Set(citiesData.map(function(_,i){return i;}));
+  buildRanking(allSet);
+  animateAll(allSet, null);
+}
+
+function buildRanking(activeSet) {
+  var activeCities=[];
+  activeSet.forEach(function(idx){activeCities.push(citiesData[idx]);});
+  activeCities.sort(function(a,b){return b.stores-a.stores;});
+  var maxStores=activeCities.length>0?activeCities[0].stores:1;
+  var listEl=document.getElementById('rankingList');
+  listEl.innerHTML='';
+  activeCities.forEach(function(city,i){
+    var pct=Math.round((city.stores/maxStores)*100);
+    var medalHtml='';
+    if(i===0)medalHtml='<i class="fa-solid fa-medal" style="font-size:1rem;color:#FFD700"></i>';
+    else if(i===1)medalHtml='<i class="fa-solid fa-medal" style="font-size:1rem;color:#C0C0C0"></i>';
+    else if(i===2)medalHtml='<i class="fa-solid fa-medal" style="font-size:1rem;color:#CD7F32"></i>';
+    else medalHtml='<div class="rank-num">'+(i+1)+'</div>';
+    var item=document.createElement('div');
+    item.className='rank-item';
+    item.innerHTML='<div class="rank-medal" style="text-align:center">'+medalHtml+'</div><div class="rank-name">'+city.name+'</div><div class="rank-bar"><div class="rank-fill" style="width:'+pct+'%"></div></div><div class="rank-val">'+city.stores+'</div>';
+    (function(imgs){item.addEventListener('click',function(){openCarousel(imgs);});})(city.imgs);
     listEl.appendChild(item);
   });
 }
 
-// Switch map mode
 function switchMapMode(mode) {
-  currentMode = mode;
-  document.getElementById('btnRealtime').classList.toggle('active', mode === 'realtime');
-  document.getElementById('btnMonth').classList.toggle('active', mode === 'month');
-  document.getElementById('monthScroller').style.display = mode === 'month' ? 'flex' : 'none';
-  document.getElementById('monthInfo').style.display = mode === 'month' ? 'inline-flex' : 'none';
-  if (mode === 'realtime') {
+  currentMode=mode;
+  document.getElementById('btnRealtime').classList.toggle('active',mode==='realtime');
+  document.getElementById('btnMonth').classList.toggle('active',mode==='month');
+  document.getElementById('monthScroller').style.display=mode==='month'?'flex':'none';
+  document.getElementById('monthInfo').style.display=mode==='month'?'inline-flex':'none';
+  if(mode==='realtime'){
     showAllCities();
   } else {
-    // Reset to current month
-    var btns = document.querySelectorAll('.month-btn');
-    btns.forEach(function(b) { b.classList.remove('active'); });
-    var sel = document.querySelector('.month-btn[data-m="' + currentMonth + '"]');
-    if (sel) sel.classList.add('active');
+    var btns=document.querySelectorAll('.month-btn');
+    btns.forEach(function(b){b.classList.remove('active');});
+    var sel=document.querySelector('.month-btn[data-m="'+currentMonth+'"]');
+    if(sel)sel.classList.add('active');
     showMonthCities(currentMonth);
   }
 }
 
-// Select month from scroller
 function selectMonth(month) {
-  var btns = document.querySelectorAll('.month-btn');
-  btns.forEach(function(b) { b.classList.toggle('active', parseInt(b.dataset.m) === month); });
+  var btns=document.querySelectorAll('.month-btn');
+  btns.forEach(function(b){b.classList.toggle('active',parseInt(b.dataset.m)===month);});
   showMonthCities(month);
 }
 
 // Tooltip
-function showTooltip(city) {
-  if (tooltipTimeout) { clearTimeout(tooltipTimeout); tooltipTimeout = null; }
-  var rect = mapSvg.getBoundingClientRect();
-  var scaleX = rect.width / 800;
-  var scaleY = rect.height / 600;
-  var x = parseFloat(city.getAttribute('cx')) * scaleX;
-  var y = parseFloat(city.getAttribute('cy')) * scaleY;
-  document.getElementById('tooltipCity').textContent = city.getAttribute('data-name');
-  document.getElementById('tooltipStores').textContent = city.getAttribute('data-stores');
-  document.getElementById('tooltipRange').textContent = city.getAttribute('data-range');
-  currentCityImages = JSON.parse(city.getAttribute('data-imgs'));
-  tooltip.style.left = Math.min(x + 20, rect.width - 220) + 'px';
-  tooltip.style.top = Math.max(y - 30, 10) + 'px';
+function showTooltip(city){
+  if(tooltipTimeout){clearTimeout(tooltipTimeout);tooltipTimeout=null;}
+  var rect=mapSvg.getBoundingClientRect();
+  var scaleX=rect.width/800, scaleY=rect.height/600;
+  var x=parseFloat(city.getAttribute('cx'))*scaleX;
+  var y=parseFloat(city.getAttribute('cy'))*scaleY;
+  document.getElementById('tooltipCity').textContent=city.getAttribute('data-name');
+  document.getElementById('tooltipStores').textContent=city.getAttribute('data-stores');
+  document.getElementById('tooltipRange').textContent=city.getAttribute('data-range');
+  currentCityImages=JSON.parse(city.getAttribute('data-imgs'));
+  tooltip.style.left=Math.min(x+20,rect.width-220)+'px';
+  tooltip.style.top=Math.max(y-30,10)+'px';
   tooltip.classList.add('visible');
 }
-function hideTooltip() { tooltipTimeout = setTimeout(function() { tooltip.classList.remove('visible'); }, 200); }
-citiesGroup.addEventListener('mouseover', function(e) { var city = e.target.closest('.map-city'); if (!city) return; showTooltip(city); });
-citiesGroup.addEventListener('mouseout', function(e) { var city = e.target.closest('.map-city'); if (!city) return; hideTooltip(); });
-tooltip.addEventListener('mouseenter', function() { if (tooltipTimeout) { clearTimeout(tooltipTimeout); tooltipTimeout = null; } });
-tooltip.addEventListener('mouseleave', function() { tooltip.classList.remove('visible'); });
-document.getElementById('tooltipBtn').addEventListener('click', function() { openCarousel(currentCityImages); });
+function hideTooltip(){tooltipTimeout=setTimeout(function(){tooltip.classList.remove('visible');},200);}
+citiesGroup.addEventListener('mouseover',function(e){var city=e.target.closest('.map-city');if(!city)return;showTooltip(city);});
+citiesGroup.addEventListener('mouseout',function(e){var city=e.target.closest('.map-city');if(!city)return;hideTooltip();});
+tooltip.addEventListener('mouseenter',function(){if(tooltipTimeout){clearTimeout(tooltipTimeout);tooltipTimeout=null;}});
+tooltip.addEventListener('mouseleave',function(){tooltip.classList.remove('visible');});
+document.getElementById('tooltipBtn').addEventListener('click',function(){openCarousel(currentCityImages);});
 
-// Initialize: show all cities (realtime mode)
+// Init
 showAllCities();
 
-// ===================== 3D CAROUSEL =====================
-var carouselOverlay = document.getElementById('carouselOverlay');
-var carousel3d = document.getElementById('carousel3d');
-var carouselDots = document.getElementById('carouselDots');
-var carouselCounterEl = document.getElementById('carouselCounter');
-var carouselImages = [];
-var currentIdx = 0;
-
-function openCarousel(images) {
-  if (!images || images.length === 0) return;
-  carouselImages = images;
-  currentIdx = 0;
+// CAROUSEL
+var carouselOverlay=document.getElementById('carouselOverlay');
+var carousel3d=document.getElementById('carousel3d');
+var carouselDots=document.getElementById('carouselDots');
+var carouselCounterEl=document.getElementById('carouselCounter');
+var carouselImages=[];
+var currentIdx=0;
+function openCarousel(images){
+  if(!images||images.length===0)return;
+  carouselImages=images;currentIdx=0;
   carouselOverlay.classList.add('active');
   renderCarousel();
 }
-function closeCarousel() { carouselOverlay.classList.remove('active'); }
-function renderCarousel() {
-  carousel3d.innerHTML = '';
-  carouselDots.innerHTML = '';
-  carouselImages.forEach(function(img, i) {
-    var item = document.createElement('div');
-    item.className = 'carousel-item';
-    item.innerHTML = '<img src="' + img + '" alt="">';
-    carousel3d.appendChild(item);
-    var dot = document.createElement('div');
-    dot.className = 'carousel-dot';
-    dot.addEventListener('click', function() { gotoSlide(i); });
-    carouselDots.appendChild(dot);
+function closeCarousel(){carouselOverlay.classList.remove('active');}
+function renderCarousel(){
+  carousel3d.innerHTML='';carouselDots.innerHTML='';
+  carouselImages.forEach(function(img,i){
+    var item=document.createElement('div');item.className='carousel-item';
+    item.innerHTML='<img src="'+img+'" alt="">';carousel3d.appendChild(item);
+    var dot=document.createElement('div');dot.className='carousel-dot';
+    dot.addEventListener('click',function(){gotoSlide(i);});carouselDots.appendChild(dot);
   });
-  carouselCounterEl.textContent = '1 / ' + carouselImages.length;
+  carouselCounterEl.textContent='1 / '+carouselImages.length;
   updateCarouselPositions();
 }
-function updateCarouselPositions() {
-  var items = carousel3d.querySelectorAll('.carousel-item');
-  var dots = carouselDots.querySelectorAll('.carousel-dot');
-  var n = carouselImages.length;
-  items.forEach(function(item, i) { item.className = 'carousel-item'; });
-  dots.forEach(function(dot, i) { dot.className = 'carousel-dot'; });
-  if (n === 1) { items[0].classList.add('active'); dots[0].classList.add('active'); return; }
-  for (var i = 0; i < n; i++) {
-    var rel = i - currentIdx;
-    if (rel === 0) { items[i].classList.add('active'); dots[i].classList.add('active'); }
-    else if (rel === -1 || rel === n - 1) { items[i].classList.add('prev'); }
-    else if (rel === 1 || rel === -(n - 1)) { items[i].classList.add('next'); }
-    else if (rel < -1) { items[i].classList.add('far-prev'); }
-    else { items[i].classList.add('far-next'); }
+function updateCarouselPositions(){
+  var items=carousel3d.querySelectorAll('.carousel-item');
+  var dots=carouselDots.querySelectorAll('.carousel-dot');
+  var n=carouselImages.length;
+  items.forEach(function(item,i){item.className='carousel-item';});
+  dots.forEach(function(dot,i){dot.className='carousel-dot';});
+  if(n===1){items[0].classList.add('active');dots[0].classList.add('active');return;}
+  for(var i=0;i<n;i++){
+    var rel=i-currentIdx;
+    if(rel===0){items[i].classList.add('active');dots[i].classList.add('active');}
+    else if(rel===-1||rel===n-1){items[i].classList.add('prev');}
+    else if(rel===1||rel===-(n-1)){items[i].classList.add('next');}
+    else if(rel<-1){items[i].classList.add('far-prev');}
+    else{items[i].classList.add('far-next');}
   }
-  carouselCounterEl.textContent = (currentIdx + 1) + ' / ' + n;
+  carouselCounterEl.textContent=(currentIdx+1)+' / '+n;
 }
-function gotoSlide(idx) {
-  if (idx < 0) idx = carouselImages.length - 1;
-  if (idx >= carouselImages.length) idx = 0;
-  currentIdx = idx;
-  updateCarouselPositions();
+function gotoSlide(idx){
+  if(idx<0)idx=carouselImages.length-1;
+  if(idx>=carouselImages.length)idx=0;
+  currentIdx=idx;updateCarouselPositions();
 }
-document.getElementById('carouselPrev').addEventListener('click', function() { gotoSlide(currentIdx - 1); });
-document.getElementById('carouselNext').addEventListener('click', function() { gotoSlide(currentIdx + 1); });
-document.getElementById('carouselClose').addEventListener('click', closeCarousel);
-carouselOverlay.addEventListener('click', function(e) { if (e.target === carouselOverlay) closeCarousel(); });
-document.addEventListener('keydown', function(e) {
-  if (!carouselOverlay.classList.contains('active')) return;
-  if (e.key === 'Escape') closeCarousel();
-  if (e.key === 'ArrowLeft') gotoSlide(currentIdx - 1);
-  if (e.key === 'ArrowRight') gotoSlide(currentIdx + 1);
+document.getElementById('carouselPrev').addEventListener('click',function(){gotoSlide(currentIdx-1);});
+document.getElementById('carouselNext').addEventListener('click',function(){gotoSlide(currentIdx+1);});
+document.getElementById('carouselClose').addEventListener('click',closeCarousel);
+carouselOverlay.addEventListener('click',function(e){if(e.target===carouselOverlay)closeCarousel();});
+document.addEventListener('keydown',function(e){
+  if(!carouselOverlay.classList.contains('active'))return;
+  if(e.key==='Escape')closeCarousel();
+  if(e.key==='ArrowLeft')gotoSlide(currentIdx-1);
+  if(e.key==='ArrowRight')gotoSlide(currentIdx+1);
 });
-carousel3d.addEventListener('wheel', function(e) {
-  e.preventDefault();
-  if (wheelThrottle) return;
-  wheelThrottle = true;
-  setTimeout(function() { wheelThrottle = false; }, 400);
-  if (e.deltaY > 0) gotoSlide(currentIdx + 1); else gotoSlide(currentIdx - 1);
-}, { passive: false });
-var wheelThrottle = false;
-var touchStartX = 0;
-carousel3d.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
-carousel3d.addEventListener('touchend', function(e) {
-  var diff = e.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(diff) > 50) { if (diff < 0) gotoSlide(currentIdx + 1); else gotoSlide(currentIdx - 1); }
-});
+carousel3d.addEventListener('wheel',function(e){e.preventDefault();if(wheelThrottle)return;wheelThrottle=true;setTimeout(function(){wheelThrottle=false;},400);if(e.deltaY>0)gotoSlide(currentIdx+1);else gotoSlide(currentIdx-1);},{passive:false});
+var wheelThrottle=false;
+var touchStartX=0;
+carousel3d.addEventListener('touchstart',function(e){touchStartX=e.touches[0].clientX;});
+carousel3d.addEventListener('touchend',function(e){var diff=e.changedTouches[0].clientX-touchStartX;if(Math.abs(diff)>50){if(diff<0)gotoSlide(currentIdx+1);else gotoSlide(currentIdx-1);}});
 
-// ===================== SCROLL REVEAL =====================
-(function() {
-  var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
-    });
-  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
-
-  var progressObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(e) {
-      if (e.isIntersecting && !e.target.dataset.animated) {
-        e.target.dataset.animated = '1';
-        var fill = e.target.querySelector('.progress-fill');
-        if (fill) { fill.style.width = fill.style.width; }
-      }
-    });
-  }, { threshold: 0.3 });
-  document.querySelectorAll('.progress-bar').forEach(function(el) { progressObserver.observe(el); });
+// SCROLL REVEAL
+(function(){
+  var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el);});
 })();
 </script>
 </body>
