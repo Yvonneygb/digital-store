@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>竞品调研报告 · 数字化门店</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: { brand: { DEFAULT: '#6D4AFF', 50: 'rgba(109,74,255,0.05)', 100: 'rgba(109,74,255,0.1)', 200: 'rgba(109,74,255,0.2)', 500: 'rgba(109,74,255,0.5)' } },
+      fontFamily: { sans: ['"Noto Sans SC"','Inter','sans-serif'] }
+    }
+  }
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:#FAFAFC;color:#1a1a2e;font-family:"Noto Sans SC","Inter",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* Brand cards */
+.brand-card{border-radius:1rem;background:#fff;border:1px solid rgba(0,0,0,0.06);overflow:hidden;transition:all .35s cubic-bezier(0.16,1,0.3,1);cursor:default}
+.brand-card:hover{transform:translateY(-6px);box-shadow:0 20px 48px rgba(0,0,0,0.1)}
+.brand-header{padding:1.5rem;display:flex;align-items:center;gap:1rem;border-bottom:1px solid rgba(0,0,0,0.04)}
+.brand-logo{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.1rem;color:#fff;flex-shrink:0}
+.brand-body{padding:1.25rem 1.5rem 1.5rem}
+.brand-stat{display:flex;align-items:center;gap:.5rem;margin-bottom:.35rem;font-size:.75rem;color:#6b7280}
+.brand-stat i{width:16px;text-align:center;flex-shrink:0}
+.brand-tag{display:inline-flex;align-items:center;gap:.25rem;padding:.2rem .6rem;border-radius:999px;font-size:.6rem;font-weight:700;margin-right:.3rem;margin-bottom:.3rem}
+
+/* Timeline */
+.tl-item{position:relative;padding-left:2rem;padding-bottom:1.5rem;border-left:2px solid rgba(109,74,255,0.15)}
+.tl-item:last-child{border-left:2px solid transparent;padding-bottom:0}
+.tl-dot{position:absolute;left:-6px;top:3px;width:10px;height:10px;border-radius:50%;z-index:2}
+.tl-year{font-size:.7rem;font-weight:800;margin-bottom:.15rem}
+.tl-desc{font-size:.75rem;color:#6b7280;line-height:1.6}
+
+/* Compare table */
+.comp-table{width:100%;border-collapse:separate;border-spacing:0;font-size:.75rem}
+.comp-table thead th{position:sticky;top:0;background:#fff;padding:.75rem 1rem;font-weight:700;text-align:left;color:#1a1a2e;border-bottom:2px solid rgba(109,74,255,0.2);white-space:nowrap}
+.comp-table thead th:first-child{min-width:120px}
+.comp-table tbody td{padding:.7rem 1rem;border-bottom:1px solid rgba(0,0,0,0.04);color:#4b5563;vertical-align:top}
+.comp-table tbody tr:hover td{background:rgba(109,74,255,0.02)}
+.comp-check{color:#10b981;font-size:.8rem}
+.comp-minus{color:#d1d5db;font-size:.8rem}
+.comp-star{color:#f59e0b;font-size:.7rem}
+
+/* Achievement bar */
+.achieve-row{display:flex;align-items:center;gap:.75rem;padding:.5rem 0}
+.achieve-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.7rem;flex-shrink:0}
+.achieve-label{font-size:.75rem;color:#4b5563;flex:1}
+.achieve-val{font-size:.75rem;font-weight:700;font-family:monospace}
+
+/* Radar compare */
+.radar-container{max-width:800px;margin:0 auto}
+
+/* Highlight box */
+.hl-box{border-radius:1rem;padding:1.5rem;position:relative;overflow:hidden}
+.hl-box::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px}
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="px-6 py-16 md:py-20">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-magnifying-glass-chart text-[#6D4AFF]"></i> 竞品深度调研
+      </span>
+      <h1 class="font-black tracking-tight leading-tight mb-4" style="font-size:clamp(2.5rem,6vw,5rem);color:#1a1a2e">
+        竞品<span style="color:#6D4AFF">调研报告</span>
+      </h1>
+      <p class="text-gray-500 text-base md:text-xl font-light max-w-3xl mx-auto mb-8">
+        TOTO · 九牧 · 恒洁 · 科勒 · 东鹏瓷砖 — 五大品牌营销数字化建设历程、系统架构、库存管理、订单录入与厂商协同深度对比分析
+      </p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(37,99,235,0.08);color:#2563eb"><i class="fa-solid fa-globe"></i> TOTO 日本</span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(5,150,105,0.08);color:#059669"><i class="fa-solid fa-leaf"></i> 九牧 中国</span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(109,74,255,0.08);color:#6D4AFF"><i class="fa-solid fa-gem"></i> 恒洁 中国</span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(245,158,11,0.08);color:#d97706"><i class="fa-solid fa-crown"></i> 科勒 美国</span>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold" style="background:rgba(239,68,68,0.08);color:#ef4444"><i class="fa-solid fa-bolt"></i> 东鹏 中国</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 1: Five brands overview -->
+<section class="px-6 py-16" style="background:#fff">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-building-columns text-[#6D4AFF]"></i> 五大品牌纵览
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">品牌基因与战略定位</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">百年外资 vs. 国货新贵 — 五条截然不同的数字化路径</p>
+    </div>
+
+    <!-- TOTO -->
+    <div class="brand-card reveal mb-5">
+      <div class="brand-header">
+        <div class="brand-logo" style="background:linear-gradient(135deg,#2563eb,#1d4ed8)">TO</div>
+        <div>
+          <h3 class="text-xl font-black text-gray-900">TOTO</h3>
+          <p class="text-xs text-gray-400">东洋陶器 · 日本 · 1917年创立</p>
+        </div>
+        <div class="ml-auto flex flex-wrap justify-end gap-1">
+          <span class="brand-tag" style="background:rgba(37,99,235,0.08);color:#2563eb"><i class="fa-solid fa-microchip"></i> 半导体跨界</span>
+          <span class="brand-tag" style="background:rgba(37,99,235,0.08);color:#2563eb">百年企业</span>
+          <span class="brand-tag" style="background:rgba(37,99,235,0.08);color:#2563eb">精密陶瓷</span>
+        </div>
+      </div>
+      <div class="brand-body">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="brand-stat"><i class="fa-solid fa-chart-line" style="color:#2563eb"></i><strong>精密陶瓷利润占比 55%</strong> — 2025财年历史性超越马桶业务</div>
+          <div class="brand-stat"><i class="fa-solid fa-arrow-trend-up" style="color:#2563eb"></i><strong>股价半年涨 81.88%</strong> — 静电吸盘成AI芯片关键部件</div>
+          <div class="brand-stat"><i class="fa-solid fa-robot" style="color:#2563eb"></i><strong>2020年引入AI检测</strong> — 机器视觉自动外观缺陷检测系统</div>
+          <div class="brand-stat"><i class="fa-solid fa-handshake" style="color:#2563eb"></i><strong>TDY联盟</strong> — 与YKK AP、DAIKEN共建翻新生态</div>
+        </div>
+        <div class="mt-3">
+          <div class="flex items-center gap-2 mb-1"><div class="w-2 h-2 rounded-full" style="background:#2563eb"></div><span class="text-xs font-bold text-gray-700">数字化演进</span></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#2563eb"></div><div class="tl-year" style="color:#2563eb">2020</div><div class="tl-desc">新工厂引入自动化设备 + AI检测系统，良品率与生产弹性大幅提升</div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#2563eb"></div><div class="tl-year" style="color:#2563eb">2024</div><div class="tl-desc">陶瓷部门产能持续扩张，静电吸盘订单排至2027年</div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#2563eb"></div><div class="tl-year" style="color:#2563eb">2028（计划）</div><div class="tl-desc">约300亿日元设备投资，强化三大生产基地研发与生产能力</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 九牧 -->
+    <div class="brand-card reveal mb-5">
+      <div class="brand-header">
+        <div class="brand-logo" style="background:linear-gradient(135deg,#059669,#047857)">九</div>
+        <div>
+          <h3 class="text-xl font-black text-gray-900">九牧 JOMOO</h3>
+          <p class="text-xs text-gray-400">中国 · 福建 · 1990年创立</p>
+        </div>
+        <div class="ml-auto flex flex-wrap justify-end gap-1">
+          <span class="brand-tag" style="background:rgba(5,150,105,0.08);color:#059669"><i class="fa-solid fa-robot"></i> AI BATH</span>
+          <span class="brand-tag" style="background:rgba(5,150,105,0.08);color:#059669">华为鸿蒙</span>
+          <span class="brand-tag" style="background:rgba(5,150,105,0.08);color:#059669">自研三云</span>
+        </div>
+      </div>
+      <div class="brand-body">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="brand-stat"><i class="fa-solid fa-users-gear" style="color:#059669"></i><strong>2000+ 研发团队</strong> — 8个研究院、16个实验室、近3000项专利</div>
+          <div class="brand-stat"><i class="fa-solid fa-award" style="color:#059669"></i><strong>16项IF + 17项红点</strong> — 国际设计大奖行业领先</div>
+          <div class="brand-stat"><i class="fa-solid fa-cloud" style="color:#059669"></i><strong>自研三朵云</strong> — iJOMOO(内部) + 牧商云(经销商) + 牧云APP(消费者)</div>
+          <div class="brand-stat"><i class="fa-solid fa-store" style="color:#059669"></i><strong>50000+ 销售网点</strong> — 全球4000+五星定制店</div>
+        </div>
+        <div class="mt-3">
+          <div class="flex items-center gap-2 mb-1"><div class="w-2 h-2 rounded-full" style="background:#059669"></div><span class="text-xs font-bold text-gray-700">数字化演进</span></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#059669"></div><div class="tl-year" style="color:#059669">2009</div><div class="tl-desc">启动信息化建设，基础网络与数据中心搭建</div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#059669"></div><div class="tl-year" style="color:#059669">2011-2015</div><div class="tl-desc">与IBM合作实施SAP ERP，产供销+财务一体化，20+子公司纳入统一平台</div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#059669"></div><div class="tl-year" style="color:#059669">2015-2023</div><div class="tl-desc">营销数字化转型：SAP CRM + 移动云办公 + PLM协同研发 + BI战略分析</div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#059669"></div><div class="tl-year" style="color:#059669">2025</div><div class="tl-desc">发布"AI BATH""YOUNG BATH"场景品牌，接入DeepSeek大模型，华为鸿蒙共建</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 恒洁 -->
+    <div class="brand-card reveal mb-5">
+      <div class="brand-header">
+        <div class="brand-logo" style="background:linear-gradient(135deg,#6D4AFF,#8B6FFF)">恒</div>
+        <div>
+          <h3 class="text-xl font-black text-gray-900">恒洁 HEGII</h3>
+          <p class="text-xs text-gray-400">中国 · 佛山+上海双总部 · 26年历史</p>
+        </div>
+        <div class="ml-auto flex flex-wrap justify-end gap-1">
+          <span class="brand-tag" style="background:rgba(109,74,255,0.08);color:#6D4AFF"><i class="fa-solid fa-industry"></i> 数字化工厂</span>
+          <span class="brand-tag" style="background:rgba(109,74,255,0.08);color:#6D4AFF">品牌强国</span>
+          <span class="brand-tag" style="background:rgba(109,74,255,0.08);color:#6D4AFF">工业上楼</span>
+        </div>
+      </div>
+      <div class="brand-body">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="brand-stat"><i class="fa-solid fa-microscope" style="color:#6D4AFF"></i><strong>2000+ 核心专利</strong> — 6000㎡全品类创新研发中心</div>
+          <div class="brand-stat"><i class="fa-solid fa-medal" style="color:#6D4AFF"></i><strong>佛山数字化示范工厂</strong> — "工业上楼+数字化工厂"首创</div>
+          <div class="brand-stat"><i class="fa-solid fa-map-location-dot" style="color:#6D4AFF"></i><strong>全国 3000+ 城市</strong> — 服务网点覆盖，CRM + Call Center + APP</div>
+          <div class="brand-stat"><i class="fa-solid fa-bolt" style="color:#6D4AFF"></i><strong>恒洁闪装</strong> — 3小时全卫快速换装 + 8大免费服务</div>
+        </div>
+        <div class="mt-3">
+          <div class="flex items-center gap-2 mb-1"><div class="w-2 h-2 rounded-full" style="background:#6D4AFF"></div><span class="text-xs font-bold text-gray-700">数字化演进</span></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#6D4AFF"></div><div class="tl-year" style="color:#6D4AFF">智能化</div><div class="tl-desc">AI智导巡航清洗 + 3D随心洗R9智能马桶，2000+技术专利</div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#6D4AFF"></div><div class="tl-year" style="color:#6D4AFF">数字化</div><div class="tl-desc">工业大数据平台 + 智能立库 + 超长高能效隧道窑，互联互通</div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#6D4AFF"></div><div class="tl-year" style="color:#6D4AFF">绿色化</div><div class="tl-desc">清洁能源 + 生产废料热能回收 + 电镀废水0排放</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 科勒 -->
+    <div class="brand-card reveal mb-5">
+      <div class="brand-header">
+        <div class="brand-logo" style="background:linear-gradient(135deg,#d97706,#b45309)">KL</div>
+        <div>
+          <h3 class="text-xl font-black text-gray-900">科勒 KOHLER</h3>
+          <p class="text-xs text-gray-400">美国 · 威斯康星 · 1873年创立</p>
+        </div>
+        <div class="ml-auto flex flex-wrap justify-end gap-1">
+          <span class="brand-tag" style="background:rgba(245,158,11,0.08);color:#d97706"><i class="fa-solid fa-industry"></i> 卓越智能工厂</span>
+          <span class="brand-tag" style="background:rgba(245,158,11,0.08);color:#d97706">工业4.0</span>
+          <span class="brand-tag" style="background:rgba(245,158,11,0.08);color:#d97706">生成式AI</span>
+        </div>
+      </div>
+      <div class="brand-body">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="brand-stat"><i class="fa-solid fa-rocket" style="color:#d97706"></i><strong>产能↑120%，效率↑40%</strong> — 工业4.0改造成果</div>
+          <div class="brand-stat"><i class="fa-solid fa-medal" style="color:#d97706"></i><strong>全国首批卓越智能工厂</strong> — 上海科勒电子2025年入选</div>
+          <div class="brand-stat"><i class="fa-solid fa-arrow-down" style="color:#d97706"></i><strong>成本↓9%，能耗↓10%</strong> — 智能化转型量化成效</div>
+          <div class="brand-stat"><i class="fa-solid fa-qrcode" style="color:#d97706"></i><strong>全流程数据追溯</strong> — 成品→原材料正向+反向全链路</div>
+        </div>
+        <div class="mt-3">
+          <div class="flex items-center gap-2 mb-1"><div class="w-2 h-2 rounded-full" style="background:#d97706"></div><span class="text-xs font-bold text-gray-700">数字化演进</span></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#d97706"></div><div class="tl-year" style="color:#d97706">2018</div><div class="tl-desc">布局数字化系统平台，启动工业4.0转型</div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#d97706"></div><div class="tl-year" style="color:#d97706">2020-2024</div><div class="tl-desc">新增多条自动化产线，实现物流自动化与全流程数据追溯</div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#d97706"></div><div class="tl-year" style="color:#d97706">2025</div><div class="tl-desc">入选全国首批卓越智能工厂，探索生成式AI与运营融合，计划将经验分享给国内同行</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 东鹏瓷砖 -->
+    <div class="brand-card reveal">
+      <div class="brand-header">
+        <div class="brand-logo" style="background:linear-gradient(135deg,#ef4444,#dc2626)">东</div>
+        <div>
+          <h3 class="text-xl font-black text-gray-900">东鹏瓷砖 DONGPENG</h3>
+          <p class="text-xs text-gray-400">中国 · 广东 · 1972年创立</p>
+        </div>
+        <div class="ml-auto flex flex-wrap justify-end gap-1">
+          <span class="brand-tag" style="background:rgba(239,68,68,0.08);color:#ef4444"><i class="fa-solid fa-cart-shopping"></i> 新零售标杆</span>
+          <span class="brand-tag" style="background:rgba(239,68,68,0.08);color:#ef4444">腾讯合作</span>
+          <span class="brand-tag" style="background:rgba(239,68,68,0.08);color:#ef4444">纷享销客</span>
+        </div>
+      </div>
+      <div class="brand-body">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="brand-stat"><i class="fa-solid fa-trophy" style="color:#ef4444"></i><strong>天猫瓷砖&建材双第一</strong> — 双十一连续霸榜</div>
+          <div class="brand-stat"><i class="fa-solid fa-store" style="color:#ef4444"></i><strong>全国 7000+ 门店</strong> — 25城112家数字化门店首批落地</div>
+          <div class="brand-stat"><i class="fa-solid fa-lightbulb" style="color:#ef4444"></i><strong>SFA提供十几万条线索</strong> — 2024年促成数亿元销售额</div>
+          <div class="brand-stat"><i class="fa-solid fa-fire" style="color:#ef4444"></i><strong>10年数字化深耕</strong> — 董事长何新明10年前即确定拥抱互联网</div>
+        </div>
+        <div class="mt-3">
+          <div class="flex items-center gap-2 mb-1"><div class="w-2 h-2 rounded-full" style="background:#ef4444"></div><span class="text-xs font-bold text-gray-700">数字化演进</span></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#ef4444"></div><div class="tl-year" style="color:#ef4444">2006</div><div class="tl-desc">启动系统化管理建设，总部网络与生产基地互联互通</div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#ef4444"></div><div class="tl-year" style="color:#ef4444">2017</div><div class="tl-desc">引领行业开启"新零售"营销时代，携手腾讯数字化转型</div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#ef4444"></div><div class="tl-year" style="color:#ef4444">2023</div><div class="tl-desc">进入数字化2.0阶段，与纷享销客合作部署零售SFA+工程CRM</div></div>
+          <div class="tl-item"><div class="tl-dot" style="background:#ef4444"></div><div class="tl-year" style="color:#ef4444">2024</div><div class="tl-desc">SFA系统为终端提供线索→数亿元销售，全链路数字化闭环</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: Comparison table -->
+<section class="px-6 py-16">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-table-cells text-[#6D4AFF]"></i> 全景对比矩阵
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">五大维度横向比较</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">系统架构 / 库存管理 / 订单录入 / 厂商协同 — 一表看透</p>
+    </div>
+    <div class="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm reveal">
+      <div class="overflow-x-auto">
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>维度</th>
+              <th style="color:#2563eb">TOTO</th>
+              <th style="color:#059669">九牧</th>
+              <th style="color:#6D4AFF">恒洁</th>
+              <th style="color:#d97706">科勒</th>
+              <th style="color:#ef4444">东鹏瓷砖</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="font-semibold text-gray-800">数字化<br>启动时间</td>
+              <td>2020年（AI检测<br>+自动化产线）</td>
+              <td>2009年（信息化）<br>2015年（营销数字化）</td>
+              <td>聚焦"智能化、<br>数字化、绿色化"<br>三化并行</td>
+              <td>2018年（布局数字<br>化系统平台）</td>
+              <td>2006年（系统化）<br>2017年（新零售）</td>
+            </tr>
+            <tr>
+              <td class="font-semibold text-gray-800">核心系统<br>架构</td>
+              <td>AI外观缺陷检测<br>+ 自动化设备<br>+ TDY联盟平台</td>
+              <td><strong>自研三朵云：</strong><br>iJOMOO + 牧商云<br>+ 牧云APP</td>
+              <td><strong>工业大数据平台</strong><br>智能立库 + CRM<br>+ Call Center</td>
+              <td><strong>工业4.0平台</strong><br>横向/纵向/端到端<br>三向集成</td>
+              <td><strong>纷享销客</strong><br>零售SFA + 工程CRM<br>双模块</td>
+            </tr>
+            <tr>
+              <td class="font-semibold text-gray-800">库存管理<br>机制</td>
+              <td>自动化产线灵活<br>调整产能，减少<br>库存积压风险</td>
+              <td>牧商云APP自动统计<br>品类需求 → 同步<br>生产端，周期1天</td>
+              <td>动态库存 + 智能立库<br>+ 高能效隧道窑<br>生产废料回收</td>
+              <td>横向集成供应商<br>信息，订单快速<br>响应+原料优化</td>
+              <td>SFA实时监控门店<br>样品更新率/库存<br>A/B/C等级管理</td>
+            </tr>
+            <tr>
+              <td class="font-semibold text-gray-800">订单录入<br>与验证</td>
+              <td>自动化处理，<br>信息系统直接<br>传递至工厂</td>
+              <td>牧商云APP下单<br>→ 生产端<br>统一物料编码防错</td>
+              <td>订单+生产+物流<br>打通，全流程<br>透明化追踪</td>
+              <td>信息系统直传工厂<br>减少人工干预<br>正反向全流程追溯</td>
+              <td>工程CRM记录商机<br>全生命周期<br>外勤拍照+水印防伪</td>
+            </tr>
+            <tr>
+              <td class="font-semibold text-gray-800">厂商协同<br>策略</td>
+              <td>TDY联盟（YKK AP<br>+ DAIKEN）<br>技术跨界半导体</td>
+              <td>华为鸿蒙共建标准<br>DeepSeek大模型<br>设计师赋能终端</td>
+              <td>入选商务部"全国<br>消费提振年"<br>×《中国国家地理》</td>
+              <td>计划向国内同行<br>分享智能制造经验<br>中国设全球研发中心</td>
+              <td>全渠道协同<br>打破自营/经销商壁垒<br>跨区协作业绩划分</td>
+            </tr>
+            <tr>
+              <td class="font-semibold text-gray-800">关键成效<br>指标</td>
+              <td>精密陶瓷利润<br><strong style="color:#2563eb">占比55%超马桶</strong><br>股价涨81.88%</td>
+              <td>订货周期<br><strong style="color:#059669">缩短至1天</strong><br>3000+专利/33项设计奖</td>
+              <td>智能马桶<br><strong style="color:#6D4AFF">整机6年质保</strong><br>3小时闪装换新</td>
+              <td>产能<strong style="color:#d97706">↑120%</strong><br>效率↑40%<br>成本↓9%</td>
+              <td>双十一<strong style="color:#ef4444">行业双第一</strong><br>SFA线索→数亿销售</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: Key insights -->
+<section class="px-6 py-16" style="background:#fff">
+  <div class="w-[80%] mx-auto">
+    <div class="text-center mb-10 reveal">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-100 text-xs font-bold tracking-widest text-gray-600 uppercase mb-4">
+        <i class="fa-solid fa-lightbulb text-[#6D4AFF]"></i> 关键洞察与启示
+      </span>
+      <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-3">五大趋势与我们的机会</h2>
+      <p class="text-gray-500 max-w-2xl mx-auto">从竞品路径中提炼可复用的方法论与差异化突破口</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 reveal">
+      <div class="hl-box" style="background:rgba(37,99,235,0.03)">
+        <div class="hl-box::before" style="position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px;background:#2563eb"></div>
+        <h4 class="font-black text-gray-800 mb-2 flex items-center gap-2"><span style="color:#2563eb">01</span> 自研系统 vs. 外部采购</h4>
+        <p class="text-sm text-gray-600 leading-relaxed">九牧选择自研三朵云（iJOMOO+牧商云+牧云APP），而东鹏选择外部成熟产品（纷享销客）。两条路径各有优劣：自研灵活但投入大，外采成熟但定制受限。<strong class="text-gray-800">建议：核心业务自研+通用能力外采的混合模式。</strong></p>
+      </div>
+      <div class="hl-box" style="background:rgba(5,150,105,0.03)">
+        <h4 class="font-black text-gray-800 mb-2 flex items-center gap-2"><span style="color:#059669">02</span> 移动端优先已成共识</h4>
+        <p class="text-sm text-gray-600 leading-relaxed">五大品牌均实现移动端赋能：东鹏SFA移动端、九牧牧商云APP、恒洁客服APP、科勒移动化工厂监控。经销商/店员的移动化工具覆盖直接决定执行效率。<strong class="text-gray-800">建议：所有B端工具移动端先行。</strong></p>
+      </div>
+      <div class="hl-box" style="background:rgba(109,74,255,0.03)">
+        <h4 class="font-black text-gray-800 mb-2 flex items-center gap-2"><span style="color:#6D4AFF">03</span> 从产品到解决方案的跃迁</h4>
+        <p class="text-sm text-gray-600 leading-relaxed">九牧"由卖产品 → 卖解决方案"，恒洁"智能卫浴专家 → 全卫空间解决方案提供者"，科勒从单品类 → 智能家居生态。行业终极竞争是<strong class="text-gray-800">空间交付能力，而非单品价格。</strong></p>
+      </div>
+      <div class="hl-box" style="background:rgba(245,158,11,0.03)">
+        <h4 class="font-black text-gray-800 mb-2 flex items-center gap-2"><span style="color:#d97706">04</span> 数据防伪与真实性校验</h4>
+        <p class="text-sm text-gray-600 leading-relaxed">东鹏通过外勤拍照+水印防伪确保一线数据真实性；九牧统一物料编码防错。在经销商网络中，<strong class="text-gray-800">数据真实性的校验机制</strong>是系统有效运转的前提，否则GIGO（垃圾进垃圾出）。</p>
+      </div>
+      <div class="hl-box md:col-span-2" style="background:rgba(239,68,68,0.03)">
+        <h4 class="font-black text-gray-800 mb-2 flex items-center gap-2"><span style="color:#ef4444">05</span> 生态联盟是护城河</h4>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          TOTO的TDY联盟（厨卫改造品牌协同，翻新业务占比从46%→67%）、九牧×华为鸿蒙×DeepSeek大模型、恒洁×商务部政策×《中国国家地理》跨界、科勒计划向国内同行输出经验、东鹏×腾讯新零售。
+          <strong class="text-gray-800">单打独斗的时代已经结束，谁能构建更开放的生态联盟，谁就能获得更强护城河。</strong>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-purple-100 py-8 px-6">
+  <div class="max-w-6xl mx-auto text-center">
+    <p class="text-xs text-gray-400">竞品调研报告 · 基于全网公开资料与飞书云文档综合整理 · 2026</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var observer=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){observer.observe(el);});
+})();
+</script>
+</body>
+</html>
